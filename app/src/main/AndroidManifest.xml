@@ -14,7 +14,22 @@
         android:theme="@style/Theme.SWMAndroid"
         tools:targetApi="31">
         <activity
+            android:name=".IntroductoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FindPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignInActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EmailLoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.MySplashScreen.Splash">
             <intent-filter>
