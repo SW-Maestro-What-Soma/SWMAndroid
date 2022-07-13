@@ -14,6 +14,21 @@
         android:theme="@style/Theme.SWMAndroid"
         tools:targetApi="31">
         <activity
+            android:name=".FullServiceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MyPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CommunityActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EasyLearningActivity"
+            android:exported="false" />
+        <activity
             android:name=".SetNickActivity"
             android:exported="false" />
         <activity
