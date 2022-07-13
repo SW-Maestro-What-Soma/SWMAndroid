@@ -14,7 +14,10 @@
         android:theme="@style/Theme.SWMAndroid"
         tools:targetApi="31">
         <activity
-            android:name=".IntroductoryActivity"
+            android:name=".SetNickActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SetTechActivity"
             android:exported="false" />
         <activity
             android:name=".FindPasswordActivity"

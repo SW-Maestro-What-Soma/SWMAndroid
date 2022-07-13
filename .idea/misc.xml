@@ -12,6 +12,8 @@
         <entry key="app/src/main/res/layout/activity_introductory.xml" value="0.21197916666666666" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.13229166666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.13229166666666667" />
+        <entry key="app/src/main/res/layout/activity_set_nick.xml" value="0.3619791666666667" />
+        <entry key="app/src/main/res/layout/activity_set_tech.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.22604166666666667" />
       </map>
     </option>

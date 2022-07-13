@@ -16,7 +16,7 @@ class EmailLoginActivity : AppCompatActivity() {
 
         binding.backButton.setOnClickListener { finish()  }
         binding.loginButton.setOnClickListener {
-            moveActivity(IntroductoryActivity())
+            moveActivity(SetTechActivity())
         }
         binding.signInTextview.setOnClickListener {
             moveActivity(SignInActivity())
