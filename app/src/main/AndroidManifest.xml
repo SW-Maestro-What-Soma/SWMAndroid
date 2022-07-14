@@ -29,21 +29,6 @@
             android:name=".EasyLearningActivity"
             android:exported="false" />
         <activity
-            android:name=".SetNickActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SetTechActivity"
-            android:exported="false" />
-        <activity
-            android:name=".FindPasswordActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SignInActivity"
-            android:exported="false" />
-        <activity
-            android:name=".EmailLoginActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
