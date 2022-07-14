@@ -1,10 +1,14 @@
-package com.example.swmandroid
+package com.example.swmandroid.screen.main
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.swmandroid.databinding.ActivityMainBinding
+import com.example.swmandroid.screen.community.CommunityActivity
+import com.example.swmandroid.screen.easylearning.EasyLearningActivity
+import com.example.swmandroid.screen.fullservice.FullServiceActivity
+import com.example.swmandroid.screen.mypage.MyPageActivity
+import com.example.swmandroid.screen.test.TestActivity
 
 class MainActivity : AppCompatActivity() {
 

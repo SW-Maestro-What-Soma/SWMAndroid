@@ -1,4 +1,4 @@
-package com.example.swmandroid
+package com.example.swmandroid.screen.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.example.swmandroid.databinding.FragmentSetNickBinding
+import com.example.swmandroid.databinding.FragmentSignInBinding
 
-class SetNickFragment : Fragment() {
+class SignInFragment : Fragment() {
 
-    private var _binding: FragmentSetNickBinding? = null
+    private var _binding: FragmentSignInBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -18,9 +18,9 @@ class SetNickFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentSetNickBinding.inflate(inflater, container, false)
+        _binding = FragmentSignInBinding.inflate(inflater, container, false)
         binding.backButton.setOnClickListener { binding.root.findNavController().popBackStack() }
-        binding.setNickButton.setOnClickListener { binding.root.findNavController().navigate(R.id.action_setNickFragment_to_mainActivity) }
+        binding.signInButton.setOnClickListener { binding.root.findNavController().popBackStack() }
         return binding.root
     }
 

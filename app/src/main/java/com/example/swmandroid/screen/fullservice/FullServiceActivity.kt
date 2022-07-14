@@ -1,7 +1,8 @@
-package com.example.swmandroid
+package com.example.swmandroid.screen.fullservice
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.swmandroid.R
 
 class FullServiceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

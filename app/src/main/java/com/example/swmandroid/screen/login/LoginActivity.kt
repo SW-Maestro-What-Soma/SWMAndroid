@@ -1,4 +1,4 @@
-package com.example.swmandroid
+package com.example.swmandroid.screen.login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

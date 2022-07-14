@@ -14,25 +14,25 @@
         android:theme="@style/Theme.SWMAndroid"
         tools:targetApi="31">
         <activity
-            android:name=".FullServiceActivity"
+            android:name=".screen.fullservice.FullServiceActivity"
             android:exported="false" />
         <activity
-            android:name=".MyPageActivity"
+            android:name=".screen.mypage.MyPageActivity"
             android:exported="false" />
         <activity
-            android:name=".CommunityActivity"
+            android:name=".screen.community.CommunityActivity"
             android:exported="false" />
         <activity
-            android:name=".TestActivity"
+            android:name=".screen.test.TestActivity"
             android:exported="false" />
         <activity
-            android:name=".EasyLearningActivity"
+            android:name=".screen.easylearning.EasyLearningActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".screen.main.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".screen.login.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.MySplashScreen.Splash">
             <intent-filter>

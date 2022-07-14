@@ -1,4 +1,4 @@
-package com.example.swmandroid
+package com.example.swmandroid.screen.login
 
 import android.os.Bundle
 import android.view.LayoutInflater

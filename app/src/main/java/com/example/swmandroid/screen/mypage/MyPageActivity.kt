@@ -1,11 +1,12 @@
-package com.example.swmandroid
+package com.example.swmandroid.screen.mypage
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.swmandroid.R
 
-class TestActivity : AppCompatActivity() {
+class MyPageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_test)
+        setContentView(R.layout.activity_my_page)
     }
 }

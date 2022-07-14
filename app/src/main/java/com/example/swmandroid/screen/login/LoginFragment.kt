@@ -1,4 +1,4 @@
-package com.example.swmandroid
+package com.example.swmandroid.screen.login
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import com.example.swmandroid.R
 import com.example.swmandroid.databinding.FragmentLoginBinding
-import com.example.swmandroid.databinding.FragmentSetNickBinding
 
 class LoginFragment : Fragment() {
 
