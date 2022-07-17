@@ -17,13 +17,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/kakao_login_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:layout_marginBottom="30dp"
-        android:text="카카오 로그인"
+        android:padding="0sp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/kakao_login_medium_wide"
         app:layout_constraintBottom_toTopOf="@id/google_login_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

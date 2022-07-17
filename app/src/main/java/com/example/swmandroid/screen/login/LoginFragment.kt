@@ -17,6 +17,8 @@ import com.example.swmandroid.databinding.FragmentLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
+import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.user.UserApiClient
 
 class LoginFragment : Fragment() {
 
@@ -26,37 +28,43 @@ class LoginFragment : Fragment() {
 
     private lateinit var viewModel: LoginViewModel
 
-    private lateinit var getResult : ActivityResultLauncher<Intent>
+    private lateinit var googleGetResult: ActivityResultLauncher<Intent>
+
+    private lateinit var kakaoCallBack: (OAuthToken?, Throwable?) -> Unit
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            if(it.resultCode == RESULT_OK &&it.data != null){
+        googleGetResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == RESULT_OK && it.data != null) {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
                 try {
                     val account = task.getResult(ApiException::class.java)!!
                     viewModel.firebaseAuthWithGoogle(account.idToken!!)
-                    Toast.makeText(context, "Signed In Successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "구글로그인 성공", Toast.LENGTH_SHORT).show()
                 } catch (e: ApiException) {
-                    Toast.makeText(context, e.localizedMessage, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "구글로그인 실패", Toast.LENGTH_SHORT).show()
                 }
+            }
+        }
+
+        kakaoCallBack = { token, error ->
+            if (error != null) {
+                Toast.makeText(context, "카카오로그인 실패", Toast.LENGTH_SHORT).show()
+            } else if (token != null) {
+                viewModel.kakaoAddToken(token)
+                Toast.makeText(context, "카카오로그인 성공", Toast.LENGTH_SHORT).show()
             }
         }
 
         val application = requireNotNull(this).activity?.application
         val factory = LoginViewModelFactory(application!!, object : OnSignInStartedListener {
             override fun onSignInStarted(client: GoogleSignInClient?) {
-                getResult.launch(client?.signInIntent)
+                googleGetResult.launch(client?.signInIntent)
             }
         })
+
         viewModel = ViewModelProvider(this, factory).get(LoginViewModel::class.java)
-
-        /*viewModel.googleCurrentUser.observe(this, {
-            it?.let {
-
-            }
-        })*/
     }
 
     override fun onCreateView(
@@ -65,8 +73,13 @@ class LoginFragment : Fragment() {
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         binding.emailLoginButton.setOnClickListener { binding.root.findNavController().navigate(R.id.action_loginFragment_to_emailLoginFragment) }
-        binding.googleLoginButton.setOnClickListener {
-            viewModel.googleSignIn()
+        binding.googleLoginButton.setOnClickListener { viewModel.googleSignIn() }
+        binding.kakaoLoginButton.setOnClickListener {
+            if (UserApiClient.instance.isKakaoTalkLoginAvailable(requireContext())) {
+                UserApiClient.instance.loginWithKakaoTalk(requireContext(), callback = kakaoCallBack)
+            } else {
+                UserApiClient.instance.loginWithKakaoAccount(requireContext(), callback = kakaoCallBack)
+            }
         }
 
         return binding.root
