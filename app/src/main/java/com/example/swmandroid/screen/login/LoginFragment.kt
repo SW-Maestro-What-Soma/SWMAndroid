@@ -1,8 +1,6 @@
 package com.example.swmandroid.screen.login
 
-import android.app.Activity
 import android.app.Activity.RESULT_OK
-import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -21,10 +19,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
 
 class LoginFragment : Fragment() {
-
-    companion object {
-        private const val RC_SIGN_IN = 9001
-    }
 
     private var _binding: FragmentLoginBinding? = null
 
@@ -54,10 +48,15 @@ class LoginFragment : Fragment() {
         val factory = LoginViewModelFactory(application!!, object : OnSignInStartedListener {
             override fun onSignInStarted(client: GoogleSignInClient?) {
                 getResult.launch(client?.signInIntent)
-
             }
         })
         viewModel = ViewModelProvider(this, factory).get(LoginViewModel::class.java)
+
+        /*viewModel.googleCurrentUser.observe(this, {
+            it?.let {
+
+            }
+        })*/
     }
 
     override fun onCreateView(
