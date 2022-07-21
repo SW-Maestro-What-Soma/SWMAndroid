@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.swmandroid.R
 import com.example.swmandroid.databinding.FragmentSetTechBinding
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SetTechFragment : Fragment() {
-
     private var _binding: FragmentSetTechBinding? = null
     private val binding get() = _binding!!
 
@@ -26,6 +26,7 @@ class SetTechFragment : Fragment() {
         binding.techAndroidButton.setOnClickListener { binding.root.findNavController().navigate(R.id.action_setTechFragment_to_setNickFragment) }
         binding.techIosButton.setOnClickListener { binding.root.findNavController().navigate(R.id.action_setTechFragment_to_setNickFragment) }
         binding.techDataButton.setOnClickListener { binding.root.findNavController().navigate(R.id.action_setTechFragment_to_setNickFragment) }
+
         return binding.root
     }
 

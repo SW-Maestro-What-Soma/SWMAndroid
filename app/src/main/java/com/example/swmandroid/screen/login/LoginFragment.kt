@@ -10,37 +10,46 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.swmandroid.R
 import com.example.swmandroid.databinding.FragmentLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
-
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: LoginViewModel
+    private val viewModel by viewModel<LoginViewModel>()
 
     private lateinit var googleGetResult: ActivityResultLauncher<Intent>
+
+    private lateinit var googleSignInClient: GoogleSignInClient
 
     private lateinit var kakaoCallBack: (OAuthToken?, Throwable?) -> Unit
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val app = requireNotNull(this).activity?.application
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(app!!.getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(app, gso)
 
         googleGetResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == RESULT_OK && it.data != null) {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
                 try {
                     val account = task.getResult(ApiException::class.java)!!
-                    viewModel.firebaseAuthWithGoogle(account.idToken!!)
+                    viewModel.googleAddToken(account.idToken!!)
                     Toast.makeText(context, "구글로그인 성공", Toast.LENGTH_SHORT).show()
                 } catch (e: ApiException) {
                     Toast.makeText(context, "구글로그인 실패", Toast.LENGTH_SHORT).show()
@@ -56,15 +65,6 @@ class LoginFragment : Fragment() {
                 Toast.makeText(context, "카카오로그인 성공", Toast.LENGTH_SHORT).show()
             }
         }
-
-        val application = requireNotNull(this).activity?.application
-        val factory = LoginViewModelFactory(application!!, object : OnSignInStartedListener {
-            override fun onSignInStarted(client: GoogleSignInClient?) {
-                googleGetResult.launch(client?.signInIntent)
-            }
-        })
-
-        viewModel = ViewModelProvider(this, factory).get(LoginViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -73,7 +73,7 @@ class LoginFragment : Fragment() {
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         binding.emailLoginButton.setOnClickListener { binding.root.findNavController().navigate(R.id.action_loginFragment_to_emailLoginFragment) }
-        binding.googleLoginButton.setOnClickListener { viewModel.googleSignIn() }
+        binding.googleLoginButton.setOnClickListener { googleGetResult.launch(googleSignInClient.signInIntent) }
         binding.kakaoLoginButton.setOnClickListener {
             if (UserApiClient.instance.isKakaoTalkLoginAvailable(requireContext())) {
                 UserApiClient.instance.loginWithKakaoTalk(requireContext(), callback = kakaoCallBack)
