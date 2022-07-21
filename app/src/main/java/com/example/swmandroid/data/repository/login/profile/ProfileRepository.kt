@@ -4,6 +4,6 @@ import com.example.swmandroid.model.login.LoginResponse
 
 interface ProfileRepository {
 
-    suspend fun getLoginInformation() : LoginResponse?
+    suspend fun getProfile() : LoginResponse?
 
 }

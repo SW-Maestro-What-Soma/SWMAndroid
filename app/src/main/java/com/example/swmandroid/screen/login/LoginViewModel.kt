@@ -27,4 +27,7 @@ class LoginViewModel(
         _kakaoCurrentUser.value = token
     }
 
+    suspend fun getProfile(){
+        loginRepository.getProfile()
+    }
 }

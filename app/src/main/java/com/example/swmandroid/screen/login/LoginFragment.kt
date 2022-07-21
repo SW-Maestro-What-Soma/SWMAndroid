@@ -19,6 +19,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment() {
@@ -51,6 +54,10 @@ class LoginFragment : Fragment() {
                     val account = task.getResult(ApiException::class.java)!!
                     viewModel.googleAddToken(account.idToken!!)
                     Toast.makeText(context, "구글로그인 성공", Toast.LENGTH_SHORT).show()
+
+                    CoroutineScope(Dispatchers.IO).launch {
+                        viewModel.getProfile()
+                    }
                 } catch (e: ApiException) {
                     Toast.makeText(context, "구글로그인 실패", Toast.LENGTH_SHORT).show()
                 }
