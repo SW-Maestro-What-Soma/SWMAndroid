@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screen.login.SignInFragment">
+    tools:context=".screen.login.SignUpFragment">
 
     <Button
         android:id="@+id/back_button"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/sign_in_textview"
+        android:id="@+id/sign_up_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -35,9 +35,10 @@
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="30dp"
         android:hint="이메일을 입력해 주세요."
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sign_in_textview" />
+        app:layout_constraintTop_toBottomOf="@id/sign_up_textview" />
 
     <EditText
         android:id="@+id/password_edittext"
@@ -46,6 +47,7 @@
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="30dp"
         android:hint="비밀번호를 입력해 주세요."
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/email_edittext" />
@@ -57,12 +59,13 @@
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="30dp"
         android:hint="다시한번 비밀번호를 입력해 주세요."
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/password_edittext" />
 
     <Button
-        android:id="@+id/sign_in_button"
+        android:id="@+id/sign_up_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"

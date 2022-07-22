@@ -1,0 +1,57 @@
+package com.example.swmandroid.util
+
+import android.annotation.SuppressLint
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.EditText
+import com.example.swmandroid.R
+import java.util.regex.Pattern
+
+fun checkEmailEditText(emailEdittext: EditText){
+    emailEdittext.addTextChangedListener(object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun afterTextChanged(s: Editable?) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            checkEmail(emailEdittext)
+        }
+    })
+}
+
+fun checkPasswordEditText(passwordEdittext: EditText){
+    passwordEdittext.addTextChangedListener(object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun afterTextChanged(s: Editable?) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            checkPassword(passwordEdittext)
+        }
+    })
+}
+
+@SuppressLint("ResourceAsColor")
+fun checkEmail(emailEdittext: EditText): Boolean {
+    val emailValidation = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
+    val email = emailEdittext.text.toString().trim()
+    val pattern = Pattern.matches(emailValidation, email)
+
+    return if (pattern) {
+        emailEdittext.setTextColor(R.color.black)
+        true
+    } else {
+        emailEdittext.setTextColor(-65536)
+        false
+    }
+}
+
+@SuppressLint("ResourceAsColor")
+fun checkPassword(passwordEdittext: EditText): Boolean {
+    val passwordValidation = "^(?=.*\\d)(?=.*[~`!@#$%\\^&*()-])(?=.*[a-zA-Z]).{8,20}$"
+    val password = passwordEdittext.text.toString().trim()
+    val pattern = Pattern.matches(passwordValidation, password)
+    return if (pattern) {
+        passwordEdittext.setTextColor(R.color.black)
+        true
+    } else {
+        passwordEdittext.setTextColor(-65536)
+        false
+    }
+}

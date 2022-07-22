@@ -39,6 +39,7 @@ class LoginFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val app = requireNotNull(this).activity?.application
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(app!!.getString(R.string.default_web_client_id))
@@ -79,17 +80,22 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
-        binding.emailLoginButton.setOnClickListener { binding.root.findNavController().navigate(R.id.action_loginFragment_to_emailLoginFragment) }
-        binding.googleLoginButton.setOnClickListener { googleGetResult.launch(googleSignInClient.signInIntent) }
-        binding.kakaoLoginButton.setOnClickListener {
+
+        buttonClick()
+
+        return binding.root
+    }
+
+    private fun buttonClick() = with(binding) {
+        emailLoginButton.setOnClickListener { root.findNavController().navigate(R.id.action_loginFragment_to_emailLoginFragment) }
+        googleLoginButton.setOnClickListener { googleGetResult.launch(googleSignInClient.signInIntent) }
+        kakaoLoginButton.setOnClickListener {
             if (UserApiClient.instance.isKakaoTalkLoginAvailable(requireContext())) {
                 UserApiClient.instance.loginWithKakaoTalk(requireContext(), callback = kakaoCallBack)
             } else {
                 UserApiClient.instance.loginWithKakaoAccount(requireContext(), callback = kakaoCallBack)
             }
         }
-
-        return binding.root
     }
 
     override fun onDestroyView() {

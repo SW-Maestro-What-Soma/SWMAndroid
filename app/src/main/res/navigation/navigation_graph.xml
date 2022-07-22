@@ -47,9 +47,9 @@
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.swmandroid.screen.login.SignInFragment"
+        android:name="com.example.swmandroid.screen.login.SignUpFragment"
         android:label="fragment_sign_in"
-        tools:layout="@layout/fragment_sign_in" />
+        tools:layout="@layout/fragment_sign_up" />
     <activity
         android:id="@+id/mainActivity"
         android:name="com.example.swmandroid.screen.main.MainActivity"
