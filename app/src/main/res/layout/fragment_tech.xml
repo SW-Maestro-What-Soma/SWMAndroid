@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/sub_start_textview"
+        android:id="@+id/start_tech_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
@@ -13,26 +14,26 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="안드로이드\n테스트를 시작하시겠습니까?" />
 
     <TextView
-        android:id="@+id/info_textview"
+        android:id="@+id/expert_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:text="전문가의 신뢰성있는 \n기술면접 기출리스트를 제공해드려요."
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:text="전문가의 신뢰성있는\n기술면접 테스트를 제공해드려요."
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sub_start_textview" />
+        app:layout_constraintTop_toBottomOf="@id/start_tech_textview" />
 
     <Button
-        android:id="@+id/easy_learning_button"
+        android:id="@+id/start_learning_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
-        android:text="학습시작"
+        android:layout_marginBottom="150dp"
+        android:text="학습 시작"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
