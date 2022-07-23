@@ -1,23 +1,21 @@
 package com.example.swmandroid.screen.easylearning.tech
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.swmandroid.databinding.FragmentTechBinding
 
-class AnalysisFragment : Fragment() {
+class TechFragment(private val techStack: String) : Fragment(){
 
-    private var _binding: FragmentTechBinding? = null
+    private var _binding : FragmentTechBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentTechBinding.inflate(inflater, container, false)
-        binding.startTechTextview.text = "데이터분석 \n학습을 시작하시겠습니까?"
+        binding.startTechTextview.text = "$techStack\n학습을 시작하시겠습니까?"
+
         return binding.root
     }
 

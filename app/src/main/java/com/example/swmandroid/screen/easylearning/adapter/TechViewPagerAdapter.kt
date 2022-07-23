@@ -14,17 +14,17 @@ class TechViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycl
     }
 
     override fun createFragment(position: Int): Fragment = when (position) {
-        0 -> NoSelectFragment()
-        1 -> BackEndFragment()
-        2 -> FrontEndFragment()
-        3 ->  AndroidFragment()
-        4 -> IOSFragment()
-        5 -> ScienceFragment()
-        6 -> AnalysisFragment()
-        7 -> AlgorithmFragment()
-        8 -> DataStructureFragment()
-        9 ->  NetworkFragment()
-        10 -> OperatingSystemFragment()
-        else -> NoSelectFragment()
+        0 -> NoTechFragment()
+        1 -> TechFragment("백엔드")
+        2 -> TechFragment("프론트엔드")
+        3 ->  TechFragment("안드로이드")
+        4 -> TechFragment("IOS")
+        5 -> TechFragment("데이터사이언스")
+        6 -> TechFragment("데이터분석")
+        7 -> TechFragment("알고리즘")
+        8 -> TechFragment("자료구조")
+        9 ->  TechFragment("네트워크")
+        10 -> TechFragment("운영체제")
+        else -> NoTechFragment()
     }
 }
