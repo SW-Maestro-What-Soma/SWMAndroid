@@ -3,11 +3,12 @@ package com.example.swmandroid.util
 import android.annotation.SuppressLint
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Patterns
 import android.widget.EditText
 import com.example.swmandroid.R
 import java.util.regex.Pattern
 
-fun checkEmailEditText(emailEdittext: EditText){
+fun checkEmailEditText(emailEdittext: EditText) {
     emailEdittext.addTextChangedListener(object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun afterTextChanged(s: Editable?) {}
@@ -17,7 +18,7 @@ fun checkEmailEditText(emailEdittext: EditText){
     })
 }
 
-fun checkPasswordEditText(passwordEdittext: EditText){
+fun checkPasswordEditText(passwordEdittext: EditText) {
     passwordEdittext.addTextChangedListener(object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun afterTextChanged(s: Editable?) {}
@@ -29,9 +30,8 @@ fun checkPasswordEditText(passwordEdittext: EditText){
 
 @SuppressLint("ResourceAsColor")
 fun checkEmail(emailEdittext: EditText): Boolean {
-    val emailValidation = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
     val email = emailEdittext.text.toString().trim()
-    val pattern = Pattern.matches(emailValidation, email)
+    val pattern = Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
     return if (pattern) {
         emailEdittext.setTextColor(R.color.black)

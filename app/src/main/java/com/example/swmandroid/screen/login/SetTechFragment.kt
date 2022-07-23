@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.swmandroid.R
@@ -20,14 +21,23 @@ class SetTechFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSetTechBinding.inflate(inflater, container, false)
-        binding.backButton.setOnClickListener { binding.root.findNavController().popBackStack() }
-        binding.techFrontendButton.setOnClickListener { binding.root.findNavController().navigate(R.id.action_setTechFragment_to_setNickFragment) }
-        binding.techBackendButton.setOnClickListener { binding.root.findNavController().navigate(R.id.action_setTechFragment_to_setNickFragment) }
-        binding.techAndroidButton.setOnClickListener { binding.root.findNavController().navigate(R.id.action_setTechFragment_to_setNickFragment) }
-        binding.techIosButton.setOnClickListener { binding.root.findNavController().navigate(R.id.action_setTechFragment_to_setNickFragment) }
-        binding.techDataButton.setOnClickListener { binding.root.findNavController().navigate(R.id.action_setTechFragment_to_setNickFragment) }
+
+        buttonClick()
 
         return binding.root
+    }
+
+    private fun buttonClick() = with(binding) {
+        backButton.setOnClickListener { root.findNavController().popBackStack() }
+        techFrontendButton.setOnClickListener { moveSetNickFragment("Frontend") }
+        techBackendButton.setOnClickListener { moveSetNickFragment("Backend") }
+        techAndroidButton.setOnClickListener { moveSetNickFragment("Android") }
+        techIosButton.setOnClickListener { moveSetNickFragment("IOS") }
+        techDataButton.setOnClickListener { moveSetNickFragment("Data") }
+    }
+
+    private fun moveSetNickFragment(techStack: String) {
+        binding.root.findNavController().navigate(R.id.action_setTechFragment_to_setNickFragment, bundleOf("tech_stack" to techStack))
     }
 
     override fun onDestroyView() {

@@ -57,9 +57,6 @@ class LoginFragment : Fragment() {
                     viewModel.googleAddToken(account.idToken!!)
                     Toast.makeText(context, "구글로그인 성공", Toast.LENGTH_SHORT).show()
 
-                    CoroutineScope(Dispatchers.IO).launch {
-                        viewModel.getProfile()
-                    }
                 } catch (e: ApiException) {
                     Toast.makeText(context, "구글로그인 실패", Toast.LENGTH_SHORT).show()
                 }

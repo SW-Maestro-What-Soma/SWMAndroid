@@ -13,7 +13,7 @@ class LoginViewModel(
 
     private val _googleCurrentUser = googleRepository.userLiveData
 
-    val userLiveData : LiveData<FirebaseUser> = _googleCurrentUser
+    val googleCurrentUser : LiveData<FirebaseUser> = _googleCurrentUser
 
     private val _kakaoCurrentUser = MutableLiveData<OAuthToken?>()
 
