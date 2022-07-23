@@ -48,6 +48,7 @@ class LoginFragment : Fragment() {
 
         googleSignInClient = GoogleSignIn.getClient(app, gso)
 
+        //TODO 구글 로그인해서 처음인지 아닌지 확인하는 로직 추가해야함
         googleGetResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == RESULT_OK && it.data != null) {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
@@ -65,6 +66,7 @@ class LoginFragment : Fragment() {
             }
         }
 
+        //TODO 카카오 로그인해서 처음인지 아닌지 확인하는 로직 추가해야함
         kakaoCallBack = { token, error ->
             if (error != null) {
                 Toast.makeText(context, "카카오로그인 실패", Toast.LENGTH_SHORT).show()

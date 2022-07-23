@@ -40,6 +40,7 @@ class SignUpFragment : Fragment() {
     private fun buttonClick() = with(binding) {
         backButton.setOnClickListener { root.findNavController().popBackStack() }
         signUpButton.setOnClickListener {
+            //TODO 회원가입 시키는 로직 추가해야함
             if (checkEmail(emailEdittext) && checkPassword(passwordEdittext) && checkRePassword()) {
                 Toast.makeText(context, "회원가입 성공하였습니다.", Toast.LENGTH_SHORT).show()
                 root.findNavController().popBackStack()

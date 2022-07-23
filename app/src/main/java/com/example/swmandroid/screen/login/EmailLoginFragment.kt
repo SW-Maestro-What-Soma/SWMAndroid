@@ -31,13 +31,14 @@ class EmailLoginFragment : Fragment() {
     }
 
     private fun buttonClick() = with(binding) {
-        val isFirst = true // Todo 수정해야함
+        //TODO 처음 로그인한 사람인지 아닌지 확인하는 로직 추가해야함
+        val isLoginFirst = true
 
         backButton.setOnClickListener { root.findNavController().popBackStack() }
         loginButton.setOnClickListener {
             if (checkEmail(emailEdittext) && checkPassword(passwordEdittext)) {
                 Toast.makeText(context, "로그인 성공하였습니다.", Toast.LENGTH_SHORT).show()
-                if (isFirst) {
+                if (isLoginFirst) {
                     root.findNavController().navigate(R.id.action_emailLoginFragment_to_setTechFragment)
                 } else {
                     root.findNavController().navigate(R.id.action_emailLoginFragment_to_mainActivity)
