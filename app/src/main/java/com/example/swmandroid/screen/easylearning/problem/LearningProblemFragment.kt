@@ -6,14 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import com.example.swmandroid.databinding.FragmentProblemBinding
+import com.example.swmandroid.databinding.FragmentLearningProblemBinding
 import com.example.swmandroid.screen.easylearning.EasyLearningViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class ProblemFragment() : Fragment() {
+class LearningProblemFragment() : Fragment() {
 
-    private var _binding: FragmentProblemBinding? = null
+    private var _binding: FragmentLearningProblemBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel by sharedViewModel<EasyLearningViewModel>()
@@ -21,7 +21,7 @@ class ProblemFragment() : Fragment() {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = FragmentProblemBinding.inflate(inflater, container, false)
+        _binding = FragmentLearningProblemBinding.inflate(inflater, container, false)
 
         initView()
 

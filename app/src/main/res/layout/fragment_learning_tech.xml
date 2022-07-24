@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
-            android:text="전문가의 신뢰성있는\n기술면접 테스트를 제공해드려요."
+            android:text="전문가의 신뢰성있는\n기술면접 문제를 제공해드려요."
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

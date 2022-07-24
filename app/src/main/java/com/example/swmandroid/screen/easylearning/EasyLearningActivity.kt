@@ -3,9 +3,8 @@ package com.example.swmandroid.screen.easylearning
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.swmandroid.databinding.ActivityEasyLearningBinding
-import com.example.swmandroid.screen.easylearning.adapter.TechViewPagerAdapter
+import com.example.swmandroid.screen.easylearning.adapter.LearningTechViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 class EasyLearningActivity : AppCompatActivity() {
@@ -23,7 +22,7 @@ class EasyLearningActivity : AppCompatActivity() {
     }
 
     private fun initView() = with(binding) {
-        viewPager.adapter = TechViewPagerAdapter(supportFragmentManager, lifecycle)
+        viewPager.adapter = LearningTechViewPagerAdapter(supportFragmentManager, lifecycle)
 
         TabLayoutMediator(techTablayout, viewPager) { tab, position ->
             tab.text = mainTabArray[position]
