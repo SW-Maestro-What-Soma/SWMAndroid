@@ -12,7 +12,7 @@ import com.example.swmandroid.ui.easylearning.StartEasyLearningActivity
 class LearningTechFragment : BaseFragment<FragmentLearningTechBinding>() {
 
     companion object {
-        private const val KEY_TECH_STACK = "learning_tech"
+        private const val KEY_TECH_STACK = "tech_stack"
 
         @JvmStatic
         fun newInstance(techStack: String) =

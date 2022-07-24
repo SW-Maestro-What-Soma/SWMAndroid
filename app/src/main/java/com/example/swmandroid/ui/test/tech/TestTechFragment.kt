@@ -13,7 +13,7 @@ import com.example.swmandroid.ui.test.StartTestActivity
 class TestTechFragment : BaseFragment<FragmentTestTechBinding>() {
 
     companion object {
-        private const val KEY_TECH_STACK = "learning_tech"
+        private const val KEY_TECH_STACK = "tech_stack"
 
         @JvmStatic
         fun newInstance(techStack: String) =

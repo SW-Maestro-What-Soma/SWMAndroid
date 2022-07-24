@@ -34,6 +34,7 @@
         <entry key="app/src/main/res/layout/fragment_email_login.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/fragment_find_password.xml" value="0.33489583333333334" />
         <entry key="app/src/main/res/layout/fragment_front_end.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/fragment_full_community.xml" value="0.3302083333333333" />
         <entry key="app/src/main/res/layout/fragment_i_o_s.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/fragment_learning_problem.xml" value="0.36041666666666666" />
         <entry key="app/src/main/res/layout/fragment_learning_tech.xml" value="0.36041666666666666" />
@@ -50,8 +51,10 @@
         <entry key="app/src/main/res/layout/fragment_set_tech.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/fragment_sign_in.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.33489583333333334" />
+        <entry key="app/src/main/res/layout/fragment_sub_community.xml" value="0.3302083333333333" />
         <entry key="app/src/main/res/layout/fragment_sub_tech.xml" value="0.1094224924012158" />
         <entry key="app/src/main/res/layout/fragment_tech.xml" value="0.33489583333333334" />
+        <entry key="app/src/main/res/layout/fragment_tech_community.xml" value="0.3421875" />
         <entry key="app/src/main/res/layout/fragment_test_problem.xml" value="0.31354166666666666" />
         <entry key="app/src/main/res/layout/fragment_test_tech.xml" value="0.1703125" />
         <entry key="app/src/main/res/layout/learning_bottom_sheet_layout.xml" value="0.375" />
