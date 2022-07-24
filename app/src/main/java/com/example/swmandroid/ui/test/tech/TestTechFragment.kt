@@ -35,10 +35,13 @@ class TestTechFragment : BaseFragment<FragmentTestTechBinding>() {
             binding.tech = it.getString(KEY_TECH_STACK)
         }
 
-        binding.startTestButton.setOnClickListener {
+        buttonClick()
+    }
+
+    private fun buttonClick() = with(binding){
+        startTestButton.setOnClickListener {
             val intent = Intent(activity, StartTestActivity::class.java)
             startActivity(intent)
         }
     }
-
 }

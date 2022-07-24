@@ -11,10 +11,6 @@ import com.example.swmandroid.ui.easylearning.StartEasyLearningActivity
 
 class LearningTechFragment : BaseFragment<FragmentLearningTechBinding>() {
 
-    override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentLearningTechBinding {
-        return FragmentLearningTechBinding.inflate(inflater, container, false)
-    }
-
     companion object {
         private const val KEY_TECH_STACK = "learning_tech"
 
@@ -25,6 +21,10 @@ class LearningTechFragment : BaseFragment<FragmentLearningTechBinding>() {
                     putString(KEY_TECH_STACK, techStack)
                 }
             }
+    }
+
+    override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentLearningTechBinding {
+        return FragmentLearningTechBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
