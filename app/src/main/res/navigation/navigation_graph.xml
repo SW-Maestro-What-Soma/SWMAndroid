@@ -6,7 +6,7 @@
     app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/emailLoginFragment"
-        android:name="com.example.swmandroid.screen.login.EmailLoginFragment"
+        android:name="com.example.swmandroid.ui.login.EmailLoginFragment"
         android:label="fragment_email_login"
         tools:layout="@layout/fragment_email_login" >
         <action
@@ -24,12 +24,12 @@
     </fragment>
     <fragment
         android:id="@+id/findPasswordFragment"
-        android:name="com.example.swmandroid.screen.login.FindPasswordFragment"
+        android:name="com.example.swmandroid.ui.login.FindPasswordFragment"
         android:label="fragment_find_password"
         tools:layout="@layout/fragment_find_password" />
     <fragment
         android:id="@+id/setNickFragment"
-        android:name="com.example.swmandroid.screen.login.SetNickFragment"
+        android:name="com.example.swmandroid.ui.login.SetNickFragment"
         android:label="fragment_set_nick"
         tools:layout="@layout/fragment_set_nick" >
         <action
@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/setTechFragment"
-        android:name="com.example.swmandroid.screen.login.SetTechFragment"
+        android:name="com.example.swmandroid.ui.login.SetTechFragment"
         android:label="fragment_set_tech"
         tools:layout="@layout/fragment_set_tech" >
         <action
@@ -47,17 +47,17 @@
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.swmandroid.screen.login.SignUpFragment"
+        android:name="com.example.swmandroid.ui.login.SignUpFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_up" />
     <activity
         android:id="@+id/mainActivity"
-        android:name="com.example.swmandroid.screen.main.MainActivity"
+        android:name="com.example.swmandroid.ui.main.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.swmandroid.screen.login.LoginFragment"
+        android:name="com.example.swmandroid.ui.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screen.easylearning.tech.NoTechFragment">
+    tools:context=".ui.easylearning.tech.NoTechFragment">
 
     <TextView
         android:id="@+id/start_tech_textview"

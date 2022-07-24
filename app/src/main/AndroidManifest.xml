@@ -17,31 +17,31 @@
         android:theme="@style/Theme.SWMAndroid"
         tools:targetApi="31">
         <activity
-            android:name=".screen.fullservice.FullServiceActivity"
+            android:name=".ui.fullservice.FullServiceActivity"
             android:exported="false" />
         <activity
-            android:name=".screen.mypage.MyPageActivity"
+            android:name=".ui.mypage.MyPageActivity"
             android:exported="false" />
         <activity
-            android:name=".screen.community.CommunityActivity"
+            android:name=".ui.community.CommunityActivity"
             android:exported="false" />
         <activity
-            android:name=".screen.test.TestActivity"
+            android:name=".ui.test.TestActivity"
             android:exported="false" />
         <activity
-            android:name=".screen.easylearning.EasyLearningActivity"
+            android:name=".ui.easylearning.EasyLearningActivity"
             android:exported="false" />
         <activity
-            android:name=".screen.login.LoginActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".screen.easylearning.StartEasyLearningActivity"
+            android:name=".ui.easylearning.StartEasyLearningActivity"
             android:exported="false" />
         <activity
-            android:name=".screen.test.StartTestActivity"
+            android:name=".ui.test.StartTestActivity"
             android:exported="false" />
         <activity
-            android:name=".screen.main.MainActivity"
+            android:name=".ui.login.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.MySplashScreen.Splash">
             <intent-filter>
