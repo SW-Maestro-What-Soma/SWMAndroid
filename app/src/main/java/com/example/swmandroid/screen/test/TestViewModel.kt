@@ -1,11 +1,11 @@
-package com.example.swmandroid.screen.easylearning
+package com.example.swmandroid.screen.test
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.swmandroid.model.problem.Problem
 
-class EasyLearningViewModel : ViewModel() {
+class TestViewModel : ViewModel() {
 
     private val _problem = MutableLiveData<ArrayList<Problem>>()
     val problem : LiveData<ArrayList<Problem>> = _problem

@@ -29,10 +29,7 @@
                 android:layout_marginTop="30dp"
                 android:text="@{`Question` + binding_problem_number}"
                 android:textSize="32sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/problem_title_textview"
@@ -42,8 +39,6 @@
                 android:text="@{binding_problem.problemTitle}"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/problem_number_textview" />
 
         </LinearLayout>

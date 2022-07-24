@@ -7,16 +7,18 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.swmandroid.screen.easylearning.EasyLearningViewModel
 import com.example.swmandroid.screen.easylearning.problem.LearningProblemFragment
 
-//TODO 문제 수 만큼 생성
-class LearningProblemViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle, private val viewModel : EasyLearningViewModel) : FragmentStateAdapter(fragmentManager, lifecycle) {
+//TODO 학습 문제 수 만큼 생성
+class LearningProblemViewPagerAdapter(
+    fragmentManager: FragmentManager,
+    lifecycle: Lifecycle,
+) : FragmentStateAdapter(fragmentManager, lifecycle) {
 
     override fun getItemCount(): Int {
         return 3
     }
 
-    override fun createFragment(position: Int): Fragment  {
-        viewModel.setProblemNumber(position)
-        return LearningProblemFragment()
+    override fun createFragment(position: Int): Fragment {
+        return LearningProblemFragment.newInstance(position)
     }
 
 }

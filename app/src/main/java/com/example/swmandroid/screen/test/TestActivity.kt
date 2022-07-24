@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.example.swmandroid.databinding.ActivityTestBinding
+import com.example.swmandroid.screen.easylearning.EasyLearningViewModel
 import com.example.swmandroid.screen.test.adapter.TestTechViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TestActivity : AppCompatActivity() {
 
@@ -29,6 +31,5 @@ class TestActivity : AppCompatActivity() {
         }.attach()
 
         techTablayout.getTabAt(0)?.view?.visibility = View.GONE
-
     }
 }

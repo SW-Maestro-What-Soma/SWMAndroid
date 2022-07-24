@@ -6,9 +6,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.swmandroid.screen.easylearning.tech.*
 
-class LearningTechViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fragmentManager, lifecycle) {
+class LearningTechViewPagerAdapter(
+    fragmentManager: FragmentManager,
+    lifecycle: Lifecycle
+) : FragmentStateAdapter(fragmentManager, lifecycle) {
 
-    companion object{
+    companion object {
         const val NUM_TABS = 11
     }
 
@@ -18,16 +21,15 @@ class LearningTechViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: 
 
     override fun createFragment(position: Int): Fragment = when (position) {
         0 -> NoTechFragment()
-        1 -> LearningTechFragment("백엔드")
-        2 -> LearningTechFragment("프론트엔드")
-        3 ->  LearningTechFragment("안드로이드")
-        4 -> LearningTechFragment("IOS")
-        5 -> LearningTechFragment("데이터사이언스")
-        6 -> LearningTechFragment("데이터분석")
-        7 -> LearningTechFragment("알고리즘")
-        8 -> LearningTechFragment("자료구조")
-        9 ->  LearningTechFragment("네트워크")
-        10 -> LearningTechFragment("운영체제")
-        else -> NoTechFragment()
+        1 -> LearningTechFragment.newInstance("백엔드")
+        2 -> LearningTechFragment.newInstance("프론트엔드")
+        3 -> LearningTechFragment.newInstance("안드로이드")
+        4 -> LearningTechFragment.newInstance("IOS")
+        5 -> LearningTechFragment.newInstance("데이터사이언스")
+        6 -> LearningTechFragment.newInstance("데이터분석")
+        7 -> LearningTechFragment.newInstance("알고리즘")
+        8 -> LearningTechFragment.newInstance("자료구조")
+        9 -> LearningTechFragment.newInstance("네트워크")
+        else -> LearningTechFragment.newInstance("운영체제")
     }
 }

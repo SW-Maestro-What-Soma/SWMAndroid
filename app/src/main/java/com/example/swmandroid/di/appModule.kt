@@ -5,6 +5,7 @@ import com.example.swmandroid.data.repository.login.profile.ProfileRepository
 import com.example.swmandroid.data.repository.login.profile.ProfileRepositoryImpl
 import com.example.swmandroid.screen.easylearning.EasyLearningViewModel
 import com.example.swmandroid.screen.login.LoginViewModel
+import com.example.swmandroid.screen.test.TestViewModel
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -14,6 +15,7 @@ internal val appModule = module {
 
     viewModel { LoginViewModel(get(), get()) }
     viewModel { EasyLearningViewModel() }
+    viewModel { TestViewModel() }
 
     single<ProfileRepository> { ProfileRepositoryImpl(get(), get()) }
     single { GoogleRepository() }

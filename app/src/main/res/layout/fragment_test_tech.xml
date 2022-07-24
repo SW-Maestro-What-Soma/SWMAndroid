@@ -22,7 +22,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text= "@{tech + `\n학습을 시작하시겠습니까?`}" />
+            android:text= "@{tech + `\n테스트를 시작하시겠습니까?`}" />
 
         <TextView
             android:id="@+id/expert_textview"
@@ -36,11 +36,11 @@
             app:layout_constraintTop_toBottomOf="@id/start_tech_textview" />
 
         <Button
-            android:id="@+id/start_learning_button"
+            android:id="@+id/start_test_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="150dp"
-            android:text="학습 시작"
+            android:text="테스트 시작"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
