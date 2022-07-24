@@ -9,17 +9,15 @@ import com.kakao.sdk.auth.model.OAuthToken
 class LoginViewModel(
     private val loginRepository: ProfileRepository,
     private val googleRepository: GoogleRepository
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val _googleCurrentUser = googleRepository.userLiveData
-
-    val googleCurrentUser : LiveData<FirebaseUser> = _googleCurrentUser
+    val googleCurrentUser: LiveData<FirebaseUser> = _googleCurrentUser
 
     private val _kakaoCurrentUser = MutableLiveData<OAuthToken?>()
-
     val kakaoCurrentUser: LiveData<OAuthToken?> = _kakaoCurrentUser
 
-    fun googleAddToken(token : String){
+    fun googleAddToken(token: String) {
         googleRepository.getGoogleUser(token)
     }
 
@@ -27,7 +25,7 @@ class LoginViewModel(
         _kakaoCurrentUser.value = token
     }
 
-    suspend fun getProfile(){
+    suspend fun getProfile() {
         loginRepository.getProfile()
     }
 }

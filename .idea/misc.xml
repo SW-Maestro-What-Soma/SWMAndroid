@@ -19,6 +19,7 @@
         <entry key="app/src/main/res/layout/activity_set_nick.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/activity_set_tech.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.22604166666666667" />
+        <entry key="app/src/main/res/layout/activity_start_easy_learning.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_test.xml" value="0.33489583333333334" />
         <entry key="app/src/main/res/layout/fragment_algorithm.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/fragment_analysis.xml" value="0.19479166666666667" />
@@ -39,6 +40,7 @@
         <entry key="app/src/main/res/layout/fragment_network.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/fragment_no_select.xml" value="0.24427083333333333" />
         <entry key="app/src/main/res/layout/fragment_operating_system.xml" value="0.19479166666666667" />
+        <entry key="app/src/main/res/layout/fragment_problem.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_science.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_set_nick.xml" value="0.21965579710144928" />
         <entry key="app/src/main/res/layout/fragment_set_tech.xml" value="0.37604166666666666" />
@@ -46,6 +48,7 @@
         <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.33489583333333334" />
         <entry key="app/src/main/res/layout/fragment_sub_tech.xml" value="0.1094224924012158" />
         <entry key="app/src/main/res/layout/fragment_tech.xml" value="0.33489583333333334" />
+        <entry key="app/src/main/res/layout/learning_bottom_sheet_layout.xml" value="0.375" />
       </map>
     </option>
   </component>

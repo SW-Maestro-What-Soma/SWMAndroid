@@ -6,9 +6,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.swmandroid.screen.easylearning.tech.*
 
-private const val NUM_TABS = 11
-
 class TechViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fragmentManager, lifecycle) {
+
+    companion object{
+        const val NUM_TABS = 11
+    }
+
     override fun getItemCount(): Int {
         return NUM_TABS
     }

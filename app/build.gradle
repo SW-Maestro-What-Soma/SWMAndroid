@@ -36,6 +36,9 @@ android {
     viewBinding{
         enabled = true
     }
+    dataBinding{
+        enabled = true
+    }
 }
 
 dependencies {
@@ -63,7 +66,7 @@ dependencies {
 
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.2'
 
     // Kakao Login
     implementation 'com.kakao.sdk:v2-user:2.11.0'
@@ -78,6 +81,9 @@ dependencies {
     // OkHttp3
     implementation "com.squareup.okhttp3:okhttp:4.9.3"
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.3"
+
+    // Material design
+    implementation 'com.google.android.material:material:1.6.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -11,24 +11,24 @@ import com.google.android.material.tabs.TabLayoutMediator
 class EasyLearningActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEasyLearningBinding
-    private val mainTabArray = arrayOf("","백엔드", "프론트엔드", "안드로이드", "IOS", "데이타사이언스", "데이터분석", "알고리즘", "자료구조", "네트워크", "운영체제")
+    private val mainTabArray = arrayOf("", "백엔드", "프론트엔드", "안드로이드", "IOS", "데이타사이언스", "데이터분석", "알고리즘", "자료구조", "네트워크", "운영체제")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installSplashScreen()
         binding = ActivityEasyLearningBinding.inflate(layoutInflater)
+
+        initView()
+
         setContentView(binding.root)
+    }
 
-        val viewPager = binding.viewPager
-        val tabLayout = binding.techTablayout
-
+    private fun initView() = with(binding) {
         viewPager.adapter = TechViewPagerAdapter(supportFragmentManager, lifecycle)
-        viewPager.setCurrentItem(0, false)
 
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+        TabLayoutMediator(techTablayout, viewPager) { tab, position ->
             tab.text = mainTabArray[position]
         }.attach()
 
-        tabLayout.getTabAt(0)?.view?.visibility = View.GONE
+        techTablayout.getTabAt(0)?.view?.visibility = View.GONE
     }
 }
