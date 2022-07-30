@@ -1,5 +1,6 @@
 package com.example.swmandroid.di
 
+import androidx.lifecycle.SavedStateHandle
 import com.example.swmandroid.data.repository.login.google.GoogleRepository
 import com.example.swmandroid.data.repository.login.profile.ProfileRepository
 import com.example.swmandroid.data.repository.login.profile.ProfileRepositoryImpl
@@ -14,8 +15,8 @@ import org.koin.dsl.module
 internal val appModule = module {
 
     viewModel { LoginViewModel(get(), get()) }
-    viewModel { EasyLearningViewModel() }
-    viewModel { TestViewModel() }
+    viewModel { (state: SavedStateHandle) -> EasyLearningViewModel(state) }
+    viewModel { (state: SavedStateHandle) -> TestViewModel(state) }
 
     single<ProfileRepository> { ProfileRepositoryImpl(get(), get()) }
     single { GoogleRepository() }

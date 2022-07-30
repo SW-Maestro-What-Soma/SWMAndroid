@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentTestProblemBinding
 import com.example.swmandroid.ui.test.TestViewModel
@@ -36,6 +38,16 @@ class TestProblemFragment : BaseFragment<FragmentTestProblemBinding>() {
     }
 
     private fun initView() = with(binding) {
+        viewModel.isFavoriteTestProblem.observe(viewLifecycleOwner, Observer {
+            when(it){
+                true -> favoriteButton.setImageResource(R.drawable.ic_baseline_favorite_24)
+                false -> favoriteButton.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+            }
+        })
+
+        favoriteButton.setOnClickListener {
+            viewModel.setFavoriteTestProblem()
+        }
 
         viewModel.getProblem()
 

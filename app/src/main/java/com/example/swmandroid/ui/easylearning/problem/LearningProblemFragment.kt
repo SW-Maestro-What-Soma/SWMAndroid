@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.Observer
+import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentLearningProblemBinding
 import com.example.swmandroid.ui.easylearning.EasyLearningViewModel
 import com.example.swmandroid.ui.easylearning.StartEasyLearningActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import org.koin.androidx.viewmodel.ext.android.stateViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LearningProblemFragment : BaseFragment<FragmentLearningProblemBinding>() {
@@ -30,17 +33,26 @@ class LearningProblemFragment : BaseFragment<FragmentLearningProblemBinding>() {
             }
     }
 
-    private val viewModel by viewModel<EasyLearningViewModel>()
+    private val viewModel by stateViewModel<EasyLearningViewModel>()
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initView()
     }
 
     private fun initView() = with(binding) {
+        viewModel.isFavoriteLearningProblem.observe(viewLifecycleOwner, Observer {
+            when(it){
+                true -> favoriteButton.setImageResource(R.drawable.ic_baseline_favorite_24)
+                false -> favoriteButton.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+            }
+        })
+
+        favoriteButton.setOnClickListener {
+            viewModel.setFavoriteLearningProblem()
+        }
 
         viewModel.getProblem()
 

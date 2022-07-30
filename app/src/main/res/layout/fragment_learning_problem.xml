@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -26,20 +27,31 @@
                 android:id="@+id/problem_number_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="30dp"
                 android:text="@{`Question` + binding_problem_number}"
                 android:textSize="32sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="문제번호1" />
+
+            <ImageButton
+                android:id="@+id/favorite_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/ic_baseline_favorite_border_24" />
 
             <TextView
                 android:id="@+id/problem_title_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="50dp"
                 android:text="@{binding_problem.problemTitle}"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/problem_number_textview" />
+                tools:text="문제제목" />
 
         </LinearLayout>
 
