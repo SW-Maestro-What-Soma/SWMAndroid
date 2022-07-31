@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.fragment.app.FragmentHostCallback
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -28,12 +30,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
     private lateinit var jobPostingHandle: Handler
     private lateinit var jobPostingRun: Runnable
 
+    private lateinit var bookItemList: ArrayList<BookItem>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installSplashScreen()
+
         buttonClick()
         jobPostingItemSlider()
-        jobPostingItemSliderView()
+        initJobPostingItem()
+        bookItemRecyclerview()
+        initBookItem()
     }
 
     private fun buttonClick() {
@@ -53,7 +59,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         startActivity(intent)
     }
 
-    private fun jobPostingItemSlider() = with(binding){
+    private fun jobPostingItemSlider() = with(binding) {
         jobPostingItemList = ArrayList()
         jobPostingAdapter = JobPostingAdapter(jobpostingViewpager, jobPostingItemList)
         jobpostingViewpager.adapter = jobPostingAdapter
@@ -82,7 +88,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         )
     }
 
-    private fun jobPostingItemSliderView() {
+    private fun initJobPostingItem() {
+        //TODO : 채용광고 서버 API를 통해 가져와야함
         jobPostingItemList.add(JobPostingItem(R.drawable.sli1))
         jobPostingItemList.add(JobPostingItem(R.drawable.sli2))
         jobPostingItemList.add(JobPostingItem(R.drawable.sli3))
@@ -90,9 +97,28 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         jobPostingItemList.add(JobPostingItem(R.drawable.sli5))
     }
 
+    private fun bookItemRecyclerview() = with(binding) {
+        bookItemList = ArrayList()
+        bookRecyclerview.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+        bookRecyclerview.adapter = BookAdapter(bookItemList){ book ->
+            val intent = Intent(this@MainActivity, BookDetailActivity::class.java)
+            intent.putExtra("Book", book)
+            startActivity(intent)
+        }
+    }
+
+    private fun initBookItem() {
+        //TODO : 추천책 리스트 API를 통해 가져와야함
+        bookItemList.add(BookItem(R.drawable.book1, "이펙티브 코틀린", "좋은 이펙티브 코틀린 책입니다.", "https://naver.com"))
+        bookItemList.add(BookItem(R.drawable.book2, "리팩터링", "좋은 리팩터링 책입니다.", "https://naver.com"))
+        bookItemList.add(BookItem(R.drawable.book3, "클린코드", "좋은 클린코드 책입니다.", "https://naver.com"))
+        bookItemList.add(BookItem(R.drawable.book4, "코틀린 쿡북", "좋은 코틀린 쿡북 책입니다.", "https://naver.com"))
+        bookItemList.add(BookItem(R.drawable.book5, "코틀린을 다루는 기술", "좋은 코틀린을 다루는 기술 책입술다.", "https://naver.com"))
+    }
+
     override fun onPause() {
         super.onPause()
-        jobPostingHandle.removeCallbacks(jobPostingRun )
+        jobPostingHandle.removeCallbacks(jobPostingRun)
     }
 
     override fun onResume() {

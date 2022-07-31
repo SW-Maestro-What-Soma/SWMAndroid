@@ -9,7 +9,7 @@ import com.example.swmandroid.databinding.ItemJobpostingBinding
 
 class JobPostingAdapter(
     private val viewPager: ViewPager2,
-    private val imgList: ArrayList<JobPostingItem>
+    private val jobPostList: ArrayList<JobPostingItem>
 ) : RecyclerView.Adapter<JobPostingAdapter.SliderViewHolder>() {
 
     inner class SliderViewHolder(val binding: ItemJobpostingBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -23,17 +23,17 @@ class JobPostingAdapter(
     }
 
     override fun onBindViewHolder(holder: SliderViewHolder, position: Int) {
-        val listImg = imgList[position]
-        holder.img.setImageResource(listImg.img)
-        if (position == imgList.size - 2) {
+        val item = jobPostList[position]
+        holder.img.setImageResource(item.img)
+        if (position == jobPostList.size - 2) {
             viewPager.post(run)
         }
     }
 
     private val run = Runnable {
-        imgList.addAll(imgList)
+        jobPostList.addAll(jobPostList)
         notifyDataSetChanged()
     }
 
-    override fun getItemCount(): Int = imgList.size
+    override fun getItemCount(): Int = jobPostList.size
 }
