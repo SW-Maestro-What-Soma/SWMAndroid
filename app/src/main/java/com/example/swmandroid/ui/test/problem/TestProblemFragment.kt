@@ -9,6 +9,7 @@ import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentTestProblemBinding
 import com.example.swmandroid.ui.test.TestViewModel
+import org.koin.androidx.viewmodel.ext.android.stateViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TestProblemFragment : BaseFragment<FragmentTestProblemBinding>() {
@@ -29,7 +30,7 @@ class TestProblemFragment : BaseFragment<FragmentTestProblemBinding>() {
         return FragmentTestProblemBinding.inflate(inflater, container, false)
     }
 
-    private val viewModel by viewModel<TestViewModel>()
+    private val viewModel by stateViewModel<TestViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
