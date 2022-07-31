@@ -20,6 +20,12 @@
             android:name=".ui.fullservice.FullServiceActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.test.TestResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.MakeProblemActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.mypage.MyPageActivity"
             android:exported="false" />
         <activity

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityBookDetailBinding
+import com.example.swmandroid.model.book.BookItem
 
 class BookDetailActivity : BaseActivity<ActivityBookDetailBinding>({ActivityBookDetailBinding.inflate(it)}) {
 

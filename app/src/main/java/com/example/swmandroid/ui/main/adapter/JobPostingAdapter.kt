@@ -1,4 +1,4 @@
-package com.example.swmandroid.ui.main
+package com.example.swmandroid.ui.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.swmandroid.R
 import com.example.swmandroid.databinding.ItemJobpostingBinding
+import com.example.swmandroid.model.jobposting.JobPostingItem
 
 class JobPostingAdapter(
     private val viewPager: ViewPager2,

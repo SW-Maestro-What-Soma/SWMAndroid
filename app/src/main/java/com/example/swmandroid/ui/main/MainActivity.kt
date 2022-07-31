@@ -1,13 +1,12 @@
 package com.example.swmandroid.ui.main
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -16,11 +15,16 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityMainBinding
+import com.example.swmandroid.model.book.BookItem
+import com.example.swmandroid.model.jobposting.JobPostingItem
 import com.example.swmandroid.ui.community.CommunityActivity
 import com.example.swmandroid.ui.easylearning.EasyLearningActivity
 import com.example.swmandroid.ui.fullservice.FullServiceActivity
+import com.example.swmandroid.ui.main.adapter.BookAdapter
+import com.example.swmandroid.ui.main.adapter.JobPostingAdapter
 import com.example.swmandroid.ui.mypage.MyPageActivity
 import com.example.swmandroid.ui.test.TestActivity
+import com.example.swmandroid.ui.test.TestResultActivity
 import kotlin.math.abs
 
 class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inflate(it) }) {
@@ -32,26 +36,59 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
 
     private lateinit var bookItemList: ArrayList<BookItem>
 
+    var totalScore = 0
+    var isPlatinum = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initView()
         buttonClick()
         jobPostingItemSlider()
         initJobPostingItem()
         bookItemRecyclerview()
         initBookItem()
+
+
     }
 
-    private fun buttonClick() {
-        binding.fullServiceButton.setOnClickListener { moveActivity(FullServiceActivity()) }
+    @SuppressLint("SetTextI18n")
+    private fun initView() = with(binding) {
+        //TODO 닉네임 로직 구현시 변경
+        nickNameTextview.text = "김시진님"
 
-        //Todo 닉네임 로직 구현시 변경
-        binding.nickNameTextview.text = "김시진님"
+        //TODO 토탈 점수 가져오기 구현
+        totalScore = 450
+        if (totalScore > 0) {
+            preTestScoreTextview.text = "이전 점수 $totalScore / 500"
+            preTestResultLayout.visibility = View.VISIBLE
+            preTestResultButton.visibility = View.VISIBLE
+            preTestResultButton.setOnClickListener {
+                moveActivity(TestResultActivity())
+            }
+        } else {
+            preTestResultLayout.visibility = View.GONE
+            preTestResultButton.visibility = View.GONE
+        }
 
-        binding.myPageButton.setOnClickListener { moveActivity(MyPageActivity()) }
-        binding.easyLearningButton.setOnClickListener { moveActivity(EasyLearningActivity()) }
-        binding.testButton.setOnClickListener { moveActivity(TestActivity()) }
-        binding.communityButton.setOnClickListener { moveActivity(CommunityActivity()) }
+        //TODO 플래티넘 등급 이상인지 확인하기 구현
+        isPlatinum = true
+        if (isPlatinum) {
+            makeProblemButton.visibility = View.VISIBLE
+            makeProblemButton.setOnClickListener {
+                moveActivity(MakeProblemActivity())
+            }
+        } else {
+            makeProblemButton.visibility = View.GONE
+        }
+    }
+
+    private fun buttonClick() = with(binding) {
+        fullServiceButton.setOnClickListener { moveActivity(FullServiceActivity()) }
+        myPageButton.setOnClickListener { moveActivity(MyPageActivity()) }
+        easyLearningButton.setOnClickListener { moveActivity(EasyLearningActivity()) }
+        testButton.setOnClickListener { moveActivity(TestActivity()) }
+        communityButton.setOnClickListener { moveActivity(CommunityActivity()) }
     }
 
     private fun moveActivity(goToActivity: AppCompatActivity) {
@@ -100,7 +137,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
     private fun bookItemRecyclerview() = with(binding) {
         bookItemList = ArrayList()
         bookRecyclerview.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
-        bookRecyclerview.adapter = BookAdapter(bookItemList){ book ->
+        bookRecyclerview.adapter = BookAdapter(bookItemList) { book ->
             val intent = Intent(this@MainActivity, BookDetailActivity::class.java)
             intent.putExtra("Book", book)
             startActivity(intent)

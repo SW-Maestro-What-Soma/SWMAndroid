@@ -1,10 +1,11 @@
-package com.example.swmandroid.ui.main
+package com.example.swmandroid.ui.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.swmandroid.R
 import com.example.swmandroid.databinding.ItemBookBinding
+import com.example.swmandroid.model.book.BookItem
 
 class BookAdapter(
     private val bookList: ArrayList<BookItem>,

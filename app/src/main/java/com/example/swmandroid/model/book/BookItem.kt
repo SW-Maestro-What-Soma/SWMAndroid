@@ -1,4 +1,4 @@
-package com.example.swmandroid.ui.main
+package com.example.swmandroid.model.book
 
 import java.io.Serializable
 
