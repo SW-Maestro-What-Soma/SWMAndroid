@@ -35,10 +35,9 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
     private fun buttonClick() = with(binding) {
         backButton.setOnClickListener { root.findNavController().popBackStack() }
         signUpButton.setOnClickListener {
-            //TODO 회원가입 시키는 로직 추가해야함
             if (checkEmail(emailEdittext) && checkPassword(passwordEdittext) && checkRePassword()) {
                 Toast.makeText(context, "회원가입 성공하였습니다.", Toast.LENGTH_SHORT).show()
-                root.findNavController().popBackStack()
+                root.findNavController().navigate(R.id.action_signInFragment_to_setTechFragment)
             } else {
                 Toast.makeText(context, "이메일과 비밀번호 형식을 확인하세요.", Toast.LENGTH_SHORT).show()
             }
