@@ -6,49 +6,65 @@
     android:layout_height="match_parent"
     tools:context=".ui.login.LoginFragment">
 
-    <Button
-        android:id="@+id/naver_login_button"
-        android:layout_width="0dp"
+    <ImageView
+        android:id="@+id/logo_imageview"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginBottom="30dp"
-        android:text="네이버 로그인"
-        app:layout_constraintBottom_toTopOf="@id/kakao_login_button"
+        android:layout_marginStart="105dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="105dp"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toTopOf="@id/social_login_textview"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/social_login_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:fontFamily="@font/spoqahansansneo"
+        android:text="@string/plz_social_login"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo_imageview" />
+
 
     <ImageButton
         android:id="@+id/kakao_login_button"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginTop="24dp"
         android:padding="0sp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/kakao_login_medium_wide"
+        android:src="@drawable/kakao_login_button"
         app:layout_constraintBottom_toTopOf="@id/google_login_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/social_login_textview" />
 
-    <com.google.android.gms.common.SignInButton
+    <ImageButton
         android:id="@+id/google_login_button"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toTopOf="@id/email_login_button"
+        android:layout_marginTop="10dp"
+        android:padding="0sp"
+        android:src="@drawable/google_login_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/kakao_login_button" />
 
-    <Button
+    <ImageButton
         android:id="@+id/email_login_button"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginBottom="30dp"
-        android:text="이메일 로그인"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="10dp"
+        android:padding="0sp"
+        android:src="@drawable/email_login_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/google_login_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
