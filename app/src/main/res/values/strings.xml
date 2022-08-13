@@ -8,4 +8,11 @@
     <string name="find_password">비밀번호 찾기</string>
     <string name="sign_up">회원가입</string>
     <string name="input_repassword_hint">다시한번 비밀번호를 입력해 주세요.</string>
+    <string name="set_tech_text">당신의 직무는\n어디 인가요?</string>
+    <string name="onboarding_number_one">1/2</string>
+    <string name="tech_frontend">FRONT-END</string>
+    <string name="tech_backend">BACK_END</string>
+    <string name="tech_android">ANDROID</string>
+    <string name="tech_ios">IOS</string>
+    <string name="tech_data">DATA</string>
 </resources>

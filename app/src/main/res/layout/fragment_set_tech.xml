@@ -6,13 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".ui.login.SetTechFragment">
 
-    <Button
+    <ImageButton
         android:id="@+id/back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:text="Back"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="14dp"
+        android:background="@color/transparent"
+        android:src="@drawable/back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/set_tech_image"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:src="@drawable/set_tech_logo"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,66 +32,107 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="120dp"
-        android:text="당신의 직무는 어디 인가요?"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/jeju_gothic"
+        android:text="@string/set_tech_text"
+        android:textColor="@color/black"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/set_tech_image" />
 
-    <Button
+    <TextView
+        android:id="@+id/onboarding_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:text="@string/onboarding_number_one"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/set_tech_image" />
+
+
+    <TextView
         android:id="@+id/tech_frontend_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginBottom="30dp"
-        android:text="FRONT-END"
-        app:layout_constraintBottom_toTopOf="@id/tech_backend_button"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/set_tech_background"
+        android:fontFamily="@font/jeju_gothic"
+        android:gravity="center"
+        android:text="@string/tech_frontend"
+        android:textColor="@color/set_tech"
+        android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/set_tech_textview" />
 
-    <Button
+
+    <TextView
         android:id="@+id/tech_backend_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginBottom="30dp"
-        android:text="BACK-END"
-        app:layout_constraintBottom_toTopOf="@id/tech_android_button"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/set_tech_background"
+        android:fontFamily="@font/jeju_gothic"
+        android:gravity="center"
+        android:text="@string/tech_backend"
+        android:textColor="@color/set_tech"
+        android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tech_frontend_button" />
 
-    <Button
+    <TextView
         android:id="@+id/tech_android_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginBottom="30dp"
-        android:text="ANDROID"
-        app:layout_constraintBottom_toTopOf="@id/tech_ios_button"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/set_tech_background"
+        android:fontFamily="@font/jeju_gothic"
+        android:gravity="center"
+        android:text="@string/tech_android"
+        android:textColor="@color/set_tech"
+        android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tech_backend_button" />
 
-    <Button
+    <TextView
         android:id="@+id/tech_ios_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginBottom="30dp"
-        android:text="IOS"
-        app:layout_constraintBottom_toTopOf="@id/tech_data_button"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/set_tech_background"
+        android:fontFamily="@font/jeju_gothic"
+        android:gravity="center"
+        android:text="@string/tech_ios"
+        android:textColor="@color/set_tech"
+        android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tech_android_button" />
 
-    <Button
+    <TextView
         android:id="@+id/tech_data_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginBottom="30dp"
-        android:text="DATA"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/set_tech_background"
+        android:fontFamily="@font/jeju_gothic"
+        android:gravity="center"
+        android:text="@string/tech_data"
+        android:textColor="@color/set_tech"
+        android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tech_ios_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
