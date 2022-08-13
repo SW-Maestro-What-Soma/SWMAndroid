@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">면뽀</string>
     <string name="plz_social_login">소셜 계정으로 로그인 해주세요!</string>
+    <string name="email_login">이메일 로그인</string>
+    <string name="input_email_hint">이메일을 입력해 주세요.</string>
+    <string name="input_password_hint">비밀번호를 입력해 주세요.</string>
+    <string name="sign_in">회원가입</string>
+    <string name="find_password">비밀번호 찾기</string>
 </resources>

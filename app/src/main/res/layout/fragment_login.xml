@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:fontFamily="@font/spoqahansansneo"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
         android:text="@string/plz_social_login"
         android:textColor="@color/black"
         android:textSize="15sp"
@@ -35,10 +35,12 @@
 
     <ImageButton
         android:id="@+id/kakao_login_button"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
         android:layout_marginTop="24dp"
         android:padding="0sp"
+        android:scaleType="centerCrop"
         android:src="@drawable/kakao_login_button"
         app:layout_constraintBottom_toTopOf="@id/google_login_button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,10 +49,12 @@
 
     <ImageButton
         android:id="@+id/google_login_button"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
         android:layout_marginTop="10dp"
         android:padding="0sp"
+        android:scaleType="centerCrop"
         android:src="@drawable/google_login_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,10 +62,12 @@
 
     <ImageButton
         android:id="@+id/email_login_button"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
         android:layout_marginTop="10dp"
         android:padding="0sp"
+        android:scaleType="centerCrop"
         android:src="@drawable/email_login_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
