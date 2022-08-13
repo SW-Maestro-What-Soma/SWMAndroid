@@ -19,4 +19,6 @@
     <string name="onboarding_number_two">2/2</string>
     <string name="input_nick_hint">닉네임 (최소 2자 이상 입력)</string>
     <string name="complete_signup">가입완료</string>
+    <string name="find_email_hint">가입한 이메일을 입력해 주세요</string>
+    <string name="find_password_button">비밀번호 재설정 메일 보내기</string>
 </resources>
