@@ -64,15 +64,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/email_edittext" />
 
-    <ImageButton
+    <TextView
         android:id="@+id/login_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="10dp"
-        android:padding="0sp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/login_button"
+        android:background="@drawable/blue_button_background"
+        android:fontFamily="@font/jeju_gothic"
+        android:gravity="center"
+        android:text="@string/sign_in"
+        android:textColor="@color/white"
+        android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/password_edittext" />
@@ -85,7 +88,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="15dp"
         android:fontFamily="@font/spoqa_han_sans_neo_regular"
-        android:text="@string/sign_in"
+        android:text="@string/sign_up"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintEnd_toStartOf="@id/find_password_textview"

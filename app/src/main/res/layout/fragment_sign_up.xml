@@ -81,17 +81,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/password_edittext" />
 
-    <ImageButton
+    <TextView
         android:id="@+id/sign_up_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="10dp"
-        android:padding="0sp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/sign_up"
+        android:background="@drawable/blue_button_background"
+        android:fontFamily="@font/jeju_gothic"
+        android:gravity="center"
+        android:text="@string/sign_up"
+        android:textColor="@color/white"
+        android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/re_password_edittext" />
+        app:layout_constraintTop_toBottomOf="@id/re_password_edittext"  />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

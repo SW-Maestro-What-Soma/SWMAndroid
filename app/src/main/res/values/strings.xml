@@ -4,7 +4,7 @@
     <string name="email_login">이메일 로그인</string>
     <string name="input_email_hint">이메일을 입력해 주세요.</string>
     <string name="input_password_hint">비밀번호를 입력해 주세요.</string>
-    <string name="sign_in">회원가입</string>
+    <string name="sign_in">로그인</string>
     <string name="find_password">비밀번호 찾기</string>
     <string name="sign_up">회원가입</string>
     <string name="input_repassword_hint">다시한번 비밀번호를 입력해 주세요.</string>
@@ -15,4 +15,8 @@
     <string name="tech_android">ANDROID</string>
     <string name="tech_ios">IOS</string>
     <string name="tech_data">DATA</string>
+    <string name="set_nick_text">닉네임을\n설정하세요.</string>
+    <string name="onboarding_number_two">2/2</string>
+    <string name="input_nick_hint">닉네임 (최소 2자 이상 입력)</string>
+    <string name="complete_signup">가입완료</string>
 </resources>
