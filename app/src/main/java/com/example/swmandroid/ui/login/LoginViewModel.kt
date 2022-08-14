@@ -24,6 +24,9 @@ class LoginViewModel(
     private val _kakaoCurrentUser = MutableLiveData<OAuthToken?>()
     val kakaoCurrentUser: LiveData<OAuthToken?> = _kakaoCurrentUser
 
+    private val _kakaoEmail = MutableLiveData<String>()
+    val kakaoEmail: LiveData<String> = _kakaoEmail
+
     private val _userProfile = MutableLiveData<UserProfile>()
     val userProfile: LiveData<UserProfile> = _userProfile
 
@@ -35,6 +38,10 @@ class LoginViewModel(
         _kakaoCurrentUser.value = token
     }
 
+    fun kakaoSetEmail(email: String) {
+        _kakaoEmail.value = email
+    }
+
     suspend fun postSignUp(userEntity: UserEntity): Boolean = withContext(Dispatchers.IO) {
         return@withContext loginRepository.postSignUp(userEntity).code() == 200
     }
@@ -43,8 +50,12 @@ class LoginViewModel(
         val response = loginRepository.postLogin(loginInfo)
 
         if (response.code() == 200) {
-            _userProfile.postValue(response.body())
-            return@withContext true
+            if (response.body() == null) {
+                return@withContext false
+            } else {
+                _userProfile.postValue(response.body())
+                return@withContext true
+            }
         } else {
             return@withContext false
         }

@@ -10,7 +10,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import com.example.swmandroid.BuildConfig
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentLoginBinding
@@ -41,8 +43,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     private lateinit var kakaoCallBack: (OAuthToken?, Throwable?) -> Unit
 
-    var kakaoEmail = ""
-
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentLoginBinding {
         return FragmentLoginBinding.inflate(inflater, container, false)
     }
@@ -64,15 +64,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
         googleSignInClient = GoogleSignIn.getClient(app, gso)
 
-        //TODO 구글 로그인해서 처음인지 아닌지 확인하는 로직 추가해야함
         googleGetResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == RESULT_OK && it.data != null) {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
                 try {
                     val account = task.getResult(ApiException::class.java)!!
                     viewModel.googleAddToken(account.idToken!!)
-                    Toast.makeText(context, "구글로그인 성공", Toast.LENGTH_SHORT).show()
-
+                    account.email?.let { it -> apiPostLogin(it) }
                 } catch (e: ApiException) {
                     Toast.makeText(context, "구글로그인 실패", Toast.LENGTH_SHORT).show()
                 }
@@ -86,19 +84,22 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 Toast.makeText(context, "카카오로그인 실패", Toast.LENGTH_SHORT).show()
             } else if (token != null) {
                 viewModel.kakaoAddToken(token)
-                apiPostLogin(kakaoEmail, "qwer1234**")
+                viewModel.kakaoEmail.observe(viewLifecycleOwner, Observer {
+                    apiPostLogin(it)
+                })
             }
         }
     }
 
-    private fun apiPostLogin(email: String, user_pw: String) = with(binding.root.findNavController()) {
+    private fun apiPostLogin(email: String) = with(binding.root.findNavController()) {
         CoroutineScope(Dispatchers.Main).launch {
-            if (viewModel.postLogin(LoginInfo(email, user_pw))) {
+            val password = BuildConfig.SOCIAL_LOGIN_PASSWORFD
+            if (viewModel.postLogin(LoginInfo(email, password))) {
                 navigate(R.id.action_loginFragment_to_mainActivity)
             } else {
                 val userEntity = UserEntity(
                     email = email,
-                    user_pw = user_pw,
+                    user_pw = password,
                 )
                 val action = LoginFragmentDirections.actionLoginFragmentToSetTechFragment(userEntity)
                 navigate(action)
@@ -127,7 +128,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 if (error != null) {
                     Log.e(TAG, "사용자 정보 요청 실패")
                 } else {
-                    kakaoEmail = user?.kakaoAccount?.email.toString()
+                    val kakaoEmail = user?.kakaoAccount?.email.toString()
+                    viewModel.kakaoSetEmail(kakaoEmail)
                 }
             }
         } else {

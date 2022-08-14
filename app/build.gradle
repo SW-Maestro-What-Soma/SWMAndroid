@@ -21,6 +21,7 @@ android {
         manifestPlaceholders["KAKAO_NATIVE_API_KEY"] = KAKAO_NATIVE_API_KEY
         buildConfigField("String", "KAKAO_NATIVE_API_KEY", KAKAO_NATIVE_API_KEY)
         buildConfigField("String", "BACK_URL", BACK_URL)
+        buildConfigField("String", "SOCIAL_LOGIN_PASSWORFD", SOCIAL_LOGIN_PASSWORFD)
     }
 
     buildTypes {
