@@ -9,7 +9,10 @@ import androidx.navigation.findNavController
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentEmailLoginBinding
-import com.example.swmandroid.util.*
+import com.example.swmandroid.util.checkEmail
+import com.example.swmandroid.util.checkEmailEditText
+import com.example.swmandroid.util.checkPassword
+import com.example.swmandroid.util.checkPasswordEditText
 
 class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
 
@@ -35,7 +38,7 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
                 Toast.makeText(context, "이메일과 비밀번호 형식을 확인하세요.", Toast.LENGTH_SHORT).show()
             }
         }
-        signInTextview.setOnClickListener { root.findNavController().navigate(R.id.action_emailLoginFragment_to_signInFragment) }
+        signInTextview.setOnClickListener { root.findNavController().navigate(R.id.action_emailLoginFragment_to_signUpFragment) }
         findPasswordTextview.setOnClickListener { root.findNavController().navigate(R.id.action_emailLoginFragment_to_findPasswordFragment) }
     }
 

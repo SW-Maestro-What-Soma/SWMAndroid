@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentSignUpBinding
+import com.example.swmandroid.model.login.UserEntity
 import com.example.swmandroid.util.checkEmail
 import com.example.swmandroid.util.checkEmailEditText
 import com.example.swmandroid.util.checkPassword
@@ -37,7 +38,8 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
         signUpButton.setOnClickListener {
             if (checkEmail(emailEdittext) && checkPassword(passwordEdittext) && checkRePassword()) {
                 Toast.makeText(context, "회원가입 성공하였습니다.", Toast.LENGTH_SHORT).show()
-                root.findNavController().navigate(R.id.action_signInFragment_to_setTechFragment)
+                val action = SignUpFragmentDirections.actionSignUpFragmentToSetTechFragment(getEdittextText())
+                root.findNavController().navigate(action)
             } else {
                 Toast.makeText(context, "이메일과 비밀번호 형식을 확인하세요.", Toast.LENGTH_SHORT).show()
             }
@@ -66,6 +68,16 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
             rePasswordEdittext.setTextColor(-65536)
             false
         }
+    }
+
+    private fun getEdittextText(): UserEntity = with(binding) {
+        val email = emailEdittext.text.toString()
+        val password = passwordEdittext.text.toString()
+
+        return UserEntity(
+            email = email,
+            user_pw = password,
+        )
     }
 
 }

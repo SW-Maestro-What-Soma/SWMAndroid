@@ -1,8 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'androidx.navigation.safeargs'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -19,6 +20,7 @@ android {
 
         manifestPlaceholders["KAKAO_NATIVE_API_KEY"] = KAKAO_NATIVE_API_KEY
         buildConfigField("String", "KAKAO_NATIVE_API_KEY", KAKAO_NATIVE_API_KEY)
+        buildConfigField("String", "BACK_URL", BACK_URL)
     }
 
     buildTypes {

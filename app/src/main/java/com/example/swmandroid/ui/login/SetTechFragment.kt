@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentSetTechBinding
@@ -32,7 +33,13 @@ class SetTechFragment : BaseFragment<FragmentSetTechBinding>() {
     }
 
     private fun moveSetNickFragment(techStack: String) {
-        binding.root.findNavController().navigate(R.id.action_setTechFragment_to_setNickFragment, bundleOf("tech_stack" to techStack))
+        val args : SetTechFragmentArgs by navArgs()
+        val userEntity = args.userEntity
+        userEntity.tech_stack = techStack
+
+        val action = SetTechFragmentDirections.actionSetTechFragmentToSetNickFragment(userEntity)
+
+        binding.root.findNavController().navigate(action)
     }
 
 }

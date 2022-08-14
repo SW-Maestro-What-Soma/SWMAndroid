@@ -10,12 +10,19 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentSetNickBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.regex.Pattern
 
 class SetNickFragment : BaseFragment<FragmentSetNickBinding>() {
+
+    private val viewModel : LoginViewModel by sharedViewModel()
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentSetNickBinding {
         return FragmentSetNickBinding.inflate(inflater, container, false)
@@ -33,9 +40,16 @@ class SetNickFragment : BaseFragment<FragmentSetNickBinding>() {
         setNickButton.setOnClickListener {
             //TODO 이메일 가져와서 이메일+스택+닉네임 등록 로직 추가해야함
             if (checkNickname(setNickEdittext)) {
-                val techStack = requireArguments().getString("tech_stack")
                 val nickName = setNickEdittext.text.toString().trim()
-                root.findNavController().navigate(R.id.action_setNickFragment_to_mainActivity)
+                val args : SetNickFragmentArgs by navArgs()
+                val userEntity = args.userEntity
+                userEntity.nick_name = nickName
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    viewModel.postSignUp(userEntity)
+                }
+
+                root.findNavController().navigate(R.id.action_setNickFragment_to_emailLoginFragment)
             } else {
                 Toast.makeText(context, "닉네임 형식을 확인해주세요.", Toast.LENGTH_SHORT).show()
             }
@@ -66,5 +80,6 @@ class SetNickFragment : BaseFragment<FragmentSetNickBinding>() {
             false
         }
     }
+
 
 }

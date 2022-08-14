@@ -1,16 +1,15 @@
 package com.example.swmandroid.di
 
 import com.example.swmandroid.BuildConfig
-import com.example.swmandroid.data.network.ProfileApiService
-import com.example.swmandroid.data.url.Url
+import com.example.swmandroid.data.network.LoginApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-fun provideLoginApiService(retrofit : Retrofit) : ProfileApiService {
-    return retrofit.create(ProfileApiService::class.java)
+fun provideLoginApiService(retrofit : Retrofit) : LoginApiService {
+    return retrofit.create(LoginApiService::class.java)
 }
 
 fun provideLoginRetrofit(
@@ -18,7 +17,7 @@ fun provideLoginRetrofit(
     gsonConverterFactory: GsonConverterFactory
 ) : Retrofit {
     return Retrofit.Builder()
-        .baseUrl(Url.LOGIN_URL)
+        .baseUrl(BuildConfig.BACK_URL)
         .addConverterFactory(gsonConverterFactory)
         .client(okHttpClient)
         .build()

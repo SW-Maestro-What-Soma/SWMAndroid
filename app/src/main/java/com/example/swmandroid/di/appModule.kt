@@ -2,8 +2,8 @@ package com.example.swmandroid.di
 
 import androidx.lifecycle.SavedStateHandle
 import com.example.swmandroid.data.repository.login.google.GoogleRepository
-import com.example.swmandroid.data.repository.login.profile.ProfileRepository
-import com.example.swmandroid.data.repository.login.profile.ProfileRepositoryImpl
+import com.example.swmandroid.data.repository.login.login.LoginRepository
+import com.example.swmandroid.data.repository.login.login.LoginRepositoryImpl
 import com.example.swmandroid.ui.easylearning.EasyLearningViewModel
 import com.example.swmandroid.ui.login.LoginViewModel
 import com.example.swmandroid.ui.test.TestViewModel
@@ -18,7 +18,7 @@ internal val appModule = module {
     viewModel { (state: SavedStateHandle) -> EasyLearningViewModel(state) }
     viewModel { (state: SavedStateHandle) -> TestViewModel(state) }
 
-    single<ProfileRepository> { ProfileRepositoryImpl(get(), get()) }
+    single<LoginRepository> { LoginRepositoryImpl(get()) }
     single { GoogleRepository() }
 
     single { provideGsonConverterFactory() }
