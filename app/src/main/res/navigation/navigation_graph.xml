@@ -49,8 +49,11 @@
             android:name="userEntity"
             app:argType="com.example.swmandroid.model.login.UserEntity" />
         <action
-            android:id="@+id/action_setNickFragment_to_emailLoginFragment"
-            app:destination="@id/emailLoginFragment" />
+            android:id="@+id/action_setNickFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
+        <action
+            android:id="@+id/action_setNickFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/setTechFragment"

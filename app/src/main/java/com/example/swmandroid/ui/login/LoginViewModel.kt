@@ -24,9 +24,6 @@ class LoginViewModel(
     private val _kakaoCurrentUser = MutableLiveData<OAuthToken?>()
     val kakaoCurrentUser: LiveData<OAuthToken?> = _kakaoCurrentUser
 
-    private val _signUpUserEntity = MutableLiveData<UserEntity>()
-    val signUpUserEntity: LiveData<UserEntity> = _signUpUserEntity
-
     private val _userProfile = MutableLiveData<UserProfile>()
     val userProfile: LiveData<UserProfile> = _userProfile
 
@@ -39,12 +36,7 @@ class LoginViewModel(
     }
 
     suspend fun postSignUp(userEntity: UserEntity): Boolean = withContext(Dispatchers.IO) {
-        if (loginRepository.postSignUp(userEntity).code() == 200) {
-            _signUpUserEntity.postValue(userEntity)
-            return@withContext true
-        } else {
-            return@withContext false
-        }
+        return@withContext loginRepository.postSignUp(userEntity).code() == 200
     }
 
     suspend fun postLogin(loginInfo: LoginInfo): Boolean = withContext(Dispatchers.IO) {

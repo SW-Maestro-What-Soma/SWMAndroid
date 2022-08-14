@@ -3,6 +3,7 @@ package com.example.swmandroid.ui.login
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,15 +14,24 @@ import androidx.navigation.findNavController
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentLoginBinding
+import com.example.swmandroid.model.login.LoginInfo
+import com.example.swmandroid.model.login.UserEntity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
+
+    companion object {
+        const val TAG = "LOGIN_FRAGMENT"
+    }
 
     private val viewModel by viewModel<LoginViewModel>()
 
@@ -30,6 +40,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     private lateinit var googleSignInClient: GoogleSignInClient
 
     private lateinit var kakaoCallBack: (OAuthToken?, Throwable?) -> Unit
+
+    var kakaoEmail = ""
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentLoginBinding {
         return FragmentLoginBinding.inflate(inflater, container, false)
@@ -68,27 +80,58 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         }
     }
 
-    private fun kakaoLoginSetting(){
-        //TODO 카카오 로그인해서 처음인지 아닌지 확인하는 로직 추가해야함
+    private fun kakaoLoginSetting() {
         kakaoCallBack = { token, error ->
             if (error != null) {
                 Toast.makeText(context, "카카오로그인 실패", Toast.LENGTH_SHORT).show()
             } else if (token != null) {
                 viewModel.kakaoAddToken(token)
-                Toast.makeText(context, "카카오로그인 성공", Toast.LENGTH_SHORT).show()
+                apiPostLogin(kakaoEmail, "qwer1234**")
+            }
+        }
+    }
+
+    private fun apiPostLogin(email: String, user_pw: String) = with(binding.root.findNavController()) {
+        CoroutineScope(Dispatchers.Main).launch {
+            if (viewModel.postLogin(LoginInfo(email, user_pw))) {
+                navigate(R.id.action_loginFragment_to_mainActivity)
+            } else {
+                val userEntity = UserEntity(
+                    email = email,
+                    user_pw = user_pw,
+                )
+                val action = LoginFragmentDirections.actionLoginFragmentToSetTechFragment(userEntity)
+                navigate(action)
             }
         }
     }
 
     private fun buttonClick() = with(binding) {
-        emailLoginButton.setOnClickListener { root.findNavController().navigate(R.id.action_loginFragment_to_emailLoginFragment) }
-        googleLoginButton.setOnClickListener { googleGetResult.launch(googleSignInClient.signInIntent) }
+        emailLoginButton.setOnClickListener {
+            root.findNavController().navigate(R.id.action_loginFragment_to_emailLoginFragment)
+        }
+
+        googleLoginButton.setOnClickListener {
+            googleGetResult.launch(googleSignInClient.signInIntent)
+        }
+
         kakaoLoginButton.setOnClickListener {
-            if (UserApiClient.instance.isKakaoTalkLoginAvailable(requireContext())) {
-                UserApiClient.instance.loginWithKakaoTalk(requireContext(), callback = kakaoCallBack)
-            } else {
-                UserApiClient.instance.loginWithKakaoAccount(requireContext(), callback = kakaoCallBack)
+            kakaoLoginSend()
+        }
+    }
+
+    private fun kakaoLoginSend() {
+        if (UserApiClient.instance.isKakaoTalkLoginAvailable(requireContext())) {
+            UserApiClient.instance.loginWithKakaoTalk(requireContext(), callback = kakaoCallBack)
+            UserApiClient.instance.me { user, error ->
+                if (error != null) {
+                    Log.e(TAG, "사용자 정보 요청 실패")
+                } else {
+                    kakaoEmail = user?.kakaoAccount?.email.toString()
+                }
             }
+        } else {
+            UserApiClient.instance.loginWithKakaoAccount(requireContext(), callback = kakaoCallBack)
         }
     }
 

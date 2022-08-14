@@ -14,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentSetNickBinding
+import com.example.swmandroid.model.login.LoginInfo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -78,10 +79,15 @@ class SetNickFragment : BaseFragment<FragmentSetNickBinding>() {
 
         CoroutineScope(Dispatchers.Main).launch {
             if (viewModel.postSignUp(userEntity)) {
-                Toast.makeText(context, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show()
-                root.findNavController().navigate(R.id.action_setNickFragment_to_emailLoginFragment)
+                if (viewModel.postLogin(LoginInfo(userEntity.email, userEntity.user_pw))) {
+                    root.findNavController().navigate(R.id.action_setNickFragment_to_mainActivity)
+                } else {
+                    Toast.makeText(context, "회원가입에 실패하였습니다..", Toast.LENGTH_SHORT).show()
+                    root.findNavController().navigate(R.id.action_setNickFragment_to_loginFragment)
+                }
             } else {
                 Toast.makeText(context, "회원가입에 실패하였습니다..", Toast.LENGTH_SHORT).show()
+                root.findNavController().navigate(R.id.action_setNickFragment_to_loginFragment)
             }
         }
     }

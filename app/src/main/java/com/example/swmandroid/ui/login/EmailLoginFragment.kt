@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
@@ -30,11 +29,6 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel.signUpUserEntity.observe(viewLifecycleOwner, Observer {
-            binding.emailEdittext.setText(it.email)
-            binding.passwordEdittext.setText(it.user_pw)
-        })
 
         checkEmailEditText(binding.emailEdittext)
         checkPasswordEditText(binding.passwordEdittext)
@@ -61,7 +55,6 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
             val password = passwordEdittext.text.toString()
 
             if (viewModel.postLogin(LoginInfo(email, password))) {
-                Toast.makeText(context, "로그인 성공하였습니다.", Toast.LENGTH_SHORT).show()
                 root.findNavController().navigate(R.id.action_emailLoginFragment_to_mainActivity)
             } else {
                 Toast.makeText(context, "로그인 실패하였습니다.", Toast.LENGTH_SHORT).show()
