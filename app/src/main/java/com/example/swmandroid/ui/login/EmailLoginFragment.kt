@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
@@ -13,8 +14,11 @@ import com.example.swmandroid.util.checkEmail
 import com.example.swmandroid.util.checkEmailEditText
 import com.example.swmandroid.util.checkPassword
 import com.example.swmandroid.util.checkPasswordEditText
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
+
+    private val viewModel : LoginViewModel by sharedViewModel()
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentEmailLoginBinding {
         return FragmentEmailLoginBinding.inflate(inflater, container, false)
@@ -23,8 +27,14 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.signUpUserEntity.observe(viewLifecycleOwner, Observer{
+            binding.emailEdittext.setText(it.email)
+            binding.passwordEdittext.setText(it.user_pw)
+        })
+
         checkEmailEditText(binding.emailEdittext)
         checkPasswordEditText(binding.passwordEdittext)
+
         buttonClick()
     }
 

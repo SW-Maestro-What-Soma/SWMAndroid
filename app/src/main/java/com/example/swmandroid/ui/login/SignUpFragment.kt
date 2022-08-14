@@ -37,7 +37,6 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
         backButton.setOnClickListener { root.findNavController().popBackStack() }
         signUpButton.setOnClickListener {
             if (checkEmail(emailEdittext) && checkPassword(passwordEdittext) && checkRePassword()) {
-                Toast.makeText(context, "회원가입 성공하였습니다.", Toast.LENGTH_SHORT).show()
                 val action = SignUpFragmentDirections.actionSignUpFragmentToSetTechFragment(getEdittextText())
                 root.findNavController().navigate(action)
             } else {

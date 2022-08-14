@@ -31,13 +31,9 @@ class LoginViewModel(
         _kakaoCurrentUser.value = token
     }
 
-    suspend fun getProfile() {
-        loginRepository.getProfile()
-    }
-
     suspend fun postSignUp(userEntity: UserEntity): Boolean =
         if (loginRepository.postSignUp(userEntity).code() == 200) {
-            _signUpUserEntity.value = userEntity
+            _signUpUserEntity.postValue(userEntity)
             true
         } else {
             false

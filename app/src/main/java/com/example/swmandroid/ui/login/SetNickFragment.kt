@@ -22,7 +22,7 @@ import java.util.regex.Pattern
 
 class SetNickFragment : BaseFragment<FragmentSetNickBinding>() {
 
-    private val viewModel : LoginViewModel by sharedViewModel()
+    private val viewModel: LoginViewModel by sharedViewModel()
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentSetNickBinding {
         return FragmentSetNickBinding.inflate(inflater, container, false)
@@ -38,22 +38,11 @@ class SetNickFragment : BaseFragment<FragmentSetNickBinding>() {
     private fun buttonClick() = with(binding) {
         backButton.setOnClickListener { root.findNavController().popBackStack() }
         setNickButton.setOnClickListener {
-            //TODO 이메일 가져와서 이메일+스택+닉네임 등록 로직 추가해야함
             if (checkNickname(setNickEdittext)) {
-                val nickName = setNickEdittext.text.toString().trim()
-                val args : SetNickFragmentArgs by navArgs()
-                val userEntity = args.userEntity
-                userEntity.nick_name = nickName
-
-                CoroutineScope(Dispatchers.IO).launch {
-                    viewModel.postSignUp(userEntity)
-                }
-
-                root.findNavController().navigate(R.id.action_setNickFragment_to_emailLoginFragment)
+                apiPostSignUp()
             } else {
                 Toast.makeText(context, "닉네임 형식을 확인해주세요.", Toast.LENGTH_SHORT).show()
             }
-
         }
     }
 
@@ -81,5 +70,20 @@ class SetNickFragment : BaseFragment<FragmentSetNickBinding>() {
         }
     }
 
+    private fun apiPostSignUp() = with(binding) {
+        val nickName = setNickEdittext.text.toString().trim()
+        val args: SetNickFragmentArgs by navArgs()
+        val userEntity = args.userEntity
+        userEntity.nick_name = nickName
+
+        CoroutineScope(Dispatchers.IO).launch {
+            if (viewModel.postSignUp(userEntity)) {
+                Toast.makeText(context, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show()
+                root.findNavController().navigate(R.id.action_setNickFragment_to_emailLoginFragment)
+            } else {
+                Toast.makeText(context, "회원가입에 실패하였습니다..", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
 }
