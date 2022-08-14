@@ -76,7 +76,7 @@ class SetNickFragment : BaseFragment<FragmentSetNickBinding>() {
         val userEntity = args.userEntity
         userEntity.nick_name = nickName
 
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.Main).launch {
             if (viewModel.postSignUp(userEntity)) {
                 Toast.makeText(context, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show()
                 root.findNavController().navigate(R.id.action_setNickFragment_to_emailLoginFragment)
