@@ -1,4 +1,4 @@
-package com.example.swmandroid.data.repository.login.login
+package com.example.swmandroid.data.repository.login.email
 
 import com.example.swmandroid.data.network.LoginApiService
 import com.example.swmandroid.model.login.LoginInfo

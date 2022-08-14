@@ -1,4 +1,4 @@
-package com.example.swmandroid.data.repository.login.login
+package com.example.swmandroid.data.repository.login.email
 
 import com.example.swmandroid.model.login.LoginInfo
 import com.example.swmandroid.model.login.UserEntity

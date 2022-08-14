@@ -1,9 +1,9 @@
 package com.example.swmandroid.di
 
 import androidx.lifecycle.SavedStateHandle
+import com.example.swmandroid.data.repository.login.email.LoginRepository
+import com.example.swmandroid.data.repository.login.email.LoginRepositoryImpl
 import com.example.swmandroid.data.repository.login.google.GoogleRepository
-import com.example.swmandroid.data.repository.login.login.LoginRepository
-import com.example.swmandroid.data.repository.login.login.LoginRepositoryImpl
 import com.example.swmandroid.ui.easylearning.EasyLearningViewModel
 import com.example.swmandroid.ui.login.LoginViewModel
 import com.example.swmandroid.ui.test.TestViewModel

@@ -3,8 +3,8 @@ package com.example.swmandroid.ui.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.swmandroid.data.repository.login.email.LoginRepository
 import com.example.swmandroid.data.repository.login.google.GoogleRepository
-import com.example.swmandroid.data.repository.login.login.LoginRepository
 import com.example.swmandroid.model.login.LoginInfo
 import com.example.swmandroid.model.login.UserEntity
 import com.example.swmandroid.model.login.UserProfile
