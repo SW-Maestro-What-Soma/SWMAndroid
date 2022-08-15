@@ -23,7 +23,7 @@ import java.util.regex.Pattern
 
 class SetNickFragment : BaseFragment<FragmentSetNickBinding>() {
 
-    private val viewModel: LoginViewModel by sharedViewModel()
+    private val loginViewModel: LoginViewModel by sharedViewModel()
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentSetNickBinding {
         return FragmentSetNickBinding.inflate(inflater, container, false)
@@ -78,8 +78,8 @@ class SetNickFragment : BaseFragment<FragmentSetNickBinding>() {
         userEntity.nick_name = nickName
 
         CoroutineScope(Dispatchers.Main).launch {
-            if (viewModel.postSignUp(userEntity)) {
-                if (viewModel.postLogin(LoginInfo(userEntity.email, userEntity.user_pw))) {
+            if (loginViewModel.postSignUp(userEntity)) {
+                if (loginViewModel.postLogin(LoginInfo(userEntity.email, userEntity.user_pw))) {
                     root.findNavController().navigate(R.id.action_setNickFragment_to_mainActivity)
                 } else {
                     Toast.makeText(context, "회원가입에 실패하였습니다..", Toast.LENGTH_SHORT).show()

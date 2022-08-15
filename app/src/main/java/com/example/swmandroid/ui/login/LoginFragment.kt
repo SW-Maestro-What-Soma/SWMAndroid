@@ -27,6 +27,7 @@ import com.kakao.sdk.user.UserApiClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
@@ -35,7 +36,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         const val TAG = "LOGIN_FRAGMENT"
     }
 
-    private val viewModel by viewModel<LoginViewModel>()
+    private val loginViewModel: LoginViewModel by sharedViewModel()
 
     private lateinit var googleGetResult: ActivityResultLauncher<Intent>
 
@@ -69,7 +70,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
                 try {
                     val account = task.getResult(ApiException::class.java)!!
-                    viewModel.googleAddToken(account.idToken!!)
+                    loginViewModel.googleAddToken(account.idToken!!)
                     account.email?.let { it -> apiPostLogin(it) }
                 } catch (e: ApiException) {
                     Toast.makeText(context, "구글로그인 실패", Toast.LENGTH_SHORT).show()
@@ -83,8 +84,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             if (error != null) {
                 Toast.makeText(context, "카카오로그인 실패", Toast.LENGTH_SHORT).show()
             } else if (token != null) {
-                viewModel.kakaoAddToken(token)
-                viewModel.kakaoEmail.observe(viewLifecycleOwner, Observer {
+                loginViewModel.kakaoAddToken(token)
+                loginViewModel.kakaoEmail.observe(viewLifecycleOwner, Observer {
                     apiPostLogin(it)
                 })
             }
@@ -94,7 +95,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     private fun apiPostLogin(email: String) = with(binding.root.findNavController()) {
         CoroutineScope(Dispatchers.Main).launch {
             val password = BuildConfig.SOCIAL_LOGIN_PASSWORFD
-            if (viewModel.postLogin(LoginInfo(email, password))) {
+            if (loginViewModel.postLogin(LoginInfo(email, password))) {
                 navigate(R.id.action_loginFragment_to_mainActivity)
             } else {
                 val userEntity = UserEntity(
@@ -129,7 +130,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     Log.e(TAG, "사용자 정보 요청 실패")
                 } else {
                     val kakaoEmail = user?.kakaoAccount?.email.toString()
-                    viewModel.kakaoSetEmail(kakaoEmail)
+                    loginViewModel.kakaoSetEmail(kakaoEmail)
                 }
             }
         } else {

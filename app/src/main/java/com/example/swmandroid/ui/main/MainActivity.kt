@@ -40,7 +40,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
     var totalScore = 0
     var isPlatinum = false
 
-    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -52,8 +51,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         initJobPostingItem()
         bookItemRecyclerview()
         initBookItem()
-
-
     }
 
     @SuppressLint("SetTextI18n")

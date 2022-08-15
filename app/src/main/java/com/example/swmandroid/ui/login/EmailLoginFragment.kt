@@ -21,7 +21,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
 
-    private val viewModel: LoginViewModel by sharedViewModel()
+    private val loginViewModel: LoginViewModel by sharedViewModel()
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentEmailLoginBinding {
         return FragmentEmailLoginBinding.inflate(inflater, container, false)
@@ -54,7 +54,7 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
             val email = emailEdittext.text.toString()
             val password = passwordEdittext.text.toString()
 
-            if (viewModel.postLogin(LoginInfo(email, password))) {
+            if (loginViewModel.postLogin(LoginInfo(email, password))) {
                 root.findNavController().navigate(R.id.action_emailLoginFragment_to_mainActivity)
             } else {
                 Toast.makeText(context, "로그인 실패하였습니다.", Toast.LENGTH_SHORT).show()
