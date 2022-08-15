@@ -28,7 +28,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
@@ -95,16 +94,21 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     private fun apiPostLogin(email: String) = with(binding.root.findNavController()) {
         CoroutineScope(Dispatchers.Main).launch {
             val password = BuildConfig.SOCIAL_LOGIN_PASSWORFD
-            if (loginViewModel.postLogin(LoginInfo(email, password))) {
-                navigate(R.id.action_loginFragment_to_mainActivity)
-            } else {
-                val userEntity = UserEntity(
-                    email = email,
-                    user_pw = password,
-                )
-                val action = LoginFragmentDirections.actionLoginFragmentToSetTechFragment(userEntity)
-                navigate(action)
-            }
+
+            loginViewModel.postLogin(LoginInfo(email, password))
+
+            loginViewModel.userProfile.observe(viewLifecycleOwner, Observer {
+                if (it != null) {
+                    navigate(R.id.action_loginFragment_to_mainActivity)
+                } else {
+                    val userEntity = UserEntity(
+                        email = email,
+                        user_pw = password,
+                    )
+                    val action = LoginFragmentDirections.actionLoginFragmentToSetTechFragment(userEntity)
+                    navigate(action)
+                }
+            })
         }
     }
 

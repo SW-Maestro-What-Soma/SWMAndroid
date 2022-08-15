@@ -3,11 +3,13 @@ package com.example.swmandroid.ui.main
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -21,11 +23,13 @@ import com.example.swmandroid.model.jobposting.JobPostingItem
 import com.example.swmandroid.ui.community.CommunityActivity
 import com.example.swmandroid.ui.easylearning.EasyLearningActivity
 import com.example.swmandroid.ui.fullservice.FullServiceActivity
+import com.example.swmandroid.ui.login.LoginViewModel
 import com.example.swmandroid.ui.main.adapter.BookAdapter
 import com.example.swmandroid.ui.main.adapter.JobPostingAdapter
 import com.example.swmandroid.ui.mypage.MyPageActivity
 import com.example.swmandroid.ui.test.TestActivity
 import com.example.swmandroid.ui.test.TestResultActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.abs
 
 class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inflate(it) }) {
@@ -37,6 +41,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
 
     private lateinit var bookItemList: ArrayList<BookItem>
 
+    private val loginViewModel by viewModel<LoginViewModel>()
+
     var totalScore = 0
     var isPlatinum = false
 
@@ -44,6 +50,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         super.onCreate(savedInstanceState)
 
         window.statusBarColor = Color.parseColor("#0083E1")
+
+        loginViewModel.userProfile.observe(this, Observer {
+            binding.nickNameTextview.text = it?.nick_name
+        })
 
         initView()
         buttonClick()
@@ -55,8 +65,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
 
     @SuppressLint("SetTextI18n")
     private fun initView() = with(binding) {
-        //TODO 닉네임 로직 구현시 변경
-        nickNameTextview.text = "김시진님"
+
 
         //TODO 토탈 점수 가져오기 구현
         totalScore = 450

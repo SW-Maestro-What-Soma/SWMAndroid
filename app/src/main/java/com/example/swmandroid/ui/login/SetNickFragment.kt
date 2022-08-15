@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.swmandroid.R
@@ -78,17 +79,27 @@ class SetNickFragment : BaseFragment<FragmentSetNickBinding>() {
         userEntity.nick_name = nickName
 
         CoroutineScope(Dispatchers.Main).launch {
-            if (loginViewModel.postSignUp(userEntity)) {
-                if (loginViewModel.postLogin(LoginInfo(userEntity.email, userEntity.user_pw))) {
-                    root.findNavController().navigate(R.id.action_setNickFragment_to_mainActivity)
+            loginViewModel.postSignUp(userEntity)
+
+            loginViewModel.isStatusCode200.observe(viewLifecycleOwner, Observer { isStatusCode200 ->
+                if (isStatusCode200) {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        loginViewModel.postLogin(LoginInfo(userEntity.email, userEntity.user_pw))
+
+                        loginViewModel.userProfile.observe(viewLifecycleOwner, Observer { userProfile ->
+                            if (userProfile != null) {
+                                root.findNavController().navigate(R.id.action_setNickFragment_to_mainActivity)
+                            } else {
+                                Toast.makeText(context, "회원가입에 실패하였습니다..", Toast.LENGTH_SHORT).show()
+                                root.findNavController().navigate(R.id.action_setNickFragment_to_loginFragment)
+                            }
+                        })
+                    }
                 } else {
                     Toast.makeText(context, "회원가입에 실패하였습니다..", Toast.LENGTH_SHORT).show()
                     root.findNavController().navigate(R.id.action_setNickFragment_to_loginFragment)
                 }
-            } else {
-                Toast.makeText(context, "회원가입에 실패하였습니다..", Toast.LENGTH_SHORT).show()
-                root.findNavController().navigate(R.id.action_setNickFragment_to_loginFragment)
-            }
+            })
         }
     }
 

@@ -14,7 +14,7 @@ import org.koin.dsl.module
 
 internal val appModule = module {
 
-    viewModel { LoginViewModel(get(), get()) }
+    single { LoginViewModel(get(), get()) }
     viewModel { (state: SavedStateHandle) -> EasyLearningViewModel(state) }
     viewModel { (state: SavedStateHandle) -> TestViewModel(state) }
 
