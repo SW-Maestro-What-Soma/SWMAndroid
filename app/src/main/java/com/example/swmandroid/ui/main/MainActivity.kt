@@ -2,6 +2,7 @@ package com.example.swmandroid.ui.main
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -39,8 +40,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
     var totalScore = 0
     var isPlatinum = false
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        window.statusBarColor = Color.parseColor("#0083E1")
 
         initView()
         buttonClick()
@@ -60,14 +64,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         //TODO 토탈 점수 가져오기 구현
         totalScore = 450
         if (totalScore > 0) {
-            preTestScoreTextview.text = "이전 점수 $totalScore / 500"
-            preTestResultLayout.visibility = View.VISIBLE
+            //preTestScoreTextview.text = "이전 점수 $totalScore / 500"
+            //preTestResultLayout.visibility = View.VISIBLE
             preTestResultButton.visibility = View.VISIBLE
             preTestResultButton.setOnClickListener {
                 moveActivity(TestResultActivity())
             }
         } else {
-            preTestResultLayout.visibility = View.GONE
+            //preTestResultLayout.visibility = View.GONE
             preTestResultButton.visibility = View.GONE
         }
 

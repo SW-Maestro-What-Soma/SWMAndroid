@@ -21,4 +21,11 @@
     <string name="complete_signup">가입완료</string>
     <string name="find_email_hint">가입한 이메일을 입력해 주세요</string>
     <string name="find_password_button">비밀번호 재설정 메일 보내기</string>
+    <string name="level_test">레벨 테스트</string>
+    <string name="pre_test_result">이전 테스트 결과보기</string>
+    <string name="make_problem">문제 출제하기</string>
+    <string name="test">테스트</string>
+    <string name="easy_learning">간편학습</string>
+    <string name="community">커뮤니티</string>
+    <string name="recommend_book">추천책</string>
 </resources>
