@@ -28,4 +28,7 @@
     <string name="easy_learning">간편학습</string>
     <string name="community">커뮤니티</string>
     <string name="recommend_book">추천책</string>
+    <string name="choose_tech">상단 카테고리에서\n기술스택을 선택해주세요.</string>
+    <string name="easy_learning_expert_text">전문가의 신뢰성있는\n기술면접 문제를 제공해드려요.</string>
+    <string name="start_learning">학습시작</string>
 </resources>
