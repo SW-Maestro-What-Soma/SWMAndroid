@@ -16,9 +16,6 @@ import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentSetNickBinding
 import com.example.swmandroid.model.login.LoginInfo
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.regex.Pattern
 
@@ -78,29 +75,26 @@ class SetNickFragment : BaseFragment<FragmentSetNickBinding>() {
         val userEntity = args.userEntity
         userEntity.nick_name = nickName
 
-        CoroutineScope(Dispatchers.Main).launch {
-            loginViewModel.postSignUp(userEntity)
+        loginViewModel.postSignUp(userEntity)
 
-            loginViewModel.isStatusCode200.observe(viewLifecycleOwner, Observer { isStatusCode200 ->
-                if (isStatusCode200) {
-                    CoroutineScope(Dispatchers.Main).launch {
-                        loginViewModel.postLogin(LoginInfo(userEntity.email, userEntity.user_pw))
+        loginViewModel.isStatusCode200.observe(viewLifecycleOwner, Observer { isStatusCode200 ->
+            if (isStatusCode200) {
+                loginViewModel.postLogin(LoginInfo(userEntity.email, userEntity.user_pw))
 
-                        loginViewModel.userProfile.observe(viewLifecycleOwner, Observer { userProfile ->
-                            if (userProfile != null) {
-                                root.findNavController().navigate(R.id.action_setNickFragment_to_mainActivity)
-                            } else {
-                                Toast.makeText(context, "회원가입에 실패하였습니다..", Toast.LENGTH_SHORT).show()
-                                root.findNavController().navigate(R.id.action_setNickFragment_to_loginFragment)
-                            }
-                        })
+                loginViewModel.userProfile.observe(viewLifecycleOwner, Observer { userProfile ->
+                    if (userProfile != null) {
+                        root.findNavController().navigate(R.id.action_setNickFragment_to_mainActivity)
+                    } else {
+                        Toast.makeText(context, "회원가입에 실패하였습니다..", Toast.LENGTH_SHORT).show()
+                        root.findNavController().navigate(R.id.action_setNickFragment_to_loginFragment)
                     }
-                } else {
-                    Toast.makeText(context, "회원가입에 실패하였습니다..", Toast.LENGTH_SHORT).show()
-                    root.findNavController().navigate(R.id.action_setNickFragment_to_loginFragment)
-                }
-            })
-        }
+                })
+
+            } else {
+                Toast.makeText(context, "회원가입에 실패하였습니다..", Toast.LENGTH_SHORT).show()
+                root.findNavController().navigate(R.id.action_setNickFragment_to_loginFragment)
+            }
+        })
     }
 
 }

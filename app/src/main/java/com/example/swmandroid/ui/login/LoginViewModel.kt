@@ -48,7 +48,7 @@ class LoginViewModel(
         _kakaoEmail.value = email
     }
 
-    suspend fun postSignUp(userEntity: UserEntity) {
+    fun postSignUp(userEntity: UserEntity) {
         viewModelScope.launch(CoroutineExceptionHandler { _, e ->
             _isStatusCode200.value = false
         }) {
@@ -60,7 +60,7 @@ class LoginViewModel(
         }
     }
 
-    suspend fun postLogin(loginInfo: LoginInfo) {
+    fun postLogin(loginInfo: LoginInfo) {
         viewModelScope.launch(CoroutineExceptionHandler { _, e ->
             _userProfile.value = null
         }) {

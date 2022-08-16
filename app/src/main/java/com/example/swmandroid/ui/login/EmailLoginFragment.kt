@@ -15,9 +15,6 @@ import com.example.swmandroid.util.checkEmail
 import com.example.swmandroid.util.checkEmailEditText
 import com.example.swmandroid.util.checkPassword
 import com.example.swmandroid.util.checkPasswordEditText
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
@@ -51,21 +48,18 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
     }
 
     private fun apiPostLogin() = with(binding) {
-        CoroutineScope(Dispatchers.Main).launch {
-            val email = emailEdittext.text.toString()
-            val password = passwordEdittext.text.toString()
+        val email = emailEdittext.text.toString()
+        val password = passwordEdittext.text.toString()
 
-            loginViewModel.postLogin(LoginInfo(email, password))
+        loginViewModel.postLogin(LoginInfo(email, password))
 
-            loginViewModel.userProfile.observe(viewLifecycleOwner, Observer {
-                if (it != null) {
-                    root.findNavController().navigate(R.id.action_emailLoginFragment_to_mainActivity)
-                } else {
-                    Toast.makeText(context, "로그인 실패하였습니다.", Toast.LENGTH_SHORT).show()
-                }
-            })
-
-        }
+        loginViewModel.userProfile.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                root.findNavController().navigate(R.id.action_emailLoginFragment_to_mainActivity)
+            } else {
+                Toast.makeText(context, "로그인 실패하였습니다.", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
 }

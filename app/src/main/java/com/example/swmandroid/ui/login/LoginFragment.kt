@@ -24,9 +24,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
@@ -92,24 +89,22 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
 
     private fun apiPostLogin(email: String) = with(binding.root.findNavController()) {
-        CoroutineScope(Dispatchers.Main).launch {
-            val password = BuildConfig.SOCIAL_LOGIN_PASSWORFD
+        val password = BuildConfig.SOCIAL_LOGIN_PASSWORFD
 
-            loginViewModel.postLogin(LoginInfo(email, password))
+        loginViewModel.postLogin(LoginInfo(email, password))
 
-            loginViewModel.userProfile.observe(viewLifecycleOwner, Observer {
-                if (it != null) {
-                    navigate(R.id.action_loginFragment_to_mainActivity)
-                } else {
-                    val userEntity = UserEntity(
-                        email = email,
-                        user_pw = password,
-                    )
-                    val action = LoginFragmentDirections.actionLoginFragmentToSetTechFragment(userEntity)
-                    navigate(action)
-                }
-            })
-        }
+        loginViewModel.userProfile.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                navigate(R.id.action_loginFragment_to_mainActivity)
+            } else {
+                val userEntity = UserEntity(
+                    email = email,
+                    user_pw = password,
+                )
+                val action = LoginFragmentDirections.actionLoginFragmentToSetTechFragment(userEntity)
+                navigate(action)
+            }
+        })
     }
 
     private fun buttonClick() = with(binding) {
