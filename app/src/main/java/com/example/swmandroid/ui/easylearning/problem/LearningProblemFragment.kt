@@ -9,12 +9,12 @@ import androidx.lifecycle.Observer
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentLearningProblemBinding
+import com.example.swmandroid.model.problem.ProblemResponseItem
 import com.example.swmandroid.ui.easylearning.EasyLearningViewModel
 import com.example.swmandroid.ui.easylearning.StartEasyLearningActivity
-import com.example.swmandroid.util.MetricsUtil
 import com.example.swmandroid.util.ScreenMetricsUtil
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import org.koin.androidx.viewmodel.ext.android.stateViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class LearningProblemFragment : BaseFragment<FragmentLearningProblemBinding>() {
 
@@ -24,17 +24,19 @@ class LearningProblemFragment : BaseFragment<FragmentLearningProblemBinding>() {
 
     companion object {
         private const val KEY_PROBLEM_NUMBER = "problem_number"
+        private const val KEY_PROBLEM = "problem"
 
         @JvmStatic
-        fun newInstance(problemNumber: Int) =
+        fun newInstance(problemNumber: Int, problem: ProblemResponseItem) =
             LearningProblemFragment().apply {
                 arguments = Bundle().apply {
                     putInt(KEY_PROBLEM_NUMBER, problemNumber)
+                    putParcelable(KEY_PROBLEM, problem)
                 }
             }
     }
 
-    private val viewModel by stateViewModel<EasyLearningViewModel>()
+    private val easyLearningViewModel: EasyLearningViewModel by sharedViewModel()
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
@@ -50,8 +52,7 @@ class LearningProblemFragment : BaseFragment<FragmentLearningProblemBinding>() {
 
         bottomSheet.layoutParams.height = (displayHeight * 0.7).toInt()
 
-
-        viewModel.isFavoriteLearningProblem.observe(viewLifecycleOwner, Observer {
+        easyLearningViewModel.isFavoriteLearningProblem.observe(viewLifecycleOwner, Observer {
             when (it) {
                 true -> favoriteButton.setImageResource(R.drawable.selected_favorite)
                 false -> favoriteButton.setImageResource(R.drawable.unselected_favorite)
@@ -59,16 +60,15 @@ class LearningProblemFragment : BaseFragment<FragmentLearningProblemBinding>() {
         })
 
         favoriteButton.setOnClickListener {
-            viewModel.setFavoriteLearningProblem()
+            easyLearningViewModel.setFavoriteLearningProblem()
         }
 
-        viewModel.getProblem()
 
         arguments?.let {
             val problemNumber = it.getInt(KEY_PROBLEM_NUMBER)
-            val problem = viewModel.problem.value?.get(problemNumber)
+            val problem = it.getParcelable<ProblemResponseItem>(KEY_PROBLEM)
 
-            problemNumberTextview.text = getString(R.string.problem_number, problemNumber + 1)
+            problemNumberTextview.text = getString(R.string.problem_number, problemNumber)
             problemTitleTextview.text = problem?.problemTitle
             problemContentTextview.text = problem?.problemContent
         }

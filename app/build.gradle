@@ -50,8 +50,8 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
@@ -94,6 +94,7 @@ dependencies {
 
     // ViewModel Lifecycle
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1"
+
 }
 
 apply plugin: 'com.google.gms.google-services'

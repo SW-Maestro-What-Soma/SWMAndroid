@@ -1,19 +1,22 @@
 package com.example.swmandroid.ui.easylearning
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import com.example.swmandroid.model.problem.Problem
+import androidx.lifecycle.*
+import com.example.swmandroid.data.repository.problem.ProblemRepository
+import com.example.swmandroid.model.problem.ProblemResponse
+import com.example.swmandroid.util.Resource
+import kotlinx.coroutines.launch
 
 class EasyLearningViewModel(
-    private val handle: SavedStateHandle
+    private val handle: SavedStateHandle,
+    private val problemRepository: ProblemRepository,
 ) : ViewModel() {
 
-    private val _problem = MutableLiveData<ArrayList<Problem>>()
-    val problem: LiveData<ArrayList<Problem>> = _problem
+    companion object{
+        const val FAVORITE_LEARNING_PROBLEM = "favorite_learning_problem"
+    }
 
-    private val FAVORITE_LEARNING_PROBLEM = "favorite_learning_problem"
+    private val _problem = MutableLiveData<Resource<ProblemResponse>>()
+    val problem : LiveData<Resource<ProblemResponse>> = _problem
 
     private var favoriteLearningProblem = handle.get<Boolean>(FAVORITE_LEARNING_PROBLEM) ?: false
         set(value) {
@@ -29,16 +32,10 @@ class EasyLearningViewModel(
         favoriteLearningProblem = !favoriteLearningProblem
     }
 
-    fun getProblem() {
-        //TODO API 연결해서 문제 가져와야함
-        _problem.value = arrayListOf(
-            Problem("문제제목1", "문제내용1\n문제내용1\n문제내용1\n문제내용1\n문제내용1\n문제내용1\n문제내용1\n문제내용1\n문제내용1\n문제내용1\n문제내용1\n문제내용1\n문제내용1\n"),
-            Problem("문제제목2", "문제내용2"),
-            Problem("문제제목3", "문제내용3"),
-            Problem("문제제목4", "문제내용4"),
-            Problem("문제제목5", "문제내용5"),
-            Problem("문제제목6", "문제내용6")
-        )
+    fun getProblemByTechStack(techStack : String) = viewModelScope.launch{
+        _problem.postValue(Resource.Loading())
+
+        _problem.postValue(problemRepository.getProblemByTechStack(techStack))
     }
 
 }

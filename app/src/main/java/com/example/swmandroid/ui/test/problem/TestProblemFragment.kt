@@ -56,8 +56,7 @@ class TestProblemFragment : BaseFragment<FragmentTestProblemBinding>() {
             val problemNumber = it.getInt(KEY_PROBLEM_NUMBER)
             val problem = viewModel.problem.value?.get(problemNumber)
 
-            bindingProblem = problem
-            bindingProblemNumber = problemNumber + 1
+
         }
     }
 

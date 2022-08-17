@@ -2,6 +2,7 @@ package com.example.swmandroid.di
 
 import com.example.swmandroid.BuildConfig
 import com.example.swmandroid.data.network.LoginApiService
+import com.example.swmandroid.data.network.ProblemApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -12,7 +13,11 @@ fun provideLoginApiService(retrofit : Retrofit) : LoginApiService {
     return retrofit.create(LoginApiService::class.java)
 }
 
-fun provideLoginRetrofit(
+fun provideProblemApiService(retrofit: Retrofit) : ProblemApiService{
+    return retrofit.create(ProblemApiService::class.java)
+}
+
+fun provideRetrofit(
     okHttpClient : OkHttpClient,
     gsonConverterFactory: GsonConverterFactory
 ) : Retrofit {
