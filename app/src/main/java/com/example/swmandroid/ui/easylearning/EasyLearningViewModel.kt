@@ -32,7 +32,7 @@ class EasyLearningViewModel(
     fun getProblem() {
         //TODO API 연결해서 문제 가져와야함
         _problem.value = arrayListOf(
-            Problem("문제제목1", "문제내용1"),
+            Problem("문제제목1", "문제내용1\n문제내용1\n문제내용1\n문제내용1\n문제내용1\n문제내용1\n문제내용1\n문제내용1\n문제내용1\n문제내용1\n문제내용1\n문제내용1\n문제내용1\n"),
             Problem("문제제목2", "문제내용2"),
             Problem("문제제목3", "문제내용3"),
             Problem("문제제목4", "문제내용4"),

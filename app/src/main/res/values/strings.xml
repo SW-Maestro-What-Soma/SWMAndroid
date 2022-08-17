@@ -31,4 +31,6 @@
     <string name="choose_tech">상단 카테고리에서\n기술스택을 선택해주세요.</string>
     <string name="easy_learning_expert_text">전문가의 신뢰성있는\n기술면접 문제를 제공해드려요.</string>
     <string name="start_learning">학습시작</string>
+    <string name="check_answer">답변확인</string>
+    <string name="problem_number">Question%2d</string>
 </resources>

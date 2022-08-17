@@ -8,9 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00FFFFFF</color>
-    <color name="edittext_hint">#8F8F8F</color>
+    <color name="gray">#8F8F8F</color>
     <color name="main_blue">#0083E1</color>
-    <color name="tech_tab_background">#FAFAFA</color>
-    <color name="tech_text_selected">#0083E1</color>
-    <color name="tech_text_noselected">#8F8F8F</color>
+    <color name="light_gray_background">#FAFAFA</color>
 </resources>

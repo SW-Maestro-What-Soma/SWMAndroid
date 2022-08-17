@@ -11,9 +11,10 @@ import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentLearningProblemBinding
 import com.example.swmandroid.ui.easylearning.EasyLearningViewModel
 import com.example.swmandroid.ui.easylearning.StartEasyLearningActivity
+import com.example.swmandroid.util.MetricsUtil
+import com.example.swmandroid.util.ScreenMetricsUtil
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LearningProblemFragment : BaseFragment<FragmentLearningProblemBinding>() {
 
@@ -39,14 +40,21 @@ class LearningProblemFragment : BaseFragment<FragmentLearningProblemBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initView()
     }
 
     private fun initView() = with(binding) {
+        val displaySize = ScreenMetricsUtil.getScreenSize(requireActivity())
+        val displayHeight = displaySize.height
+
+        bottomSheet.layoutParams.height = (displayHeight * 0.7).toInt()
+
+
         viewModel.isFavoriteLearningProblem.observe(viewLifecycleOwner, Observer {
-            when(it){
-                true -> favoriteButton.setImageResource(R.drawable.ic_baseline_favorite_24)
-                false -> favoriteButton.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+            when (it) {
+                true -> favoriteButton.setImageResource(R.drawable.selected_favorite)
+                false -> favoriteButton.setImageResource(R.drawable.unselected_favorite)
             }
         })
 
@@ -60,8 +68,9 @@ class LearningProblemFragment : BaseFragment<FragmentLearningProblemBinding>() {
             val problemNumber = it.getInt(KEY_PROBLEM_NUMBER)
             val problem = viewModel.problem.value?.get(problemNumber)
 
-            bindingProblem = problem
-            bindingProblemNumber = problemNumber + 1
+            problemNumberTextview.text = getString(R.string.problem_number, problemNumber + 1)
+            problemTitleTextview.text = problem?.problemTitle
+            problemContentTextview.text = problem?.problemContent
         }
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
@@ -69,17 +78,22 @@ class LearningProblemFragment : BaseFragment<FragmentLearningProblemBinding>() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 when (newState) {
                     BottomSheetBehavior.STATE_EXPANDED -> {
-                        checkAnswer.visibility = View.INVISIBLE
-                        checkProblemContent.visibility = View.VISIBLE
+                        bottomSheetBackground.setImageResource(R.drawable.bottom_sheet)
+                        updownImageview.setImageResource(R.drawable.down)
+                        checkAnswerTextview.visibility = View.INVISIBLE
+                        problemContentTextview.visibility = View.VISIBLE
                         (activity as StartEasyLearningActivity).startSwiping()
                     }
                     BottomSheetBehavior.STATE_COLLAPSED -> {
-                        checkAnswer.visibility = View.VISIBLE
-                        checkProblemContent.visibility = View.INVISIBLE
+                        bottomSheetBackground.setImageResource(R.drawable.hide_bottom_sheet)
+                        updownImageview.setImageResource(R.drawable.up)
+                        checkAnswerTextview.visibility = View.VISIBLE
+                        problemContentTextview.visibility = View.INVISIBLE
                         (activity as StartEasyLearningActivity).startSwiping()
                     }
                     BottomSheetBehavior.STATE_DRAGGING -> {
                         (activity as StartEasyLearningActivity).stopSwiping()
+
                     }
                     BottomSheetBehavior.STATE_SETTLING -> {}
                     BottomSheetBehavior.STATE_HALF_EXPANDED -> {}
@@ -92,3 +106,4 @@ class LearningProblemFragment : BaseFragment<FragmentLearningProblemBinding>() {
     }
 
 }
+

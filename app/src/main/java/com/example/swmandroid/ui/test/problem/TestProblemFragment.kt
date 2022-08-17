@@ -41,8 +41,8 @@ class TestProblemFragment : BaseFragment<FragmentTestProblemBinding>() {
     private fun initView() = with(binding) {
         viewModel.isFavoriteTestProblem.observe(viewLifecycleOwner, Observer {
             when(it){
-                true -> favoriteButton.setImageResource(R.drawable.ic_baseline_favorite_24)
-                false -> favoriteButton.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                true -> favoriteButton.setImageResource(R.drawable.selected_favorite)
+                false -> favoriteButton.setImageResource(R.drawable.unselected_favorite)
             }
         })
 

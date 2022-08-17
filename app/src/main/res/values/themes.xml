@@ -27,7 +27,7 @@
     </style>
 
     <style name="ThemeOverlay.App.TabLayout" parent="">
-        <item name="colorPrimary">@color/tech_text_selected</item>
-        <item name="colorSurface">@color/tech_tab_background</item>
+        <item name="colorPrimary">@color/main_blue</item>
+        <item name="colorSurface">@color/light_gray_background</item>
     </style>
 </resources>
