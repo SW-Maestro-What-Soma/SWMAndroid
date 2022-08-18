@@ -25,6 +25,7 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.progressCircular.hide()
         checkEmailEditText(binding.emailEdittext)
         checkPasswordEditText(binding.passwordEdittext)
 
@@ -52,13 +53,14 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
         loginViewModel.userProfile.observe(viewLifecycleOwner, Observer {
             when(it){
                 is Resource.Loading ->{
-                    progressCircular.visibility = View.VISIBLE
                     progressCircular.show()
                 }
                 is Resource.Success ->{
+                    progressCircular.hide()
                     root.findNavController().navigate(R.id.action_emailLoginFragment_to_mainActivity)
                 }
                 is Resource.Error -> {
+                    progressCircular.hide()
                     Toast.makeText(context, "로그인 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 }
              }

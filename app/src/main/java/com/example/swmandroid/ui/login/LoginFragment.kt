@@ -17,7 +17,6 @@ import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentLoginBinding
 import com.example.swmandroid.model.login.LoginInfo
-import com.example.swmandroid.model.login.UserEntity
 import com.example.swmandroid.util.Resource
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -48,6 +47,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.progressCircular.hide()
         googleLoginSetting()
         kakaoLoginSetting()
         buttonClick()
@@ -103,6 +103,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     root.findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
                 }
                 is Resource.Error -> {
+                    progressCircular.hide()
                     Toast.makeText(context, "로그인 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 }
             }

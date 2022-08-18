@@ -32,6 +32,7 @@ class SetNickFragment : BaseFragment<FragmentSetNickBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.progressCircular.hide()
         checkNickEditText(binding.setNickEdittext)
         buttonClick()
     }
@@ -83,26 +84,28 @@ class SetNickFragment : BaseFragment<FragmentSetNickBinding>() {
             when (it) {
                 is Resource.Loading -> {
                     progressCircular.show()
-                    progressCircular.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
+                    progressCircular.hide()
                     loginViewModel.postLogin(LoginInfo(userEntity.email, userEntity.user_pw))
                     loginViewModel.userProfile.observe(viewLifecycleOwner, Observer {
                         when (it) {
                             is Resource.Loading -> {
-                                progressCircular.visibility = View.VISIBLE
                                 progressCircular.show()
                             }
                             is Resource.Success -> {
+                                progressCircular.hide()
                                 root.findNavController().navigate(R.id.action_setNickFragment_to_mainActivity)
                             }
                             is Resource.Error -> {
+                                progressCircular.hide()
                                 Toast.makeText(context, "로그인 실패하였습니다.", Toast.LENGTH_SHORT).show()
                             }
                         }
                     })
                 }
                 is Resource.Error -> {
+                    progressCircular.hide()
                     Toast.makeText(context, "회원가입에 실패하였습니다..", Toast.LENGTH_SHORT).show()
                     root.findNavController().navigate(R.id.action_setNickFragment_to_loginFragment)
                 }
