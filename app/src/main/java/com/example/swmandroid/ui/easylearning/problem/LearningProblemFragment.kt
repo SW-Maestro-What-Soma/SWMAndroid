@@ -69,8 +69,8 @@ class LearningProblemFragment : BaseFragment<FragmentLearningProblemBinding>() {
             val problem = it.getParcelable<ProblemResponseItem>(KEY_PROBLEM)
 
             problemNumberTextview.text = getString(R.string.problem_number, problemNumber)
-            problemTitleTextview.text = problem?.problemTitle
-            problemContentTextview.text = problem?.problemContent
+            problemTitleTextview.text = problem?.modelAnswer
+            problemContentTextview.text = problem?.text
         }
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)

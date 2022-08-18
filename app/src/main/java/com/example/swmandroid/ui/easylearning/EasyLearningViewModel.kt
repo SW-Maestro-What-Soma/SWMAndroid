@@ -2,7 +2,7 @@ package com.example.swmandroid.ui.easylearning
 
 import androidx.lifecycle.*
 import com.example.swmandroid.data.repository.problem.ProblemRepository
-import com.example.swmandroid.model.problem.ProblemResponse
+import com.example.swmandroid.model.problem.ProblemResponseItem
 import com.example.swmandroid.util.Resource
 import kotlinx.coroutines.launch
 
@@ -15,8 +15,8 @@ class EasyLearningViewModel(
         const val FAVORITE_LEARNING_PROBLEM = "favorite_learning_problem"
     }
 
-    private val _problem = MutableLiveData<Resource<ProblemResponse>>()
-    val problem : LiveData<Resource<ProblemResponse>> = _problem
+    private val _problem = MutableLiveData<Resource<List<ProblemResponseItem>>>()
+    val problem : LiveData<Resource<List<ProblemResponseItem>>> = _problem
 
     private var favoriteLearningProblem = handle.get<Boolean>(FAVORITE_LEARNING_PROBLEM) ?: false
         set(value) {

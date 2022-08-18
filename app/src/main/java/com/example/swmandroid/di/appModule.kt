@@ -22,7 +22,7 @@ internal val appModule = module {
     single { GoogleRepository() }
     single { ProblemRepository(get()) }
 
-    single { provideGsonConverterFactory() }
+    single { provideMoshiConverterFactory() }
     single { buildOkHttpClient() }
 
     single { provideRetrofit(get(), get()) }

@@ -18,6 +18,7 @@ class StartEasyLearningActivity : BaseActivity<ActivityStartEasyLearningBinding>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        easyLearningViewModel.getProblemByTechStack("Back-end")
         easyLearningViewModel.problem.observe(this, Observer {
             when (it) {
                 is Resource.Loading -> {
@@ -25,15 +26,16 @@ class StartEasyLearningActivity : BaseActivity<ActivityStartEasyLearningBinding>
                 }
                 is Resource.Success -> {
                     binding.progressCircular.hide()
-                    it.data?.forEachIndexed { index, problemResponseItem ->
-                        fragmentList.add(LearningProblemFragment.newInstance(index + 1, problemResponseItem))
+                    it.data?.forEachIndexed { index, problemItem ->
+                        fragmentList.add(LearningProblemFragment.newInstance(index + 1, problemItem))
                     }
                     initView()
                 }
-                is Resource.Error -> {}
+                is Resource.Error -> {
+
+                }
             }
         })
-        easyLearningViewModel.getProblemByTechStack("Back-end")
     }
 
     private fun initView() = with(binding) {

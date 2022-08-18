@@ -1,8 +1,10 @@
 package com.example.swmandroid.model.login
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class LoginInfo(
-    @SerializedName("email") val email: String,
-    @SerializedName("user_pw") val user_pw: String,
+    @Json(name = "email") val email: String,
+    @Json(name = "user_pw") val user_pw: String,
 )

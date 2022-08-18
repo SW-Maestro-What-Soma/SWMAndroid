@@ -4,14 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.example.swmandroid.model.problem.ProblemResponse
+import com.example.swmandroid.model.problem.ProblemResponseItem
 
 class TestViewModel(
     private val handle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _problem = MutableLiveData<ArrayList<ProblemResponse>>()
-    val problem: LiveData<ArrayList<ProblemResponse>> = _problem
+    private val _problem = MutableLiveData<List<ProblemResponseItem>>()
+    val problem: LiveData<List<ProblemResponseItem>> = _problem
 
     private val FAVORITE_TEST_PROBLEM = "favorite_test_problem"
 
