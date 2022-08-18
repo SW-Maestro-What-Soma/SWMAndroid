@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentSetNickBinding
 import com.example.swmandroid.model.login.LoginInfo
+import com.example.swmandroid.util.Resource
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.regex.Pattern
 
@@ -77,22 +79,33 @@ class SetNickFragment : BaseFragment<FragmentSetNickBinding>() {
 
         loginViewModel.postSignUp(userEntity)
 
-        loginViewModel.isStatusCode200.observe(viewLifecycleOwner, Observer { isStatusCode200 ->
-            if (isStatusCode200) {
-                loginViewModel.postLogin(LoginInfo(userEntity.email, userEntity.user_pw))
-
-                loginViewModel.userProfile.observe(viewLifecycleOwner, Observer { userProfile ->
-                    if (userProfile != null) {
-                        root.findNavController().navigate(R.id.action_setNickFragment_to_mainActivity)
-                    } else {
-                        Toast.makeText(context, "회원가입에 실패하였습니다..", Toast.LENGTH_SHORT).show()
-                        root.findNavController().navigate(R.id.action_setNickFragment_to_loginFragment)
-                    }
-                })
-
-            } else {
-                Toast.makeText(context, "회원가입에 실패하였습니다..", Toast.LENGTH_SHORT).show()
-                root.findNavController().navigate(R.id.action_setNickFragment_to_loginFragment)
+        loginViewModel.isStatusCode200.observe(viewLifecycleOwner, Observer { it ->
+            when (it) {
+                is Resource.Loading -> {
+                    progressCircular.show()
+                    progressCircular.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    loginViewModel.postLogin(LoginInfo(userEntity.email, userEntity.user_pw))
+                    loginViewModel.userProfile.observe(viewLifecycleOwner, Observer {
+                        when (it) {
+                            is Resource.Loading -> {
+                                progressCircular.visibility = View.VISIBLE
+                                progressCircular.show()
+                            }
+                            is Resource.Success -> {
+                                root.findNavController().navigate(R.id.action_setNickFragment_to_mainActivity)
+                            }
+                            is Resource.Error -> {
+                                Toast.makeText(context, "로그인 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    })
+                }
+                is Resource.Error -> {
+                    Toast.makeText(context, "회원가입에 실패하였습니다..", Toast.LENGTH_SHORT).show()
+                    root.findNavController().navigate(R.id.action_setNickFragment_to_loginFragment)
+                }
             }
         })
     }

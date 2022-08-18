@@ -52,7 +52,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         window.statusBarColor = Color.parseColor("#0083E1")
 
         loginViewModel.userProfile.observe(this, Observer {
-            binding.nickNameTextview.text = it?.nick_name
+            binding.nickNameTextview.text = it.data?.nick_name
         })
 
         initView()

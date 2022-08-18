@@ -11,10 +11,7 @@ import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentEmailLoginBinding
 import com.example.swmandroid.model.login.LoginInfo
-import com.example.swmandroid.util.checkEmail
-import com.example.swmandroid.util.checkEmailEditText
-import com.example.swmandroid.util.checkPassword
-import com.example.swmandroid.util.checkPasswordEditText
+import com.example.swmandroid.util.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
@@ -52,13 +49,19 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
         val password = passwordEdittext.text.toString()
 
         loginViewModel.postLogin(LoginInfo(email, password))
-
         loginViewModel.userProfile.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                root.findNavController().navigate(R.id.action_emailLoginFragment_to_mainActivity)
-            } else {
-                Toast.makeText(context, "로그인 실패하였습니다.", Toast.LENGTH_SHORT).show()
-            }
+            when(it){
+                is Resource.Loading ->{
+                    progressCircular.visibility = View.VISIBLE
+                    progressCircular.show()
+                }
+                is Resource.Success ->{
+                    root.findNavController().navigate(R.id.action_emailLoginFragment_to_mainActivity)
+                }
+                is Resource.Error -> {
+                    Toast.makeText(context, "로그인 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                }
+             }
         })
     }
 

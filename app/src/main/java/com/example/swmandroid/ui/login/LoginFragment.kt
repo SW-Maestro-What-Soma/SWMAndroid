@@ -18,6 +18,7 @@ import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentLoginBinding
 import com.example.swmandroid.model.login.LoginInfo
 import com.example.swmandroid.model.login.UserEntity
+import com.example.swmandroid.util.Resource
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -88,21 +89,22 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         }
     }
 
-    private fun apiPostLogin(email: String) = with(binding.root.findNavController()) {
+    private fun apiPostLogin(email: String) = with(binding) {
         val password = BuildConfig.SOCIAL_LOGIN_PASSWORFD
 
         loginViewModel.postLogin(LoginInfo(email, password))
-
         loginViewModel.userProfile.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                navigate(R.id.action_loginFragment_to_mainActivity)
-            } else {
-                val userEntity = UserEntity(
-                    email = email,
-                    user_pw = password,
-                )
-                val action = LoginFragmentDirections.actionLoginFragmentToSetTechFragment(userEntity)
-                navigate(action)
+            when (it) {
+                is Resource.Loading -> {
+                    progressCircular.show()
+                }
+                is Resource.Success -> {
+                    progressCircular.hide()
+                    root.findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
+                }
+                is Resource.Error -> {
+                    Toast.makeText(context, "로그인 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                }
             }
         })
     }

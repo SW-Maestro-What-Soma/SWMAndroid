@@ -9,12 +9,14 @@ import com.example.swmandroid.data.repository.login.google.GoogleRepository
 import com.example.swmandroid.model.login.LoginInfo
 import com.example.swmandroid.model.login.UserEntity
 import com.example.swmandroid.model.login.UserProfile
+import com.example.swmandroid.util.Resource
 import com.google.firebase.auth.FirebaseUser
 import com.kakao.sdk.auth.model.OAuthToken
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.ResponseBody
 
 class LoginViewModel(
     private val loginRepository: LoginRepository,
@@ -30,11 +32,11 @@ class LoginViewModel(
     private val _kakaoEmail = MutableLiveData<String>()
     val kakaoEmail: LiveData<String> = _kakaoEmail
 
-    private val _isStatusCode200 = MutableLiveData<Boolean>()
-    val isStatusCode200: LiveData<Boolean> = _isStatusCode200
+    private val _isStatusCode200 = MutableLiveData<Resource<ResponseBody>>()
+    val isStatusCode200: LiveData<Resource<ResponseBody>> = _isStatusCode200
 
-    private val _userProfile = MutableLiveData<UserProfile?>()
-    val userProfile: LiveData<UserProfile?> = _userProfile
+    private val _userProfile = MutableLiveData<Resource<UserProfile>>()
+    val userProfile: LiveData<Resource<UserProfile>> = _userProfile
 
     fun googleAddToken(token: String) {
         googleRepository.getGoogleUser(token)
@@ -48,32 +50,15 @@ class LoginViewModel(
         _kakaoEmail.value = email
     }
 
-    fun postSignUp(userEntity: UserEntity) {
-        viewModelScope.launch(CoroutineExceptionHandler { _, e ->
-            _isStatusCode200.value = false
-        }) {
-            val code = withContext(Dispatchers.IO) {
-                loginRepository.postSignUp(userEntity).code()
-            }
+    fun postSignUp(userEntity: UserEntity) = viewModelScope.launch {
+        _isStatusCode200.postValue(Resource.Loading())
 
-            _isStatusCode200.value = code == 200
-        }
+        _isStatusCode200.postValue(loginRepository.postSignUp(userEntity))
     }
 
-    fun postLogin(loginInfo: LoginInfo) {
-        viewModelScope.launch(CoroutineExceptionHandler { _, e ->
-            _userProfile.value = null
-        }) {
-            val response = withContext(Dispatchers.IO) {
-                loginRepository.postLogin(loginInfo)
-            }
+    fun postLogin(loginInfo: LoginInfo) = viewModelScope.launch {
+        _userProfile.postValue(Resource.Loading())
 
-            if (response.isSuccessful) {
-                val body = response.body() ?: return@launch
-                _userProfile.value = body
-            } else {
-                _userProfile.value = null
-            }
-        }
+        _userProfile.postValue(loginRepository.postLogin(loginInfo))
     }
 }
