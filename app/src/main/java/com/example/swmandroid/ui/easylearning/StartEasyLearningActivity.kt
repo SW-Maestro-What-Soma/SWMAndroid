@@ -19,6 +19,7 @@ class StartEasyLearningActivity : BaseActivity<ActivityStartEasyLearningBinding>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //TODO 백엔드 문제뿐만아니라 다른 스택 문제도 가져오도록 변경해야함
         easyLearningViewModel.getProblemByTechStack("Back-end")
         easyLearningViewModel.problem.observe(this, Observer {
             when (it) {
@@ -49,5 +50,13 @@ class StartEasyLearningActivity : BaseActivity<ActivityStartEasyLearningBinding>
 
     fun startSwiping() {
         binding.viewPager.isUserInputEnabled = true
+    }
+
+    fun moveNextProblem() {
+        binding.viewPager.currentItem = binding.viewPager.currentItem + 1
+    }
+
+    fun movePrevProblem() {
+        binding.viewPager.currentItem = binding.viewPager.currentItem - 1
     }
 }

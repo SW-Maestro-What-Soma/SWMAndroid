@@ -18,6 +18,7 @@ class EasyLearningActivity : BaseActivity<ActivityEasyLearningBinding>({ Activit
         super.onCreate(savedInstanceState)
 
         initView()
+        buttonClick()
     }
 
     private fun initView() = with(binding) {
@@ -44,4 +45,10 @@ class EasyLearningActivity : BaseActivity<ActivityEasyLearningBinding>({ Activit
         LearningTechFragment.newInstance("네트워크"),
         LearningTechFragment.newInstance("운영체제"),
     )
+
+    private fun buttonClick() = with(binding) {
+        backButton.setOnClickListener {
+            finish()
+        }
+    }
 }

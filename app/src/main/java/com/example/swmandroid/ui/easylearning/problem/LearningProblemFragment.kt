@@ -1,6 +1,7 @@
 package com.example.swmandroid.ui.easylearning.problem
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,6 +45,7 @@ class LearningProblemFragment : BaseFragment<FragmentLearningProblemBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        buttonClick()
     }
 
     private fun initView() = with(binding) {
@@ -69,8 +71,10 @@ class LearningProblemFragment : BaseFragment<FragmentLearningProblemBinding>() {
             val problem = it.getParcelable<ProblemResponseItem>(KEY_PROBLEM)
 
             problemNumberTextview.text = getString(R.string.problem_number, problemNumber)
-            problemTitleTextview.text = problem?.modelAnswer
-            problemContentTextview.text = problem?.text
+            problemTitleTextview.text = problem?.text
+            problemContentTextview.text = problem?.modelAnswer
+
+            setArrowVisibility(problemNumber)
         }
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
@@ -103,6 +107,26 @@ class LearningProblemFragment : BaseFragment<FragmentLearningProblemBinding>() {
 
             override fun onSlide(bottomSheet: View, slideOffset: Float) {}
         })
+    }
+
+    private fun setArrowVisibility(number : Int) = with(binding){
+        if(number == 1){
+            leftButton.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun buttonClick() = with(binding) {
+        closeButton.setOnClickListener {
+            activity?.finish()
+        }
+
+        rightButton.setOnClickListener {
+            (activity as StartEasyLearningActivity).moveNextProblem()
+        }
+
+        leftButton.setOnClickListener {
+            (activity as StartEasyLearningActivity).movePrevProblem()
+        }
     }
 
 }
