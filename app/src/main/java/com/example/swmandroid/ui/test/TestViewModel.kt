@@ -1,19 +1,22 @@
 package com.example.swmandroid.ui.test
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.example.swmandroid.data.repository.problem.ProblemRepository
 import com.example.swmandroid.model.problem.ProblemResponseItem
+import com.example.swmandroid.util.Resource
+import kotlinx.coroutines.launch
 
 class TestViewModel(
-    private val handle: SavedStateHandle
+    private val handle: SavedStateHandle,
+    private val problemRepository: ProblemRepository,
 ) : ViewModel() {
 
-    private val _problem = MutableLiveData<List<ProblemResponseItem>>()
-    val problem: LiveData<List<ProblemResponseItem>> = _problem
+    companion object {
+        const val FAVORITE_TEST_PROBLEM = "favorite_test_problem"
+    }
 
-    private val FAVORITE_TEST_PROBLEM = "favorite_test_problem"
+    private val _problem = MutableLiveData<Resource<List<ProblemResponseItem>>>()
+    val problem: LiveData<Resource<List<ProblemResponseItem>>> = _problem
 
     private var favoriteTestProblem = handle.get<Boolean>(FAVORITE_TEST_PROBLEM) ?: false
         set(value) {
@@ -29,8 +32,10 @@ class TestViewModel(
         favoriteTestProblem = !favoriteTestProblem
     }
 
-    fun getProblem() {
+    fun getProblemByTechStack(techStack: String) = viewModelScope.launch {
+        _problem.postValue(Resource.Loading())
 
+        _problem.postValue(problemRepository.getProblemByTechStack(techStack))
     }
 
 }

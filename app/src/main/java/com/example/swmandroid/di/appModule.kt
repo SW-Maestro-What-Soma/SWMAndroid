@@ -15,9 +15,9 @@ internal val appModule = module {
 
     single { LoginViewModel(get(), get()) }
     single { (state: SavedStateHandle) -> EasyLearningViewModel(state, get()) }
-    viewModel { (state: SavedStateHandle) -> TestViewModel(state) }
+    single { (state: SavedStateHandle) -> TestViewModel(state, get()) }
 
-    single<LoginRepository> { LoginRepository(get()) }
+    single { LoginRepository(get()) }
     single { GoogleRepository() }
     single { ProblemRepository(get()) }
 

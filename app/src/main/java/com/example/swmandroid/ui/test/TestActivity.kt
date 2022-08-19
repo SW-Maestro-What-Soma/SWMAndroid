@@ -18,6 +18,7 @@ class TestActivity : BaseActivity<ActivityTestBinding>({ActivityTestBinding.infl
         super.onCreate(savedInstanceState)
 
         initView()
+        buttonClick()
     }
 
     private fun initView() = with(binding){
@@ -44,4 +45,10 @@ class TestActivity : BaseActivity<ActivityTestBinding>({ActivityTestBinding.infl
         TestTechFragment.newInstance("네트워크"),
         TestTechFragment.newInstance("운영체제"),
     )
+
+    private fun buttonClick() = with(binding) {
+        backButton.setOnClickListener {
+            finish()
+        }
+    }
 }

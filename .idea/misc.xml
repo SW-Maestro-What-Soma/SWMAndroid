@@ -16,6 +16,7 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_logo.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable/ic_splash.xml" value="0.2085" />
+        <entry key="app/src/main/res/drawable/input_answer_background.xml" value="0.1855" />
         <entry key="app/src/main/res/drawable/pre_test_button_background.xml" value="0.2195" />
         <entry key="app/src/main/res/drawable/problem_background.xml" value="0.187" />
         <entry key="app/src/main/res/drawable/set_tech_background.xml" value="0.207" />
@@ -25,6 +26,7 @@
         <entry key="app/src/main/res/drawable/splash_icon.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/splash_image.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/splash_logo.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/submit_button_background.xml" value="0.141" />
         <entry key="app/src/main/res/layout/activity_book_detail.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_community.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/activity_easy_learning.xml" value="0.37604166666666666" />
@@ -76,7 +78,7 @@
         <entry key="app/src/main/res/layout/fragment_sub_tech.xml" value="0.1094224924012158" />
         <entry key="app/src/main/res/layout/fragment_tech.xml" value="0.33489583333333334" />
         <entry key="app/src/main/res/layout/fragment_tech_community.xml" value="0.3421875" />
-        <entry key="app/src/main/res/layout/fragment_test_problem.xml" value="0.31354166666666666" />
+        <entry key="app/src/main/res/layout/fragment_test_problem.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_test_tech.xml" value="0.1703125" />
         <entry key="app/src/main/res/layout/item_book.xml" value="0.18072916666666666" />
         <entry key="app/src/main/res/layout/item_jobposting.xml" value="0.375" />

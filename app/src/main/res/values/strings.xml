@@ -33,4 +33,10 @@
     <string name="start_learning">학습시작</string>
     <string name="check_answer">답변확인</string>
     <string name="problem_number">Question%2d</string>
+    <string name="start_learning_tech">%1s\n학습을 시작하시겠습니까?</string>
+    <string name="start_test_tech">%1s\n테스트를 시작하시겠습니까?</string>
+    <string name="input_answer">답안을 작성해 주세요</string>
+    <string name="left_problem">%2d문제 남았어요</string>
+    <string name="submission_text">제출하기</string>
+    <string name="timer">%02d:%2d</string>
 </resources>

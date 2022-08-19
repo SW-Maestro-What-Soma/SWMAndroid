@@ -19,6 +19,8 @@ class StartEasyLearningActivity : BaseActivity<ActivityStartEasyLearningBinding>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding.progressCircular.hide()
+
         //TODO 백엔드 문제뿐만아니라 다른 스택 문제도 가져오도록 변경해야함
         easyLearningViewModel.getProblemByTechStack("Back-end")
         easyLearningViewModel.problem.observe(this, Observer {
@@ -34,6 +36,7 @@ class StartEasyLearningActivity : BaseActivity<ActivityStartEasyLearningBinding>
                     initView()
                 }
                 is Resource.Error -> {
+                    binding.progressCircular.hide()
                     Toast.makeText(this, "에러가 발생하였습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
