@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/community_navigation_graph"
+    app:startDestination="@id/fullCommunityFragment">
+
+    <fragment
+        android:id="@+id/fullCommunityFragment"
+        android:name="com.example.swmandroid.ui.community.FullCommunityFragment"
+        android:label="FullCommunityFragment" >
+        <action
+            android:id="@+id/action_fullCommunityFragment_to_subCommunityFragment"
+            app:destination="@id/subCommunityFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/subCommunityFragment"
+        android:name="com.example.swmandroid.ui.community.SubCommunityFragment"
+        android:label="SubCommunityFragment" >
+        <action
+            android:id="@+id/action_subCommunityFragment_self"
+            app:destination="@id/subCommunityFragment" />
+        <action
+            android:id="@+id/action_subCommunityFragment_to_fullCommunityFragment"
+            app:destination="@id/fullCommunityFragment" />
+        <argument
+            android:name="techStack"
+            app:argType="string" />
+    </fragment>
+</navigation>

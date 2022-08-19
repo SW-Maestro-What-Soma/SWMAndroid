@@ -19,6 +19,7 @@
         <entry key="app/src/main/res/drawable/input_answer_background.xml" value="0.1855" />
         <entry key="app/src/main/res/drawable/pre_test_button_background.xml" value="0.2195" />
         <entry key="app/src/main/res/drawable/problem_background.xml" value="0.187" />
+        <entry key="app/src/main/res/drawable/selected_tab.xml" value="0.115" />
         <entry key="app/src/main/res/drawable/set_tech_background.xml" value="0.207" />
         <entry key="app/src/main/res/drawable/spash.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/splash.xml" value="0.1" />
@@ -27,8 +28,11 @@
         <entry key="app/src/main/res/drawable/splash_image.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/splash_logo.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/submit_button_background.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/tab_selector_indicator.xml" value="0.115" />
+        <entry key="app/src/main/res/drawable/tab_selector_text.xml" value="0.231" />
+        <entry key="app/src/main/res/drawable/unselected_tab.xml" value="0.115" />
         <entry key="app/src/main/res/layout/activity_book_detail.xml" value="0.375" />
-        <entry key="app/src/main/res/layout/activity_community.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/activity_community.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_easy_learning.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/activity_email_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_find_password.xml" value="0.22604166666666667" />

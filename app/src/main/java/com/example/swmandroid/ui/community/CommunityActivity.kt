@@ -1,36 +1,164 @@
 package com.example.swmandroid.ui.community
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.widget.TextView
+import androidx.core.content.ContextCompat
+import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityCommunityBinding
-import com.example.swmandroid.ui.all.ViewPagerAdapter
-import com.google.android.material.tabs.TabLayoutMediator
 
 class CommunityActivity : BaseActivity<ActivityCommunityBinding>({ ActivityCommunityBinding.inflate(it) }) {
-
-    private val mainTabArray = arrayOf("전체", "채용공고", "채용후기", "스터디", "질문")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initView()
+        buttonClick()
     }
 
-    private fun initView() = with(binding){
-        val fragments = initFragments()
-        viewPager.adapter = ViewPagerAdapter(supportFragmentManager, lifecycle, fragments)
+    private fun buttonClick() = with(binding) {
+        backButton.setOnClickListener {
+            finish()
+        }
 
-        TabLayoutMediator(communityTablayout, viewPager) {tab, position ->
-            tab.text = mainTabArray[position]
-        }.attach()
+        fullCommunityButton.setOnClickListener {
+            selectedEvent(fullCommunityButton)
+
+            val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+            val nowFragment = hostFragment?.childFragmentManager?.fragments?.get(0)
+
+            if (nowFragment is SubCommunityFragment) {
+                nowFragment.moveFullCommunityFragment()
+            }
+        }
+
+        jobpostingCommunityButton.setOnClickListener {
+            selectedEvent(jobpostingCommunityButton)
+
+            val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+            val nowFragment = hostFragment?.childFragmentManager?.fragments?.get(0)
+
+            if (nowFragment is SubCommunityFragment) {
+                nowFragment.moveSubCommunityFragment("채용공고")
+            }
+            if (nowFragment is FullCommunityFragment) {
+                nowFragment.moveSubCommunityFragment("채용공고")
+            }
+        }
+
+        jobreviewCommunityButton.setOnClickListener {
+            selectedEvent(jobreviewCommunityButton)
+
+            val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+            val nowFragment = hostFragment?.childFragmentManager?.fragments?.get(0)
+
+            if (nowFragment is SubCommunityFragment) {
+                nowFragment.moveSubCommunityFragment("채용후기")
+            }
+            if (nowFragment is FullCommunityFragment) {
+                nowFragment.moveSubCommunityFragment("채용후기")
+            }
+        }
+
+        studyCommunityButton.setOnClickListener {
+            selectedEvent(studyCommunityButton)
+
+            val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+            val nowFragment = hostFragment?.childFragmentManager?.fragments?.get(0)
+
+            if (nowFragment is SubCommunityFragment) {
+                nowFragment.moveSubCommunityFragment("스터디")
+            }
+            if (nowFragment is FullCommunityFragment) {
+                nowFragment.moveSubCommunityFragment("스터디")
+            }
+        }
+
+        questionCommunityButton.setOnClickListener {
+            selectedEvent(questionCommunityButton)
+
+            val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+            val nowFragment = hostFragment?.childFragmentManager?.fragments?.get(0)
+
+            if (nowFragment is SubCommunityFragment) {
+                nowFragment.moveSubCommunityFragment("질문")
+            }
+            if (nowFragment is FullCommunityFragment) {
+                nowFragment.moveSubCommunityFragment("질문")
+            }
+        }
     }
 
-    private fun initFragments() : List<Fragment> = listOf(
-        FullCommunityFragment(),
-        SubCommunityFragment.newInstance("채용공고"),
-        SubCommunityFragment.newInstance("채용후기"),
-        SubCommunityFragment.newInstance("스터디"),
-        SubCommunityFragment.newInstance("질문"),
-    )
+    private fun selectedEvent(button: TextView) = with(binding) {
+        when (button) {
+            fullCommunityButton -> {
+                fullCommunityButton.setBackgroundResource(R.drawable.selected_tab)
+                jobpostingCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+                jobreviewCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+                studyCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+                questionCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+
+                fullCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.white))
+                jobpostingCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+                jobreviewCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+                studyCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+                questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+            }
+
+            jobpostingCommunityButton -> {
+                fullCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+                jobpostingCommunityButton.setBackgroundResource(R.drawable.selected_tab)
+                jobreviewCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+                studyCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+                questionCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+
+                fullCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+                jobpostingCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.white))
+                jobreviewCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+                studyCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+                questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+            }
+
+            jobreviewCommunityButton -> {
+                fullCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+                jobpostingCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+                jobreviewCommunityButton.setBackgroundResource(R.drawable.selected_tab)
+                studyCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+                questionCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+
+                fullCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+                jobpostingCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+                jobreviewCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.white))
+                studyCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+                questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+            }
+
+            studyCommunityButton -> {
+                fullCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+                jobpostingCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+                jobreviewCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+                studyCommunityButton.setBackgroundResource(R.drawable.selected_tab)
+                questionCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+
+                fullCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+                jobpostingCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+                jobreviewCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+                studyCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.white))
+                questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+            }
+
+            questionCommunityButton -> {
+                fullCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+                jobpostingCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+                jobreviewCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+                studyCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+                questionCommunityButton.setBackgroundResource(R.drawable.selected_tab)
+
+                fullCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+                jobpostingCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+                jobreviewCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+                studyCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+                questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.white))
+            }
+        }
+    }
 }

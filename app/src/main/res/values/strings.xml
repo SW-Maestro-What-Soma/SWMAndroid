@@ -39,4 +39,9 @@
     <string name="left_problem">%2d문제 남았어요</string>
     <string name="submission_text">제출하기</string>
     <string name="timer">%02d:%02d</string>
+    <string name="question_text">질문</string>
+    <string name="study_text">스터디</string>
+    <string name="jobreview_text">채용후기</string>
+    <string name="jobpostion_text">채용공고</string>
+    <string name="full_text">전체</string>
 </resources>

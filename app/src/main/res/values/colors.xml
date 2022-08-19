@@ -11,4 +11,5 @@
     <color name="gray">#8F8F8F</color>
     <color name="main_blue">#0083E1</color>
     <color name="light_gray_background">#FAFAFA</color>
+    <color name="unselected_tab_background">#E2EBF0</color>
 </resources>

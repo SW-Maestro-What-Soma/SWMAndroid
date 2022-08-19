@@ -1,28 +1,21 @@
 package com.example.swmandroid.ui.community
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentSubCommunityBinding
 import com.example.swmandroid.ui.all.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 class SubCommunityFragment : BaseFragment<FragmentSubCommunityBinding>() {
-
-    companion object {
-        private const val KEY_COMMUNITY = "community"
-
-        @JvmStatic
-        fun newInstance(community : String) =
-            SubCommunityFragment().apply {
-                arguments = Bundle().apply {
-                    putString(KEY_COMMUNITY, community)
-                }
-            }
-    }
 
     private val mainTabArray = arrayOf("백엔드", "프론트엔드", "안드로이드", "IOS", "데이터사이언스", "데이터분석", "알고리즘", "자료구조", "네트워크", "운영체제")
 
@@ -32,6 +25,9 @@ class SubCommunityFragment : BaseFragment<FragmentSubCommunityBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val args : SubCommunityFragmentArgs by navArgs()
+        Log.d("ABC", args.techStack)
 
         initView()
     }
@@ -57,4 +53,13 @@ class SubCommunityFragment : BaseFragment<FragmentSubCommunityBinding>() {
         TechCommunityFragment.newInstance("네트워크"),
         TechCommunityFragment.newInstance("운영체제")
     )
+
+    fun moveFullCommunityFragment(){
+        binding.root.findNavController().navigate(R.id.action_subCommunityFragment_to_fullCommunityFragment)
+    }
+
+    fun moveSubCommunityFragment(category : String){
+        val action =  SubCommunityFragmentDirections.actionSubCommunityFragmentSelf(category)
+        binding.root.findNavController().navigate(action)
+    }
 }
