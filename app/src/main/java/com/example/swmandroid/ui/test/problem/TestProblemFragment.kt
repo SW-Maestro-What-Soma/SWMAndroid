@@ -2,11 +2,9 @@ package com.example.swmandroid.ui.test.problem
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
@@ -16,8 +14,6 @@ import com.example.swmandroid.ui.test.StartTestActivity
 import com.example.swmandroid.ui.test.TestResultActivity
 import com.example.swmandroid.ui.test.TestViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 
 class TestProblemFragment : BaseFragment<FragmentTestProblemBinding>() {
 
@@ -49,18 +45,11 @@ class TestProblemFragment : BaseFragment<FragmentTestProblemBinding>() {
     }
 
     private fun initView() = with(binding) {
-        object : CountDownTimer(600000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                val minute = millisUntilFinished / 60000
-                val second = millisUntilFinished % 60000 / 1000
-                timer.text = getString(R.string.timer, minute, second)
-            }
-
-            override fun onFinish() {
-                Toast.makeText(requireActivity(), "끝났습니다", Toast.LENGTH_SHORT).show()
-            }
-
-        }.start()
+        testViewModel.milliSeconds.observe(viewLifecycleOwner, Observer {
+            val minute = it / 60000
+            val second = it % 60000 / 1000
+            timer.text = getString(R.string.timer, minute, second)
+        })
 
         testViewModel.isFavoriteTestProblem.observe(viewLifecycleOwner, Observer {
             when (it) {
@@ -77,7 +66,7 @@ class TestProblemFragment : BaseFragment<FragmentTestProblemBinding>() {
             val problemNumber = it.getInt(KEY_PROBLEM_NUMBER)
             val problem = it.getParcelable<ProblemResponseItem>(KEY_PROBLEM)
 
-            leftProblemTextview.text = getString(R.string.left_problem, 11 - problemNumber)
+            leftProblemTextview.text = getString(R.string.left_problem, 10 - problemNumber)
 
             problemNumberTextview.text = getString(R.string.problem_number, problemNumber)
             problemTitleTextview.text = problem?.text
@@ -95,6 +84,7 @@ class TestProblemFragment : BaseFragment<FragmentTestProblemBinding>() {
             10 -> {
                 rightButton.visibility = View.INVISIBLE
                 submissionButton.visibility = View.VISIBLE
+                leftProblemTextview.text = "마지막 문제에요"
             }
             else -> {
                 submissionButton.visibility = View.INVISIBLE

@@ -18,6 +18,9 @@ class TestViewModel(
     private val _problem = MutableLiveData<Resource<List<ProblemResponseItem>>>()
     val problem: LiveData<Resource<List<ProblemResponseItem>>> = _problem
 
+    private val _milliSeconds = MutableLiveData<Long>()
+    val milliSeconds: LiveData<Long> = _milliSeconds
+
     private var favoriteTestProblem = handle.get<Boolean>(FAVORITE_TEST_PROBLEM) ?: false
         set(value) {
             handle[FAVORITE_TEST_PROBLEM] = value
@@ -36,6 +39,10 @@ class TestViewModel(
         _problem.postValue(Resource.Loading())
 
         _problem.postValue(problemRepository.getProblemByTechStack(techStack))
+    }
+
+    fun setMilliSeconds(second : Long) {
+        _milliSeconds.postValue(second)
     }
 
 }

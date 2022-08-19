@@ -38,5 +38,5 @@
     <string name="input_answer">답안을 작성해 주세요</string>
     <string name="left_problem">%2d문제 남았어요</string>
     <string name="submission_text">제출하기</string>
-    <string name="timer">%02d:%2d</string>
+    <string name="timer">%02d:%02d</string>
 </resources>
