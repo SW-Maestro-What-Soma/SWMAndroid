@@ -12,4 +12,5 @@
     <color name="main_blue">#0083E1</color>
     <color name="light_gray_background">#FAFAFA</color>
     <color name="unselected_tab_background">#E2EBF0</color>
+    <color name="light_blue">#F0FCFF</color>
 </resources>
