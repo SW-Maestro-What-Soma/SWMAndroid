@@ -6,19 +6,33 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/jobposting_title"
+        android:id="@+id/jobreview_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:ellipsize="end"
         android:fontFamily="@font/spoqa_han_sans_neo_bold"
-        android:maxWidth="330dp"
+        android:maxWidth="300dp"
         android:maxLines="1"
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="카카오 엔터프라이즈" />
+        tools:text="카카오 코테 후기입니다." />
+
+    <TextView
+        android:id="@+id/comment_count_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/spoqa_han_sans_neo_bold"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/jobreview_title"
+        app:layout_constraintStart_toEndOf="@id/jobreview_title"
+        app:layout_constraintTop_toTopOf="@id/jobreview_title"
+        tools:text="(2)" />
+
 
     <ImageView
         android:id="@+id/new_imageview"
@@ -26,33 +40,77 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:src="@drawable/new_icon"
-        app:layout_constraintBottom_toBottomOf="@id/jobposting_title"
-        app:layout_constraintStart_toEndOf="@id/jobposting_title"
-        app:layout_constraintTop_toTopOf="@id/jobposting_title" />
+        app:layout_constraintBottom_toBottomOf="@id/comment_count_textview"
+        app:layout_constraintStart_toEndOf="@id/comment_count_textview"
+        app:layout_constraintTop_toTopOf="@id/comment_count_textview" />
 
     <TextView
-        android:id="@+id/jobposting_tech_category"
+        android:id="@+id/jobreview_tech_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/spoqa_han_sans_neo_regular"
         android:textColor="@color/black"
         android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="@id/jobposting_title"
-        app:layout_constraintTop_toBottomOf="@id/jobposting_title"
+        app:layout_constraintStart_toStartOf="@id/jobreview_title"
+        app:layout_constraintTop_toBottomOf="@id/jobreview_title"
         tools:text="Front-end" />
 
+    <View
+        android:layout_width="1dp"
+        android:layout_height="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/line"
+        app:layout_constraintBottom_toBottomOf="@id/jobreview_tech_category"
+        app:layout_constraintStart_toEndOf="@id/jobreview_tech_category"
+        app:layout_constraintTop_toTopOf="@id/jobreview_tech_category" />
+
     <TextView
-        android:id="@+id/jobposting_start_end_time"
+        android:id="@+id/jobreview_process_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@id/jobreview_tech_category"
+        app:layout_constraintStart_toEndOf="@id/jobreview_tech_category"
+        app:layout_constraintTop_toTopOf="@id/jobreview_tech_category"
+        tools:text="코딩테스트" />
+
+    <TextView
+        android:id="@+id/jobreview_nick_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/spoqa_han_sans_neo_regular"
         android:textColor="@color/gray"
         android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="@id/jobposting_tech_category"
-        app:layout_constraintTop_toBottomOf="@id/jobposting_tech_category"
-        tools:text="06/23~07/23" />
+        app:layout_constraintStart_toStartOf="@id/jobreview_tech_category"
+        app:layout_constraintTop_toBottomOf="@id/jobreview_tech_category"
+        tools:text="김시진" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/line"
+        app:layout_constraintBottom_toBottomOf="@id/jobreview_nick_textview"
+        app:layout_constraintStart_toEndOf="@id/jobreview_nick_textview"
+        app:layout_constraintTop_toTopOf="@id/jobreview_nick_textview" />
+
+    <TextView
+        android:id="@+id/jobreview_tier_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:textColor="@color/silver"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@id/jobreview_nick_textview"
+        app:layout_constraintStart_toEndOf="@id/jobreview_nick_textview"
+        app:layout_constraintTop_toTopOf="@id/jobreview_nick_textview"
+        tools:text="실버V" />
 
     <View
         android:layout_width="0dp"
@@ -61,14 +119,14 @@
         android:background="@color/line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/jobposting_start_end_time" />
+        app:layout_constraintTop_toBottomOf="@id/jobreview_nick_textview" />
 
     <ImageView
-        android:id="@+id/newbie_career_image"
+        android:id="@+id/pass_fail_imageview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:src="@drawable/newbie"
+        android:src="@drawable/pass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

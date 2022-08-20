@@ -6,12 +6,84 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tech_tablayout"
+        style="@style/Widget.App.TabLayout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabMode="scrollable" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/search_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/search_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tech_tablayout">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="14dp"
+            android:layout_marginStart="15dp"
+            android:background="@color/transparent"
+            android:src="@drawable/search"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/vieworder_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:text="@string/vieworder"
+        android:textColor="@color/gray"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_layout" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="10dp"
+        android:layout_marginEnd="12dp"
+        android:background="@color/line"
+        app:layout_constraintBottom_toBottomOf="@id/vieworder_textview"
+        app:layout_constraintEnd_toStartOf="@id/vieworder_textview"
+        app:layout_constraintTop_toTopOf="@id/vieworder_textview" />
+
+    <TextView
+        android:id="@+id/neworder_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:text="@string/neworder"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/vieworder_textview"
+        app:layout_constraintEnd_toStartOf="@id/vieworder_textview"
+        app:layout_constraintTop_toTopOf="@id/vieworder_textview" />
+
+
+    <View
+        android:id="@+id/contour"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/neworder_textview" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
@@ -20,6 +92,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tech_tablayout" />
+        app:layout_constraintTop_toBottomOf="@id/contour" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

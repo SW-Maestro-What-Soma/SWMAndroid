@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.swmandroid.R
-import com.example.swmandroid.databinding.ItemJobpostingBinding
+import com.example.swmandroid.databinding.ItemJobpostingAdBinding
 import com.example.swmandroid.model.jobposting.JobPostingItem
 
 class JobPostingAdapter(
@@ -13,14 +13,14 @@ class JobPostingAdapter(
     private val jobPostList: ArrayList<JobPostingItem>
 ) : RecyclerView.Adapter<JobPostingAdapter.SliderViewHolder>() {
 
-    inner class SliderViewHolder(val binding: ItemJobpostingBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class SliderViewHolder(val binding: ItemJobpostingAdBinding) : RecyclerView.ViewHolder(binding.root) {
         val img = binding.imageSlider
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SliderViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.item_jobposting, parent, false)
-        return SliderViewHolder(ItemJobpostingBinding.bind(view))
+        val view = inflater.inflate(R.layout.item_jobposting_ad, parent, false)
+        return SliderViewHolder(ItemJobpostingAdBinding.bind(view))
     }
 
     override fun onBindViewHolder(holder: SliderViewHolder, position: Int) {
