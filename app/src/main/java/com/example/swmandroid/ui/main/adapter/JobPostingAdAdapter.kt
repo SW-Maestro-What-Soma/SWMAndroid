@@ -6,12 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.swmandroid.R
 import com.example.swmandroid.databinding.ItemJobpostingAdBinding
-import com.example.swmandroid.model.jobposting.JobPostingItem
+import com.example.swmandroid.model.jobposting.JobPostingAdItem
 
-class JobPostingAdapter(
+class JobPostingAdAdapter(
     private val viewPager: ViewPager2,
-    private val jobPostList: ArrayList<JobPostingItem>
-) : RecyclerView.Adapter<JobPostingAdapter.SliderViewHolder>() {
+    private val jobPostList: ArrayList<JobPostingAdItem>
+) : RecyclerView.Adapter<JobPostingAdAdapter.SliderViewHolder>() {
 
     inner class SliderViewHolder(val binding: ItemJobpostingAdBinding) : RecyclerView.ViewHolder(binding.root) {
         val img = binding.imageSlider

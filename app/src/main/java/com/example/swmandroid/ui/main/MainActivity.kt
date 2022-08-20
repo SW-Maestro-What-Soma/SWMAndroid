@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -19,13 +18,13 @@ import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityMainBinding
 import com.example.swmandroid.model.book.BookItem
-import com.example.swmandroid.model.jobposting.JobPostingItem
+import com.example.swmandroid.model.jobposting.JobPostingAdItem
 import com.example.swmandroid.ui.community.CommunityActivity
 import com.example.swmandroid.ui.easylearning.EasyLearningActivity
 import com.example.swmandroid.ui.fullservice.FullServiceActivity
 import com.example.swmandroid.ui.login.LoginViewModel
 import com.example.swmandroid.ui.main.adapter.BookAdapter
-import com.example.swmandroid.ui.main.adapter.JobPostingAdapter
+import com.example.swmandroid.ui.main.adapter.JobPostingAdAdapter
 import com.example.swmandroid.ui.mypage.MyPageActivity
 import com.example.swmandroid.ui.test.TestActivity
 import com.example.swmandroid.ui.test.TestResultActivity
@@ -34,8 +33,8 @@ import kotlin.math.abs
 
 class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inflate(it) }) {
 
-    private lateinit var jobPostingItemList: ArrayList<JobPostingItem>
-    private lateinit var jobPostingAdapter: JobPostingAdapter
+    private lateinit var jobPostingItemList: ArrayList<JobPostingAdItem>
+    private lateinit var jobPostingAdapter: JobPostingAdAdapter
     private lateinit var jobPostingHandle: Handler
     private lateinit var jobPostingRun: Runnable
 
@@ -108,7 +107,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
 
     private fun jobPostingItemSlider() = with(binding) {
         jobPostingItemList = ArrayList()
-        jobPostingAdapter = JobPostingAdapter(jobpostingViewpager, jobPostingItemList)
+        jobPostingAdapter = JobPostingAdAdapter(jobpostingViewpager, jobPostingItemList)
         jobpostingViewpager.adapter = jobPostingAdapter
         jobpostingViewpager.clipToPadding = false
         jobpostingViewpager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
@@ -137,11 +136,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
 
     private fun initJobPostingItem() {
         //TODO : 채용광고 서버 API를 통해 가져와야함
-        jobPostingItemList.add(JobPostingItem(R.drawable.sli1))
-        jobPostingItemList.add(JobPostingItem(R.drawable.sli2))
-        jobPostingItemList.add(JobPostingItem(R.drawable.sli3))
-        jobPostingItemList.add(JobPostingItem(R.drawable.sli4))
-        jobPostingItemList.add(JobPostingItem(R.drawable.sli5))
+        jobPostingItemList.add(JobPostingAdItem(R.drawable.sli1))
+        jobPostingItemList.add(JobPostingAdItem(R.drawable.sli2))
+        jobPostingItemList.add(JobPostingAdItem(R.drawable.sli3))
+        jobPostingItemList.add(JobPostingAdItem(R.drawable.sli4))
+        jobPostingItemList.add(JobPostingAdItem(R.drawable.sli5))
     }
 
     private fun bookItemRecyclerview() = with(binding) {

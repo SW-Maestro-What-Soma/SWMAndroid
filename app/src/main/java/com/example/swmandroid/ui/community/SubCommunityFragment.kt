@@ -25,9 +25,6 @@ class SubCommunityFragment : BaseFragment<FragmentSubCommunityBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val args : SubCommunityFragmentArgs by navArgs()
-        Log.d("ABC", args.techStack)
-
         initView()
     }
 
@@ -40,25 +37,29 @@ class SubCommunityFragment : BaseFragment<FragmentSubCommunityBinding>() {
         }.attach()
     }
 
-    private fun initFragments() : List<Fragment> = listOf(
-        TechCommunityFragment.newInstance("백엔드"),
-        TechCommunityFragment.newInstance("프론트엔드"),
-        TechCommunityFragment.newInstance("안드로이드"),
-        TechCommunityFragment.newInstance("IOS"),
-        TechCommunityFragment.newInstance("데이터사이언스"),
-        TechCommunityFragment.newInstance("데이터분석"),
-        TechCommunityFragment.newInstance("알고리즘"),
-        TechCommunityFragment.newInstance("자료구조"),
-        TechCommunityFragment.newInstance("네트워크"),
-        TechCommunityFragment.newInstance("운영체제")
-    )
+    private fun initFragments(): List<Fragment> {
+        val args: SubCommunityFragmentArgs by navArgs()
 
-    fun moveFullCommunityFragment(){
+        return listOf(
+            TechCommunityFragment.newInstance("백엔드", args.category),
+            TechCommunityFragment.newInstance("프론트엔드", args.category),
+            TechCommunityFragment.newInstance("안드로이드", args.category),
+            TechCommunityFragment.newInstance("IOS", args.category),
+            TechCommunityFragment.newInstance("데이터사이언스", args.category),
+            TechCommunityFragment.newInstance("데이터분석", args.category),
+            TechCommunityFragment.newInstance("알고리즘", args.category),
+            TechCommunityFragment.newInstance("자료구조", args.category),
+            TechCommunityFragment.newInstance("네트워크", args.category),
+            TechCommunityFragment.newInstance("운영체제", args.category),
+        )
+    }
+
+    fun moveFullCommunityFragment() {
         binding.root.findNavController().navigate(R.id.action_subCommunityFragment_to_fullCommunityFragment)
     }
 
-    fun moveSubCommunityFragment(category : String){
-        val action =  SubCommunityFragmentDirections.actionSubCommunityFragmentSelf(category)
+    fun moveSubCommunityFragment(category: String) {
+        val action = SubCommunityFragmentDirections.actionSubCommunityFragmentSelf(category)
         binding.root.findNavController().navigate(action)
     }
 }

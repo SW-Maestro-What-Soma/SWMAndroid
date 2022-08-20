@@ -6,7 +6,6 @@ import android.os.CountDownTimer
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityStartTestBinding
 import com.example.swmandroid.ui.all.ViewPagerAdapter

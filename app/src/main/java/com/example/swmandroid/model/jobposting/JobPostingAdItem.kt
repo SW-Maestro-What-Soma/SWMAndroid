@@ -1,5 +1,5 @@
 package com.example.swmandroid.model.jobposting
 
-data class JobPostingItem(
+data class JobPostingAdItem(
     val img: Int
 )

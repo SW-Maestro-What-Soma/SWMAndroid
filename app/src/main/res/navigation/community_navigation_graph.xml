@@ -24,7 +24,7 @@
             android:id="@+id/action_subCommunityFragment_to_fullCommunityFragment"
             app:destination="@id/fullCommunityFragment" />
         <argument
-            android:name="techStack"
+            android:name="category"
             app:argType="string" />
     </fragment>
 </navigation>
