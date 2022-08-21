@@ -51,4 +51,9 @@
     <string name="question">질문</string>
     <string name="vieworder">조회순</string>
     <string name="neworder">최신순</string>
+    <string name="write">글쓰기</string>
+    <string name="input_search">검색어를 입력해주세요.</string>
+    <string name="cancel">취소</string>
+    <string name="recent_search">최근 검색어</string>
+    <string name="full_delete">전체 삭제</string>
 </resources>
