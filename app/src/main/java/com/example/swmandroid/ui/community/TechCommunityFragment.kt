@@ -54,28 +54,28 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
     }
 
     private fun connectJobPostingAdapter() = with(binding){
-        val adapter = JobPostingAdapter(getJobPostingItem())
+        val adapter = JobPostingAdapter(getJobPostingItem(), false)
 
         subCommunityRecyclerview.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         subCommunityRecyclerview.adapter = adapter
     }
 
     private fun connectJobReviewAdapter() = with(binding) {
-        val adapter = JobReviewAdapter(getJobReviewItem())
+        val adapter = JobReviewAdapter(getJobReviewItem(), false)
 
         subCommunityRecyclerview.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         subCommunityRecyclerview.adapter = adapter
     }
 
     private fun connectStudyAdapter() = with(binding) {
-        val adapter = StudyAdapter(getStudyItem())
+        val adapter = StudyAdapter(getStudyItem(), false)
 
         subCommunityRecyclerview.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         subCommunityRecyclerview.adapter = adapter
     }
 
     private fun connectQuestionAdapter() = with(binding) {
-        val adapter = QuestionAdapter(getQuestionItem())
+        val adapter = QuestionAdapter(getQuestionItem(), false)
 
         subCommunityRecyclerview.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         subCommunityRecyclerview.adapter = adapter
@@ -84,7 +84,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
     private fun getJobPostingItem() : List<JobPostingItem> {
         return listOf(
             JobPostingItem(
-                "카카오엔터프라이즈",
+                "카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오",
                 "Android",
                 "06/23 ~ 07/23",
                 "22.07.23",
@@ -124,11 +124,11 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
     private fun getJobReviewItem() : List<JobReviewItem> {
         return listOf(
             JobReviewItem(
-                "카카오엔터프라이즈",
+                "카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오",
                 "Android",
                 "코딩테스트",
                 "김시진",
-                "실버 5",
+                "실버 IV",
                 "22.07.23",
                 32
             ),
@@ -137,7 +137,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
                 "Android",
                 "코딩테스트",
                 "김시진",
-                "실버 5",
+                "실버 IV",
                 "22.07.23",
                 32
             ),
@@ -146,7 +146,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
                 "Android",
                 "코딩테스트",
                 "김시진",
-                "실버 5",
+                "실버 IV",
                 "22.07.23",
                 32
             ),
@@ -155,7 +155,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
                 "Android",
                 "코딩테스트",
                 "김시진",
-                "실버 5",
+                "실버 IV",
                 "22.07.23",
                 32
             ),
@@ -164,7 +164,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
                 "Android",
                 "코딩테스트",
                 "김시진",
-                "실버 5",
+                "실버 IV",
                 "22.07.23",
                 32
             ),
@@ -173,7 +173,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
                 "Android",
                 "코딩테스트",
                 "김시진",
-                "실버 5",
+                "실버 IV",
                 "22.07.23",
                 32
             ),
@@ -182,7 +182,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
                 "Android",
                 "코딩테스트",
                 "김시진",
-                "실버 5",
+                "실버 IV",
                 "22.07.23",
                 32
             ),
@@ -192,15 +192,15 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
     private fun getStudyItem() : List<StudyItem> {
         return listOf(
             StudyItem(
-                "안드로이드 토이 프로젝트 모집합니다.",
+                "카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오",
                 "안드로이드",
                 "주2회",
                 "월,목",
                 "온라인",
                 "김시진",
-                "실버 5",
-                "실버 3",
-                "골드 3",
+                "실버 IV",
+                "실버 IV",
+                "골드 IV",
                 "22.07.23",
                 32
             ),
@@ -211,9 +211,9 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
                 "월,목",
                 "온라인",
                 "김시진",
-                "실버 5",
-                "실버 3",
-                "골드 3",
+                "실버 IV",
+                "실버 IV",
+                "골드 IV",
                 "22.07.23",
                 32
             ),
@@ -224,9 +224,9 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
                 "월,목",
                 "온라인",
                 "김시진",
-                "실버 5",
-                "실버 3",
-                "골드 3",
+                "실버 IV",
+                "실버 IV",
+                "골드 IV",
                 "22.07.23",
                 32
             ),
@@ -237,9 +237,9 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
                 "월,목",
                 "온라인",
                 "김시진",
-                "실버 5",
-                "실버 3",
-                "골드 3",
+                "실버 IV",
+                "실버 IV",
+                "골드 IV",
                 "22.07.23",
                 32
             ),
@@ -250,9 +250,9 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
                 "월,목",
                 "온라인",
                 "김시진",
-                "실버 5",
-                "실버 3",
-                "골드 3",
+                "실버 IV",
+                "실버 IV",
+                "골드 IV",
                 "22.07.23",
                 32
             ),
@@ -263,9 +263,9 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
                 "월,목",
                 "온라인",
                 "김시진",
-                "실버 5",
-                "실버 3",
-                "골드 3",
+                "실버 IV",
+                "실버 IV",
+                "골드 IV",
                 "22.07.23",
                 32
             ),
@@ -276,9 +276,9 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
                 "월,목",
                 "온라인",
                 "김시진",
-                "실버 5",
-                "실버 3",
-                "골드 3",
+                "실버 IV",
+                "실버 IV",
+                "골드 IV",
                 "22.07.23",
                 32
             ),
@@ -289,9 +289,9 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
                 "월,목",
                 "온라인",
                 "김시진",
-                "실버 5",
-                "실버 3",
-                "골드 3",
+                "실버 IV",
+                "실버 IV",
+                "골드 IV",
                 "22.07.23",
                 32
             ),
@@ -302,9 +302,9 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
                 "월,목",
                 "온라인",
                 "김시진",
-                "실버 5",
-                "실버 3",
-                "골드 3",
+                "실버 IV",
+                "실버 IV",
+                "골드 IV",
                 "22.07.23",
                 32
             ),
@@ -314,65 +314,65 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
     private fun getQuestionItem() : List<QuestionItem> {
         return listOf(
             QuestionItem(
-                "안드로이드 질문입니다.",
+                "카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오",
                 "김시진",
-                "실버 5",
+                "실버 IV",
                 "22.07.23",
                 32,
             ),
             QuestionItem(
                 "안드로이드 질문입니다.",
                 "김시진",
-                "실버 5",
+                "실버 IV",
                 "22.07.23",
                 32,
             ),
             QuestionItem(
                 "안드로이드 질문입니다.",
                 "김시진",
-                "실버 5",
+                "실버 IV",
                 "22.07.23",
                 32,
             ),
             QuestionItem(
                 "안드로이드 질문입니다.",
                 "김시진",
-                "실버 5",
+                "실버 IV",
                 "22.07.23",
                 32,
             ),
             QuestionItem(
                 "안드로이드 질문입니다.",
                 "김시진",
-                "실버 5",
+                "실버 IV",
                 "22.07.23",
                 32,
             ),
             QuestionItem(
                 "안드로이드 질문입니다.",
                 "김시진",
-                "실버 5",
+                "실버 IV",
                 "22.07.23",
                 32,
             ),
             QuestionItem(
                 "안드로이드 질문입니다.",
                 "김시진",
-                "실버 5",
+                "실버 IV",
                 "22.07.23",
                 32,
             ),
             QuestionItem(
                 "안드로이드 질문입니다.",
                 "김시진",
-                "실버 5",
+                "실버 IV",
                 "22.07.23",
                 32,
             ),
             QuestionItem(
                 "안드로이드 질문입니다.",
                 "김시진",
-                "실버 5",
+                "실버 IV",
                 "22.07.23",
                 32,
             ),

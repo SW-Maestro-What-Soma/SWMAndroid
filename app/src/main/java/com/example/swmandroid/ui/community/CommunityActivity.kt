@@ -90,75 +90,90 @@ class CommunityActivity : BaseActivity<ActivityCommunityBinding>({ ActivityCommu
 
     private fun selectedEvent(button: TextView) = with(binding) {
         when (button) {
-            fullCommunityButton -> {
-                fullCommunityButton.setBackgroundResource(R.drawable.selected_tab)
-                jobpostingCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-                jobreviewCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-                studyCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-                questionCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+            fullCommunityButton -> selectedFull()
+            jobpostingCommunityButton -> selectedJobPosting()
+            jobreviewCommunityButton -> selectedJobReview()
+            studyCommunityButton -> selectedStudy()
+            questionCommunityButton -> selectedQuestion()
+        }
+    }
 
-                fullCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.white))
-                jobpostingCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-                jobreviewCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-                studyCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-                questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-            }
+    private fun selectedFull() = with(binding){
+        fullCommunityButton.setBackgroundResource(R.drawable.selected_tab)
+        jobpostingCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+        jobreviewCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+        studyCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+        questionCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
 
-            jobpostingCommunityButton -> {
-                fullCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-                jobpostingCommunityButton.setBackgroundResource(R.drawable.selected_tab)
-                jobreviewCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-                studyCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-                questionCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+        fullCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.white))
+        jobpostingCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+        jobreviewCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+        studyCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+        questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+    }
 
-                fullCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-                jobpostingCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.white))
-                jobreviewCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-                studyCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-                questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-            }
+    private fun selectedJobPosting() = with(binding){
+        fullCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+        jobpostingCommunityButton.setBackgroundResource(R.drawable.selected_tab)
+        jobreviewCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+        studyCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+        questionCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
 
-            jobreviewCommunityButton -> {
-                fullCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-                jobpostingCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-                jobreviewCommunityButton.setBackgroundResource(R.drawable.selected_tab)
-                studyCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-                questionCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+        fullCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+        jobpostingCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.white))
+        jobreviewCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+        studyCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+        questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+    }
 
-                fullCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-                jobpostingCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-                jobreviewCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.white))
-                studyCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-                questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-            }
+    private fun selectedJobReview() = with(binding){
+        fullCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+        jobpostingCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+        jobreviewCommunityButton.setBackgroundResource(R.drawable.selected_tab)
+        studyCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+        questionCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
 
-            studyCommunityButton -> {
-                fullCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-                jobpostingCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-                jobreviewCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-                studyCommunityButton.setBackgroundResource(R.drawable.selected_tab)
-                questionCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+        fullCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+        jobpostingCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+        jobreviewCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.white))
+        studyCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+        questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+    }
 
-                fullCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-                jobpostingCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-                jobreviewCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-                studyCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.white))
-                questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-            }
+    private fun selectedStudy() = with(binding) {
+        fullCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+        jobpostingCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+        jobreviewCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+        studyCommunityButton.setBackgroundResource(R.drawable.selected_tab)
+        questionCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
 
-            questionCommunityButton -> {
-                fullCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-                jobpostingCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-                jobreviewCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-                studyCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-                questionCommunityButton.setBackgroundResource(R.drawable.selected_tab)
+        fullCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+        jobpostingCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+        jobreviewCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+        studyCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.white))
+        questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+    }
 
-                fullCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-                jobpostingCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-                jobreviewCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-                studyCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-                questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.white))
-            }
+    private fun selectedQuestion() = with(binding){
+        fullCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+        jobpostingCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+        jobreviewCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+        studyCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+        questionCommunityButton.setBackgroundResource(R.drawable.selected_tab)
+
+        fullCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+        jobpostingCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+        jobreviewCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+        studyCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+        questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.white))
+    }
+
+    fun setTopCategoryPosition(position : Int){
+        when(position){
+            0 -> selectedJobPosting()
+            1 -> selectedJobReview()
+            2 -> selectedStudy()
+            3 -> selectedQuestion()
         }
     }
 }

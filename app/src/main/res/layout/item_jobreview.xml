@@ -12,7 +12,6 @@
         android:layout_marginTop="10dp"
         android:ellipsize="end"
         android:fontFamily="@font/spoqa_han_sans_neo_bold"
-        android:maxWidth="300dp"
         android:maxLines="1"
         android:textColor="@color/black"
         android:textSize="15sp"
@@ -26,12 +25,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:fontFamily="@font/spoqa_han_sans_neo_bold"
+        android:text="(2)"
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@id/jobreview_title"
         app:layout_constraintStart_toEndOf="@id/jobreview_title"
-        app:layout_constraintTop_toTopOf="@id/jobreview_title"
-        tools:text="(2)" />
+        app:layout_constraintTop_toTopOf="@id/jobreview_title" />
 
 
     <ImageView
@@ -113,6 +112,7 @@
         tools:text="실버V" />
 
     <View
+        android:id="@+id/bottom_contour"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"

@@ -12,7 +12,6 @@
         android:layout_marginTop="10dp"
         android:ellipsize="end"
         android:fontFamily="@font/spoqa_han_sans_neo_bold"
-        android:maxWidth="330dp"
         android:maxLines="1"
         android:textColor="@color/black"
         android:textSize="15sp"
@@ -55,6 +54,7 @@
         tools:text="06/23~07/23" />
 
     <View
+        android:id="@+id/bottom_contour"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"

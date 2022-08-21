@@ -12,13 +12,12 @@
         android:layout_marginTop="10dp"
         android:ellipsize="end"
         android:fontFamily="@font/spoqa_han_sans_neo_bold"
-        android:maxWidth="220dp"
         android:maxLines="1"
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="토이프로젝트 스터디 모집합니다." />
+        tools:text="토이프로젝트 하실분??" />
 
     <TextView
         android:id="@+id/comment_count_textview"
@@ -26,12 +25,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:fontFamily="@font/spoqa_han_sans_neo_bold"
+        android:text="(2)"
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@id/study_title"
         app:layout_constraintStart_toEndOf="@id/study_title"
-        app:layout_constraintTop_toTopOf="@id/study_title"
-        tools:text="(2)" />
+        app:layout_constraintTop_toTopOf="@id/study_title" />
 
     <ImageView
         android:id="@+id/new_imageview"
@@ -52,9 +51,9 @@
         android:fontFamily="@font/spoqa_han_sans_neo_regular"
         android:textColor="@color/silver"
         android:textSize="13sp"
-        app:layout_constraintBottom_toBottomOf="@id/max_tier_textview"
+        app:layout_constraintBottom_toBottomOf="@id/new_imageview"
         app:layout_constraintEnd_toStartOf="@id/max_tier_textview"
-        app:layout_constraintTop_toTopOf="@id/max_tier_textview"
+        app:layout_constraintTop_toTopOf="@id/new_imageview"
         tools:text="실버 IV" />
 
     <View
@@ -70,12 +69,12 @@
         android:id="@+id/max_tier_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:fontFamily="@font/spoqa_han_sans_neo_regular"
         android:textColor="@color/gold"
         android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@id/min_tier_textview"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/min_tier_textview"
         tools:text="골드 IV" />
 
     <TextView
@@ -93,7 +92,7 @@
     <View
         android:layout_width="1dp"
         android:layout_height="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:background="@color/line"
         app:layout_constraintBottom_toBottomOf="@id/study_tech_category"
         app:layout_constraintStart_toEndOf="@id/study_tech_category"
@@ -115,7 +114,7 @@
     <View
         android:layout_width="1dp"
         android:layout_height="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:background="@color/line"
         app:layout_constraintBottom_toBottomOf="@id/times_week_textview"
         app:layout_constraintStart_toEndOf="@id/times_week_textview"
@@ -137,7 +136,7 @@
     <View
         android:layout_width="1dp"
         android:layout_height="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:background="@color/line"
         app:layout_constraintBottom_toBottomOf="@id/day_week_textview"
         app:layout_constraintStart_toEndOf="@id/day_week_textview"
@@ -191,6 +190,7 @@
         tools:text="실버V" />
 
     <View
+        android:id="@+id/bottom_contour"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
