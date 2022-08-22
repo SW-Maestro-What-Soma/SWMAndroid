@@ -1,6 +1,7 @@
 package com.example.swmandroid.ui.community
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,6 +70,7 @@ class SearchCommunityFragment : BaseFragment<FragmentSearchCommunityBinding>() {
         recentSearchRecyclerview.adapter = adapter
 
         communityViewModel.recentSearchLiveData.observe(viewLifecycleOwner, Observer {
+            Log.d("ABC", "ABC")
             (recentSearchRecyclerview.adapter as SearchAdapter).setData(it)
         })
     }
