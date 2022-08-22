@@ -36,6 +36,7 @@ class EasyLearningViewModel(
         _problem.postValue(Resource.Loading())
 
         _problem.postValue(problemRepository.getProblemByTechStack(techStack))
+
     }
 
 }

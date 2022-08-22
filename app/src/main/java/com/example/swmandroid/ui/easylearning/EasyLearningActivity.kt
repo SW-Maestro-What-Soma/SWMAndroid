@@ -34,16 +34,16 @@ class EasyLearningActivity : BaseActivity<ActivityEasyLearningBinding>({ Activit
 
     private fun initFragments(): List<Fragment> = listOf(
         NoTechFragment(),
-        LearningTechFragment.newInstance("백엔드"),
-        LearningTechFragment.newInstance("프론트엔드"),
-        LearningTechFragment.newInstance("안드로이드"),
+        LearningTechFragment.newInstance("Backend"),
+        LearningTechFragment.newInstance("Frontend"),
+        LearningTechFragment.newInstance("Android"),
         LearningTechFragment.newInstance("IOS"),
-        LearningTechFragment.newInstance("데이터사이언스"),
-        LearningTechFragment.newInstance("데이터분석"),
-        LearningTechFragment.newInstance("알고리즘"),
-        LearningTechFragment.newInstance("자료구조"),
-        LearningTechFragment.newInstance("네트워크"),
-        LearningTechFragment.newInstance("운영체제"),
+        LearningTechFragment.newInstance("DataScience"),
+        LearningTechFragment.newInstance("DataAnalysis"),
+        LearningTechFragment.newInstance("Algorithm"),
+        LearningTechFragment.newInstance("DataStructure"),
+        LearningTechFragment.newInstance("Network"),
+        LearningTechFragment.newInstance("OperatingSystem"),
     )
 
     private fun buttonClick() = with(binding) {

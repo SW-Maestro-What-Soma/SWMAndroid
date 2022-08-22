@@ -1,6 +1,5 @@
 package com.example.swmandroid.ui.easylearning.tech
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,6 +24,8 @@ class LearningTechFragment : BaseFragment<FragmentLearningTechBinding>() {
             }
     }
 
+    private var techStack = ""
+
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentLearningTechBinding {
         return FragmentLearningTechBinding.inflate(inflater, container, false)
     }
@@ -33,15 +34,21 @@ class LearningTechFragment : BaseFragment<FragmentLearningTechBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            binding.startTechTextview.text = getString(R.string.start_learning_tech, it.getString(KEY_TECH_STACK))
+            techStack = it.getString(KEY_TECH_STACK) ?: ""
         }
 
+        initView()
         buttonClick()
+    }
+
+    private fun initView() = with(binding) {
+        startTechTextview.text = getString(R.string.start_learning_tech, techStack)
     }
 
     private fun buttonClick() = with(binding) {
         startLearningButton.setOnClickListener {
             val intent = Intent(activity, StartEasyLearningActivity::class.java)
+            intent.putExtra("techStack", techStack)
             startActivity(intent)
         }
 

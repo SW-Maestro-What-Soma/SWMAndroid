@@ -34,16 +34,16 @@ class TestActivity : BaseActivity<ActivityTestBinding>({ActivityTestBinding.infl
 
     private fun initFragments(): List<Fragment> = listOf(
         NoTechFragment(),
-        TestTechFragment.newInstance("백엔드"),
-        TestTechFragment.newInstance("프론트엔드"),
-        TestTechFragment.newInstance("안드로이드"),
+        TestTechFragment.newInstance("Backend"),
+        TestTechFragment.newInstance("Frontend"),
+        TestTechFragment.newInstance("Android"),
         TestTechFragment.newInstance("IOS"),
-        TestTechFragment.newInstance("데이터사이언스"),
-        TestTechFragment.newInstance("데이터분석"),
-        TestTechFragment.newInstance("알고리즘"),
-        TestTechFragment.newInstance("자료구조"),
-        TestTechFragment.newInstance("네트워크"),
-        TestTechFragment.newInstance("운영체제"),
+        TestTechFragment.newInstance("DataScience"),
+        TestTechFragment.newInstance("DataAnalysis"),
+        TestTechFragment.newInstance("Algorithm"),
+        TestTechFragment.newInstance("DataStructure"),
+        TestTechFragment.newInstance("Network"),
+        TestTechFragment.newInstance("OperatingSystem"),
     )
 
     private fun buttonClick() = with(binding) {

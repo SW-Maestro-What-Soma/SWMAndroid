@@ -11,21 +11,22 @@ import com.example.swmandroid.ui.login.LoginViewModel
 import com.example.swmandroid.ui.test.TestViewModel
 import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidApplication
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 internal val appModule = module {
 
     // ViewModel
     single { LoginViewModel(get(), get()) }
-    single { (state: SavedStateHandle) -> EasyLearningViewModel(state, get()) }
-    single { (state: SavedStateHandle) -> TestViewModel(state, get()) }
-    single { CommunityViewModel(get()) }
+    viewModel { (state: SavedStateHandle) -> EasyLearningViewModel(state, get()) }
+    viewModel { (state: SavedStateHandle) -> TestViewModel(state, get()) }
+    viewModel { CommunityViewModel(get()) }
 
     // Repository
     single { LoginRepository(get()) }
     single { GoogleRepository() }
     single { ProblemRepository(get()) }
-    single { RecentSearchRepository(get(),get())}
+    single { RecentSearchRepository(get(), get()) }
 
     // Retrofit
     single { provideMoshiConverterFactory() }

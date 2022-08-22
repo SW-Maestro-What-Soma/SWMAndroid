@@ -1,6 +1,7 @@
 package com.example.swmandroid.ui.easylearning
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -10,10 +11,12 @@ import com.example.swmandroid.ui.all.ViewPagerAdapter
 import com.example.swmandroid.ui.easylearning.problem.LearningProblemFragment
 import com.example.swmandroid.util.Resource
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StartEasyLearningActivity : BaseActivity<ActivityStartEasyLearningBinding>({ ActivityStartEasyLearningBinding.inflate(it) }) {
 
     private val easyLearningViewModel by stateViewModel<EasyLearningViewModel>()
+
     private val fragmentList = mutableListOf<Fragment>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,8 +24,9 @@ class StartEasyLearningActivity : BaseActivity<ActivityStartEasyLearningBinding>
 
         binding.progressCircular.hide()
 
-        //TODO 백엔드 문제뿐만아니라 다른 스택 문제도 가져오도록 변경해야함
-        easyLearningViewModel.getProblemByTechStack("Back-end")
+        val techStack = intent.getStringExtra("techStack")
+
+        easyLearningViewModel.getProblemByTechStack(techStack ?: "Backend")
         easyLearningViewModel.problem.observe(this, Observer {
             when (it) {
                 is Resource.Loading -> {

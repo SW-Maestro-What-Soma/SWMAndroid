@@ -38,8 +38,8 @@ class StartTestActivity : BaseActivity<ActivityStartTestBinding>({ ActivityStart
             }
         }.start()
 
-        //TODO 백엔드 문제뿐만 아니라 다른 스택 문제도 가져오도록 변경해야함
-        testViewModel.getProblemByTechStack("Back-end")
+        val techStack = intent.getStringExtra("techStack")
+        testViewModel.getProblemByTechStack(techStack ?: "Backend")
         testViewModel.problem.observe(this, Observer {
             when (it) {
                 is Resource.Loading -> {
