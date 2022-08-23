@@ -1,12 +1,10 @@
 package com.example.swmandroid.ui.login
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
@@ -51,12 +49,12 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
         val password = passwordEdittext.text.toString()
 
         loginViewModel.postLogin(LoginInfo(email, password))
-        loginViewModel.userProfile.observe(viewLifecycleOwner, Observer {
-            when(it){
-                is Resource.Loading ->{
+        loginViewModel.userProfile.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Loading -> {
                     progressCircular.show()
                 }
-                is Resource.Success ->{
+                is Resource.Success -> {
                     progressCircular.hide()
                     root.findNavController().navigate(R.id.action_emailLoginFragment_to_mainActivity)
                 }
@@ -64,8 +62,8 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
                     progressCircular.hide()
                     Toast.makeText(context, "로그인 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 }
-             }
-        })
+            }
+        }
     }
 
 }

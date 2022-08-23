@@ -8,7 +8,6 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -50,9 +49,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
 
         window.statusBarColor = Color.parseColor("#0083E1")
 
-        loginViewModel.userProfile.observe(this, Observer {
+        loginViewModel.userProfile.observe(this) {
             binding.nickNameTextview.text = it.data?.nick_name
-        })
+        }
 
         initView()
         buttonClick()

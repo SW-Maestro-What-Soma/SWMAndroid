@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.swmandroid.BuildConfig
 import com.example.swmandroid.R
@@ -83,9 +82,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 Toast.makeText(context, "카카오로그인 실패", Toast.LENGTH_SHORT).show()
             } else if (token != null) {
                 loginViewModel.kakaoAddToken(token)
-                loginViewModel.kakaoEmail.observe(viewLifecycleOwner, Observer {
+                loginViewModel.kakaoEmail.observe(viewLifecycleOwner) {
                     apiPostLogin(it)
-                })
+                }
             }
         }
     }
@@ -94,7 +93,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         val password = BuildConfig.SOCIAL_LOGIN_PASSWORFD
 
         loginViewModel.postLogin(LoginInfo(email, password))
-        loginViewModel.userProfile.observe(viewLifecycleOwner, Observer {
+        loginViewModel.userProfile.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Loading -> {
                     progressCircular.show()
@@ -115,7 +114,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     root.findNavController().navigate(action)
                 }
             }
-        })
+        }
     }
 
     private fun buttonClick() = with(binding) {

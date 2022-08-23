@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.swmandroid.databinding.ItemJobpostingBinding
-import com.example.swmandroid.model.community.JobPostingItem
+import com.example.swmandroid.model.community.jobposting.JobPostingItem
 import com.example.swmandroid.util.MetricsUtil.dp
 
 class JobPostingAdapter(
@@ -25,10 +25,10 @@ class JobPostingAdapter(
         with(holder) {
             with(binding) {
                 jobpostingTitle.text = item.title
-                jobpostingTechCategory.text = item.techStack
-                jobpostingStartEndTime.text = item.date
+                jobpostingTechCategory.text = item.techCategory
+                jobpostingStartEndTime.text = item.startEndTime
                 createdAtTextview.text = item.createdAt
-                viewsTextview.text = item.viewsCount.toString()
+                viewsTextview.text = item.viewCount.toString()
 
                 jobpostingTitle.maxWidth = 260.dp
 

@@ -1,6 +1,7 @@
 package com.example.swmandroid.di
 
 import androidx.lifecycle.SavedStateHandle
+import com.example.swmandroid.data.repository.community.CommunityRepository
 import com.example.swmandroid.data.repository.community.RecentSearchRepository
 import com.example.swmandroid.data.repository.login.email.LoginRepository
 import com.example.swmandroid.data.repository.login.google.GoogleRepository
@@ -20,13 +21,14 @@ internal val appModule = module {
     single { LoginViewModel(get(), get()) }
     viewModel { (state: SavedStateHandle) -> EasyLearningViewModel(state, get()) }
     viewModel { (state: SavedStateHandle) -> TestViewModel(state, get()) }
-    viewModel { CommunityViewModel(get()) }
+    viewModel { CommunityViewModel(get(), get()) }
 
     // Repository
     single { LoginRepository(get()) }
     single { GoogleRepository() }
     single { ProblemRepository(get()) }
     single { RecentSearchRepository(get(), get()) }
+    single { CommunityRepository(get()) }
 
     // Retrofit
     single { provideMoshiConverterFactory() }
@@ -34,6 +36,7 @@ internal val appModule = module {
     single { provideRetrofit(get(), get()) }
     single { provideLoginApiService(get()) }
     single { provideProblemApiService(get()) }
+    single { provideCommunityApiService(get()) }
 
     // Coroutine
     single { Dispatchers.IO }

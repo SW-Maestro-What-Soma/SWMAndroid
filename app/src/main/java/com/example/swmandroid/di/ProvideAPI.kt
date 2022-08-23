@@ -1,6 +1,7 @@
 package com.example.swmandroid.di
 
 import com.example.swmandroid.BuildConfig
+import com.example.swmandroid.data.network.CommunityApiService
 import com.example.swmandroid.data.network.LoginApiService
 import com.example.swmandroid.data.network.ProblemApiService
 import com.squareup.moshi.Moshi
@@ -11,18 +12,22 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
-fun provideLoginApiService(retrofit : Retrofit) : LoginApiService {
+fun provideLoginApiService(retrofit: Retrofit): LoginApiService {
     return retrofit.create(LoginApiService::class.java)
 }
 
-fun provideProblemApiService(retrofit: Retrofit) : ProblemApiService{
+fun provideProblemApiService(retrofit: Retrofit): ProblemApiService {
     return retrofit.create(ProblemApiService::class.java)
 }
 
+fun provideCommunityApiService(retrofit: Retrofit): CommunityApiService {
+    return retrofit.create(CommunityApiService::class.java)
+}
+
 fun provideRetrofit(
-    okHttpClient : OkHttpClient,
+    okHttpClient: OkHttpClient,
     moshi: Moshi
-) : Retrofit {
+): Retrofit {
     return Retrofit.Builder()
         .baseUrl(BuildConfig.BACK_URL)
         .addConverterFactory(MoshiConverterFactory.create(moshi))
@@ -30,7 +35,7 @@ fun provideRetrofit(
         .build()
 }
 
-fun provideMoshiConverterFactory() : Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+fun provideMoshiConverterFactory(): Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
 fun buildOkHttpClient(): OkHttpClient {
     val interceptor = HttpLoggingInterceptor()

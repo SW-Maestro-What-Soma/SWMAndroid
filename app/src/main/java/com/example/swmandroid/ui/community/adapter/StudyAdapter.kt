@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.swmandroid.databinding.ItemStudyBinding
-import com.example.swmandroid.model.community.StudyItem
+import com.example.swmandroid.model.community.study.StudyItem
 import com.example.swmandroid.util.MetricsUtil.dp
 
 class StudyAdapter(
@@ -24,17 +24,18 @@ class StudyAdapter(
 
         with(holder) {
             with(binding) {
+                // TODO 유저정보 백엔드 수정
                 studyTitle.text = item.title
-                minTierTextview.text = item.minTier
-                maxTierTextview.text = item.maxTier
-                studyTechCategory.text = item.techStack
-                timesWeekTextview.text = item.timesWeek
-                dayWeekTextview.text = item.dayWeek
-                onOffTextview.text = item.onOff
-                studyNickTextview.text = item.nickName
-                studyTierTextview.text = item.tier
+                minTierTextview.text = item.minGrade
+                maxTierTextview.text = item.maxGrade
+                studyTechCategory.text = item.techCategory
+                timesWeekTextview.text = "주${item.perWeek}회"
+                dayWeekTextview.text = item.dayOfTheWeek
+                onOffTextview.text = if(item.onOffline) "온라인" else "오프라인"
+                studyNickTextview.text = "김시진"
+                studyTierTextview.text = "실버 V"
                 createdAtTextview.text = item.createdAt
-                viewsTextview.text = item.viewsCount.toString()
+                viewsTextview.text = item.viewCount.toString()
 
                 val maxWidth = getTitleMaxWidth()
                 studyTitle.maxWidth = maxWidth

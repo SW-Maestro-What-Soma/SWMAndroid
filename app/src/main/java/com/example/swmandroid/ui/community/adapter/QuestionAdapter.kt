@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.swmandroid.databinding.ItemQuestionBinding
-import com.example.swmandroid.model.community.QuestionItem
+import com.example.swmandroid.model.community.question.QuestionItem
 import com.example.swmandroid.util.MetricsUtil.dp
 
 class QuestionAdapter(
@@ -24,11 +24,12 @@ class QuestionAdapter(
 
         with(holder) {
             with(binding) {
+                //TODO 백엔드 수정해야함
                 questionTitle.text = item.title
-                questionNickTextview.text = item.nickName
-                questionTierTextview.text = item.tier
+                questionNickTextview.text = "김시진"
+                questionTierTextview.text = "실버 V"
                 createdAtTextview.text = item.createdAt
-                viewsTextview.text = item.viewsCount.toString()
+                viewsTextview.text = item.viewCount.toString()
 
                 val maxWidth = getTitleMaxWidth()
                 questionTitle.maxWidth = maxWidth

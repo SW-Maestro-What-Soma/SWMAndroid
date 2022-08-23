@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentTestProblemBinding
@@ -45,18 +44,18 @@ class TestProblemFragment : BaseFragment<FragmentTestProblemBinding>() {
     }
 
     private fun initView() = with(binding) {
-        testViewModel.milliSeconds.observe(viewLifecycleOwner, Observer {
+        testViewModel.milliSeconds.observe(viewLifecycleOwner) {
             val minute = it / 60000
             val second = it % 60000 / 1000
             timer.text = getString(R.string.timer, minute, second)
-        })
+        }
 
-        testViewModel.isFavoriteTestProblem.observe(viewLifecycleOwner, Observer {
+        testViewModel.isFavoriteTestProblem.observe(viewLifecycleOwner) {
             when (it) {
                 true -> favoriteButton.setImageResource(R.drawable.selected_favorite)
                 false -> favoriteButton.setImageResource(R.drawable.unselected_favorite)
             }
-        })
+        }
 
         favoriteButton.setOnClickListener {
             testViewModel.setFavoriteTestProblem()

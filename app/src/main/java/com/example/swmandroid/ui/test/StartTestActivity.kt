@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityStartTestBinding
 import com.example.swmandroid.ui.all.ViewPagerAdapter
@@ -40,7 +39,7 @@ class StartTestActivity : BaseActivity<ActivityStartTestBinding>({ ActivityStart
 
         val techStack = intent.getStringExtra("techStack")
         testViewModel.getProblemByTechStack(techStack ?: "Backend")
-        testViewModel.problem.observe(this, Observer {
+        testViewModel.problem.observe(this) {
             when (it) {
                 is Resource.Loading -> {
                     binding.progressCircular.show()
@@ -57,7 +56,7 @@ class StartTestActivity : BaseActivity<ActivityStartTestBinding>({ ActivityStart
                     Toast.makeText(this, "에러가 발생하였습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
-        })
+        }
     }
 
     private fun initView() = with(binding) {

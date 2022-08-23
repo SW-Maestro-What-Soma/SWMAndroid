@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.lifecycle.Observer
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentLearningProblemBinding
@@ -53,12 +52,12 @@ class LearningProblemFragment : BaseFragment<FragmentLearningProblemBinding>() {
 
         bottomSheet.layoutParams.height = (displayHeight * 0.7).toInt()
 
-        easyLearningViewModel.isFavoriteLearningProblem.observe(viewLifecycleOwner, Observer {
+        easyLearningViewModel.isFavoriteLearningProblem.observe(viewLifecycleOwner) {
             when (it) {
                 true -> favoriteButton.setImageResource(R.drawable.selected_favorite)
                 false -> favoriteButton.setImageResource(R.drawable.unselected_favorite)
             }
-        })
+        }
 
         favoriteButton.setOnClickListener {
             easyLearningViewModel.setFavoriteLearningProblem()

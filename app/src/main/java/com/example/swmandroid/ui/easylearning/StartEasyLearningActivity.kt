@@ -1,17 +1,14 @@
 package com.example.swmandroid.ui.easylearning
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityStartEasyLearningBinding
 import com.example.swmandroid.ui.all.ViewPagerAdapter
 import com.example.swmandroid.ui.easylearning.problem.LearningProblemFragment
 import com.example.swmandroid.util.Resource
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StartEasyLearningActivity : BaseActivity<ActivityStartEasyLearningBinding>({ ActivityStartEasyLearningBinding.inflate(it) }) {
 
@@ -27,7 +24,7 @@ class StartEasyLearningActivity : BaseActivity<ActivityStartEasyLearningBinding>
         val techStack = intent.getStringExtra("techStack")
 
         easyLearningViewModel.getProblemByTechStack(techStack ?: "Backend")
-        easyLearningViewModel.problem.observe(this, Observer {
+        easyLearningViewModel.problem.observe(this) {
             when (it) {
                 is Resource.Loading -> {
                     binding.progressCircular.show()
@@ -44,7 +41,7 @@ class StartEasyLearningActivity : BaseActivity<ActivityStartEasyLearningBinding>
                     Toast.makeText(this, "에러가 발생하였습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
-        })
+        }
     }
 
     private fun initView() = with(binding) {

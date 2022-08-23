@@ -1,12 +1,10 @@
 package com.example.swmandroid.ui.community
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.data.entity.RecentSearchEntity
@@ -27,16 +25,15 @@ class SearchCommunityFragment : BaseFragment<FragmentSearchCommunityBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        communityViewModel.category.observe(viewLifecycleOwner, Observer { category ->
-            communityViewModel.techStack.observe(viewLifecycleOwner, Observer {  techStack ->
-                Log.d("ABC", category + techStack)
+        communityViewModel.category.observe(viewLifecycleOwner) { category ->
+            communityViewModel.techStack.observe(viewLifecycleOwner) { techStack ->
                 initView(category, techStack)
                 buttonClick(category, techStack)
-            })
-        })
+            }
+        }
     }
 
-    private fun initView(category : String, techStack : String) = with(binding) {
+    private fun initView(category: String, techStack: String) = with(binding) {
         searchEdittext.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 communityViewModel.addRecentSearchData(RecentSearchEntity(category, techStack, searchEdittext.text.toString()))
@@ -50,7 +47,7 @@ class SearchCommunityFragment : BaseFragment<FragmentSearchCommunityBinding>() {
         connectSearchAdapter(category, techStack)
     }
 
-    private fun connectSearchAdapter(category : String, techStack : String) = with(binding) {
+    private fun connectSearchAdapter(category: String, techStack: String) = with(binding) {
         communityViewModel.getAllRecentSearchData(category, techStack)
 
         adapter = SearchAdapter(
@@ -63,12 +60,12 @@ class SearchCommunityFragment : BaseFragment<FragmentSearchCommunityBinding>() {
         recentSearchRecyclerview.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         recentSearchRecyclerview.adapter = adapter
 
-        communityViewModel.recentSearchLiveData.observe(viewLifecycleOwner, Observer {
+        communityViewModel.recentSearchLiveData.observe(viewLifecycleOwner) {
             (recentSearchRecyclerview.adapter as SearchAdapter).setData(it)
-        })
+        }
     }
 
-    private fun buttonClick(category : String, techStack : String) = with(binding) {
+    private fun buttonClick(category: String, techStack: String) = with(binding) {
         cancelTextview.setOnClickListener {
             searchEdittext.text.clear()
         }

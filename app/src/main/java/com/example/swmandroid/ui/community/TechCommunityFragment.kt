@@ -4,18 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentTechCommunityBinding
-import com.example.swmandroid.model.community.JobPostingItem
-import com.example.swmandroid.model.community.JobReviewItem
-import com.example.swmandroid.model.community.QuestionItem
-import com.example.swmandroid.model.community.StudyItem
+import com.example.swmandroid.model.community.jobposting.JobPostingItem
+import com.example.swmandroid.model.community.jobreview.JobReviewItem
+import com.example.swmandroid.model.community.question.QuestionItem
+import com.example.swmandroid.model.community.study.StudyItem
 import com.example.swmandroid.ui.community.adapter.JobPostingAdapter
 import com.example.swmandroid.ui.community.adapter.JobReviewAdapter
 import com.example.swmandroid.ui.community.adapter.QuestionAdapter
 import com.example.swmandroid.ui.community.adapter.StudyAdapter
+import com.example.swmandroid.util.Resource
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
@@ -33,344 +34,132 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
     }
 
     private fun initView() {
-      /*  communityViewModel.techStack.observe(viewLifecycleOwner, Observer {
-            //테크스택별 질문가져오기
-        })*/
-
-        communityViewModel.category.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                "채용공고" -> connectJobPostingAdapter()
-                "채용후기" -> connectJobReviewAdapter()
-                "스터디" -> connectStudyAdapter()
-                "질문" -> connectQuestionAdapter()
+        communityViewModel.category.observe(viewLifecycleOwner) { category ->
+            communityViewModel.techStack.observe(viewLifecycleOwner) { techStack ->
+                when (category) {
+                    "채용공고" -> {
+                        makeJobPostingView(techStack)
+                    }
+                    "채용후기" -> {
+                        makeJobReviewView(techStack)
+                    }
+                    "스터디" -> {
+                        makeStudyView(techStack)
+                    }
+                    "질문" -> {
+                        makeQuestionView(techStack)
+                    }
+                }
             }
-        })
-
+        }
     }
 
-    private fun connectJobPostingAdapter() = with(binding) {
-        val adapter = JobPostingAdapter(getJobPostingItem(), false)
+    private fun makeJobPostingView(techStack: String) = with(binding) {
+        communityViewModel.getJobPostingList(techStack, 0, 10)
+        communityViewModel.jobPostingList.observe(viewLifecycleOwner) { jobPostingResponse ->
+            when (jobPostingResponse) {
+                is Resource.Loading -> {
+                    progressCircular.show()
+                }
+                is Resource.Success -> {
+                    progressCircular.hide()
+                    val jobPostingListTechStack = jobPostingResponse.data?.jobPostingList?.content
+                    connectJobPostingAdapter(jobPostingListTechStack ?: emptyList())
+                }
+                is Resource.Error -> {
+                    progressCircular.hide()
+                    Toast.makeText(context, "채용공고 게시글을 불러오는데 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun makeJobReviewView(techStack: String) = with(binding) {
+        communityViewModel.getJobReviewList(techStack, 0, 10)
+        communityViewModel.jobReviewList.observe(viewLifecycleOwner) { jobReviewResponse ->
+            when (jobReviewResponse) {
+                is Resource.Loading -> {
+                    progressCircular.show()
+                }
+                is Resource.Success -> {
+                    progressCircular.hide()
+                    val jobReviewListTechStack = jobReviewResponse.data?.jobReviewList?.content
+                    connectJobReviewAdapter(jobReviewListTechStack ?: emptyList())
+                }
+                is Resource.Error -> {
+                    progressCircular.hide()
+                    Toast.makeText(context, "채용후기 게시글을 불러오는데 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun makeStudyView(techStack: String) = with(binding) {
+        communityViewModel.getStudyList(techStack, 0, 10)
+        communityViewModel.studyList.observe(viewLifecycleOwner) { studyResponse ->
+            when (studyResponse) {
+                is Resource.Loading -> {
+                    progressCircular.show()
+                }
+                is Resource.Success -> {
+                    progressCircular.hide()
+                    val studyListTechStack = studyResponse.data?.studyList?.content
+                    connectStudyAdapter(studyListTechStack ?: emptyList())
+                }
+                is Resource.Error -> {
+                    progressCircular.hide()
+                    Toast.makeText(context, "채용후기 게시글을 불러오는데 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun makeQuestionView(techStack: String) = with(binding) {
+        communityViewModel.getQuestionList(techStack, 0, 10)
+        communityViewModel.questionList.observe(viewLifecycleOwner) { questionResponse ->
+            when (questionResponse) {
+                is Resource.Loading -> {
+                    progressCircular.show()
+                }
+                is Resource.Success -> {
+                    progressCircular.hide()
+                    val questionListTechStack = questionResponse.data?.nowQnaList?.content
+                    connectQuestionAdapter(questionListTechStack ?: emptyList())
+                }
+                is Resource.Error -> {
+                    progressCircular.hide()
+                    Toast.makeText(context, "채용후기 게시글을 불러오는데 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun connectJobPostingAdapter(data: List<JobPostingItem>) = with(binding) {
+        val adapter = JobPostingAdapter(data, false)
 
         subCommunityRecyclerview.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         subCommunityRecyclerview.adapter = adapter
     }
 
-    private fun connectJobReviewAdapter() = with(binding) {
-        val adapter = JobReviewAdapter(getJobReviewItem(), false)
+    private fun connectJobReviewAdapter(data: List<JobReviewItem>) = with(binding) {
+        val adapter = JobReviewAdapter(data, false)
 
         subCommunityRecyclerview.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         subCommunityRecyclerview.adapter = adapter
     }
 
-    private fun connectStudyAdapter() = with(binding) {
-        val adapter = StudyAdapter(getStudyItem(), false)
+    private fun connectStudyAdapter(data: List<StudyItem>) = with(binding) {
+        val adapter = StudyAdapter(data, false)
 
         subCommunityRecyclerview.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         subCommunityRecyclerview.adapter = adapter
     }
 
-    private fun connectQuestionAdapter() = with(binding) {
-        val adapter = QuestionAdapter(getQuestionItem(), false)
+    private fun connectQuestionAdapter(data: List<QuestionItem>) = with(binding) {
+        val adapter = QuestionAdapter(data, false)
 
         subCommunityRecyclerview.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         subCommunityRecyclerview.adapter = adapter
     }
 
-    private fun getJobPostingItem(): List<JobPostingItem> {
-        return listOf(
-            JobPostingItem(
-                "카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오",
-                "Android",
-                "06/23 ~ 07/23",
-                "22.07.23",
-                32,
-            ),
-            JobPostingItem(
-                "카카오엔터프라이즈",
-                "Android",
-                "06/23 ~ 07/23",
-                "22.07.23",
-                32,
-            ),
-            JobPostingItem(
-                "카카오엔터프라이즈",
-                "Android",
-                "06/23 ~ 07/23",
-                "22.07.23",
-                32,
-            ),
-            JobPostingItem(
-                "카카오엔터프라이즈",
-                "Android",
-                "06/23 ~ 07/23",
-                "22.07.23",
-                32,
-            ),
-            JobPostingItem(
-                "카카오엔터프라이즈",
-                "Android",
-                "06/23 ~ 07/23",
-                "22.07.23",
-                32,
-            ),
-        )
-    }
-
-    private fun getJobReviewItem(): List<JobReviewItem> {
-        return listOf(
-            JobReviewItem(
-                "카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오",
-                "Android",
-                "코딩테스트",
-                "김시진",
-                "실버 IV",
-                "22.07.23",
-                32
-            ),
-            JobReviewItem(
-                "카카오엔터프라이즈",
-                "Android",
-                "코딩테스트",
-                "김시진",
-                "실버 IV",
-                "22.07.23",
-                32
-            ),
-            JobReviewItem(
-                "카카오엔터프라이즈",
-                "Android",
-                "코딩테스트",
-                "김시진",
-                "실버 IV",
-                "22.07.23",
-                32
-            ),
-            JobReviewItem(
-                "카카오엔터프라이즈",
-                "Android",
-                "코딩테스트",
-                "김시진",
-                "실버 IV",
-                "22.07.23",
-                32
-            ),
-            JobReviewItem(
-                "카카오엔터프라이즈",
-                "Android",
-                "코딩테스트",
-                "김시진",
-                "실버 IV",
-                "22.07.23",
-                32
-            ),
-            JobReviewItem(
-                "카카오엔터프라이즈",
-                "Android",
-                "코딩테스트",
-                "김시진",
-                "실버 IV",
-                "22.07.23",
-                32
-            ),
-            JobReviewItem(
-                "카카오엔터프라이즈",
-                "Android",
-                "코딩테스트",
-                "김시진",
-                "실버 IV",
-                "22.07.23",
-                32
-            ),
-        )
-    }
-
-    private fun getStudyItem(): List<StudyItem> {
-        return listOf(
-            StudyItem(
-                "카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오",
-                "안드로이드",
-                "주2회",
-                "월,목",
-                "온라인",
-                "김시진",
-                "실버 IV",
-                "실버 IV",
-                "골드 IV",
-                "22.07.23",
-                32
-            ),
-            StudyItem(
-                "안드로이드 토이 프로젝트 모집합니다.",
-                "안드로이드",
-                "주2회",
-                "월,목",
-                "온라인",
-                "김시진",
-                "실버 IV",
-                "실버 IV",
-                "골드 IV",
-                "22.07.23",
-                32
-            ),
-            StudyItem(
-                "안드로이드 토이 프로젝트 모집합니다.",
-                "안드로이드",
-                "주2회",
-                "월,목",
-                "온라인",
-                "김시진",
-                "실버 IV",
-                "실버 IV",
-                "골드 IV",
-                "22.07.23",
-                32
-            ),
-            StudyItem(
-                "안드로이드 토이 프로젝트 모집합니다.",
-                "안드로이드",
-                "주2회",
-                "월,목",
-                "온라인",
-                "김시진",
-                "실버 IV",
-                "실버 IV",
-                "골드 IV",
-                "22.07.23",
-                32
-            ),
-            StudyItem(
-                "안드로이드 토이 프로젝트 모집합니다.",
-                "안드로이드",
-                "주2회",
-                "월,목",
-                "온라인",
-                "김시진",
-                "실버 IV",
-                "실버 IV",
-                "골드 IV",
-                "22.07.23",
-                32
-            ),
-            StudyItem(
-                "안드로이드 토이 프로젝트 모집합니다.",
-                "안드로이드",
-                "주2회",
-                "월,목",
-                "온라인",
-                "김시진",
-                "실버 IV",
-                "실버 IV",
-                "골드 IV",
-                "22.07.23",
-                32
-            ),
-            StudyItem(
-                "안드로이드 토이 프로젝트 모집합니다.",
-                "안드로이드",
-                "주2회",
-                "월,목",
-                "온라인",
-                "김시진",
-                "실버 IV",
-                "실버 IV",
-                "골드 IV",
-                "22.07.23",
-                32
-            ),
-            StudyItem(
-                "안드로이드 토이 프로젝트 모집합니다.",
-                "안드로이드",
-                "주2회",
-                "월,목",
-                "온라인",
-                "김시진",
-                "실버 IV",
-                "실버 IV",
-                "골드 IV",
-                "22.07.23",
-                32
-            ),
-            StudyItem(
-                "안드로이드 토이 프로젝트 모집합니다.",
-                "안드로이드",
-                "주2회",
-                "월,목",
-                "온라인",
-                "김시진",
-                "실버 IV",
-                "실버 IV",
-                "골드 IV",
-                "22.07.23",
-                32
-            ),
-        )
-    }
-
-    private fun getQuestionItem(): List<QuestionItem> {
-        return listOf(
-            QuestionItem(
-                "카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오",
-                "김시진",
-                "실버 IV",
-                "22.07.23",
-                32,
-            ),
-            QuestionItem(
-                "안드로이드 질문입니다.",
-                "김시진",
-                "실버 IV",
-                "22.07.23",
-                32,
-            ),
-            QuestionItem(
-                "안드로이드 질문입니다.",
-                "김시진",
-                "실버 IV",
-                "22.07.23",
-                32,
-            ),
-            QuestionItem(
-                "안드로이드 질문입니다.",
-                "김시진",
-                "실버 IV",
-                "22.07.23",
-                32,
-            ),
-            QuestionItem(
-                "안드로이드 질문입니다.",
-                "김시진",
-                "실버 IV",
-                "22.07.23",
-                32,
-            ),
-            QuestionItem(
-                "안드로이드 질문입니다.",
-                "김시진",
-                "실버 IV",
-                "22.07.23",
-                32,
-            ),
-            QuestionItem(
-                "안드로이드 질문입니다.",
-                "김시진",
-                "실버 IV",
-                "22.07.23",
-                32,
-            ),
-            QuestionItem(
-                "안드로이드 질문입니다.",
-                "김시진",
-                "실버 IV",
-                "22.07.23",
-                32,
-            ),
-            QuestionItem(
-                "안드로이드 질문입니다.",
-                "김시진",
-                "실버 IV",
-                "22.07.23",
-                32,
-            ),
-        )
-    }
 }
