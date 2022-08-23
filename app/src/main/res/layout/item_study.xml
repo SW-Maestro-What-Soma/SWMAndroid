@@ -25,9 +25,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:fontFamily="@font/spoqa_han_sans_neo_bold"
-        android:text="(2)"
         android:textColor="@color/black"
         android:textSize="15sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/study_title"
         app:layout_constraintStart_toEndOf="@id/study_title"
         app:layout_constraintTop_toTopOf="@id/study_title" />

@@ -1,5 +1,6 @@
 package com.example.swmandroid.ui.community.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ class QuestionAdapter(
         return ViewHolder(ItemQuestionBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = dataList[position]
 
@@ -28,8 +30,13 @@ class QuestionAdapter(
                 questionTitle.text = item.title
                 questionNickTextview.text = "김시진"
                 questionTierTextview.text = "실버 V"
-                createdAtTextview.text = item.createdAt
+                createdAtTextview.text = item.createdAt.split(" ")[0]
                 viewsTextview.text = item.viewCount.toString()
+
+                if (item.commentCount > 0) {
+                    commentCountTextview.visibility = View.VISIBLE
+                    commentCountTextview.text = "(${item.commentCount})"
+                }
 
                 val maxWidth = getTitleMaxWidth()
                 questionTitle.maxWidth = maxWidth
