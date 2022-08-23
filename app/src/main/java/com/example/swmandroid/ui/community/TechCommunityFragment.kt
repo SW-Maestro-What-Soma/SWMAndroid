@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentTechCommunityBinding
@@ -15,22 +16,11 @@ import com.example.swmandroid.ui.community.adapter.JobPostingAdapter
 import com.example.swmandroid.ui.community.adapter.JobReviewAdapter
 import com.example.swmandroid.ui.community.adapter.QuestionAdapter
 import com.example.swmandroid.ui.community.adapter.StudyAdapter
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
 
-    companion object {
-        private const val KEY_TECH_COMMUNITY = "tech_stack"
-        private const val CATEGORY = "category"
-
-        @JvmStatic
-        fun newInstance(techStack: String, category : String) =
-            TechCommunityFragment().apply {
-                arguments = Bundle().apply {
-                    putString(KEY_TECH_COMMUNITY, techStack)
-                    putString(CATEGORY, category)
-                }
-            }
-    }
+    private val communityViewModel: CommunityViewModel by sharedViewModel()
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentTechCommunityBinding {
         return FragmentTechCommunityBinding.inflate(inflater, container, false)
@@ -39,21 +29,26 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-       initView()
+        initView()
     }
 
-    private fun initView(){
-        val category = arguments?.getString(CATEGORY)
+    private fun initView() {
+      /*  communityViewModel.techStack.observe(viewLifecycleOwner, Observer {
+            //테크스택별 질문가져오기
+        })*/
 
-        when(category){
-            "채용공고" -> connectJobPostingAdapter()
-            "채용후기" -> connectJobReviewAdapter()
-            "스터디" -> connectStudyAdapter()
-            "질문" -> connectQuestionAdapter()
-        }
+        communityViewModel.category.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                "채용공고" -> connectJobPostingAdapter()
+                "채용후기" -> connectJobReviewAdapter()
+                "스터디" -> connectStudyAdapter()
+                "질문" -> connectQuestionAdapter()
+            }
+        })
+
     }
 
-    private fun connectJobPostingAdapter() = with(binding){
+    private fun connectJobPostingAdapter() = with(binding) {
         val adapter = JobPostingAdapter(getJobPostingItem(), false)
 
         subCommunityRecyclerview.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
@@ -81,7 +76,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         subCommunityRecyclerview.adapter = adapter
     }
 
-    private fun getJobPostingItem() : List<JobPostingItem> {
+    private fun getJobPostingItem(): List<JobPostingItem> {
         return listOf(
             JobPostingItem(
                 "카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오",
@@ -121,7 +116,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         )
     }
 
-    private fun getJobReviewItem() : List<JobReviewItem> {
+    private fun getJobReviewItem(): List<JobReviewItem> {
         return listOf(
             JobReviewItem(
                 "카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오",
@@ -189,7 +184,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         )
     }
 
-    private fun getStudyItem() : List<StudyItem> {
+    private fun getStudyItem(): List<StudyItem> {
         return listOf(
             StudyItem(
                 "카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오",
@@ -311,7 +306,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         )
     }
 
-    private fun getQuestionItem() : List<QuestionItem> {
+    private fun getQuestionItem(): List<QuestionItem> {
         return listOf(
             QuestionItem(
                 "카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오카카오",

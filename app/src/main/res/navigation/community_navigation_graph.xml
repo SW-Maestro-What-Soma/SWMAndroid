@@ -23,9 +23,6 @@
         <action
             android:id="@+id/action_subCommunityFragment_to_fullCommunityFragment"
             app:destination="@id/fullCommunityFragment" />
-        <argument
-            android:name="category"
-            app:argType="string" />
         <action
             android:id="@+id/action_subCommunityFragment_to_searchCommunityFragment"
             app:destination="@id/searchCommunityFragment" />
@@ -33,12 +30,5 @@
     <fragment
         android:id="@+id/searchCommunityFragment"
         android:name="com.example.swmandroid.ui.community.SearchCommunityFragment"
-        android:label="SearchCommunityFragment" >
-        <argument
-            android:name="techStack"
-            app:argType="string" />
-        <argument
-            android:name="category"
-            app:argType="string" />
-    </fragment>
+        android:label="SearchCommunityFragment" />
 </navigation>

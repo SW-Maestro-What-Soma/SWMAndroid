@@ -6,8 +6,12 @@ import androidx.core.content.ContextCompat
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityCommunityBinding
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CommunityActivity : BaseActivity<ActivityCommunityBinding>({ ActivityCommunityBinding.inflate(it) }) {
+
+    private val communityViewModel: CommunityViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,56 +38,64 @@ class CommunityActivity : BaseActivity<ActivityCommunityBinding>({ ActivityCommu
         jobpostingCommunityButton.setOnClickListener {
             selectedEvent(jobpostingCommunityButton)
 
+            communityViewModel.setCategory("채용공고")
+
             val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
             val nowFragment = hostFragment?.childFragmentManager?.fragments?.get(0)
 
             if (nowFragment is SubCommunityFragment) {
-                nowFragment.moveSubCommunityFragment("채용공고")
+                nowFragment.moveSubCommunityFragment()
             }
             if (nowFragment is FullCommunityFragment) {
-                nowFragment.moveSubCommunityFragment("채용공고")
+                nowFragment.moveSubCommunityFragment()
             }
         }
 
         jobreviewCommunityButton.setOnClickListener {
             selectedEvent(jobreviewCommunityButton)
 
+            communityViewModel.setCategory("채용후기")
+
             val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
             val nowFragment = hostFragment?.childFragmentManager?.fragments?.get(0)
 
             if (nowFragment is SubCommunityFragment) {
-                nowFragment.moveSubCommunityFragment("채용후기")
+                nowFragment.moveSubCommunityFragment()
             }
             if (nowFragment is FullCommunityFragment) {
-                nowFragment.moveSubCommunityFragment("채용후기")
+                nowFragment.moveSubCommunityFragment()
             }
         }
 
         studyCommunityButton.setOnClickListener {
             selectedEvent(studyCommunityButton)
 
+            communityViewModel.setCategory("스터디")
+
             val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
             val nowFragment = hostFragment?.childFragmentManager?.fragments?.get(0)
 
             if (nowFragment is SubCommunityFragment) {
-                nowFragment.moveSubCommunityFragment("스터디")
+                nowFragment.moveSubCommunityFragment()
             }
             if (nowFragment is FullCommunityFragment) {
-                nowFragment.moveSubCommunityFragment("스터디")
+                nowFragment.moveSubCommunityFragment()
             }
         }
 
         questionCommunityButton.setOnClickListener {
             selectedEvent(questionCommunityButton)
 
+            communityViewModel.setCategory("질문")
+
             val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
             val nowFragment = hostFragment?.childFragmentManager?.fragments?.get(0)
 
             if (nowFragment is SubCommunityFragment) {
-                nowFragment.moveSubCommunityFragment("질문")
+                nowFragment.moveSubCommunityFragment()
             }
             if (nowFragment is FullCommunityFragment) {
-                nowFragment.moveSubCommunityFragment("질문")
+                nowFragment.moveSubCommunityFragment()
             }
         }
     }
@@ -98,7 +110,7 @@ class CommunityActivity : BaseActivity<ActivityCommunityBinding>({ ActivityCommu
         }
     }
 
-    private fun selectedFull() = with(binding){
+    private fun selectedFull() = with(binding) {
         fullCommunityButton.setBackgroundResource(R.drawable.selected_tab)
         jobpostingCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
         jobreviewCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
@@ -112,7 +124,7 @@ class CommunityActivity : BaseActivity<ActivityCommunityBinding>({ ActivityCommu
         questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
     }
 
-    private fun selectedJobPosting() = with(binding){
+    private fun selectedJobPosting() = with(binding) {
         fullCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
         jobpostingCommunityButton.setBackgroundResource(R.drawable.selected_tab)
         jobreviewCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
@@ -126,7 +138,7 @@ class CommunityActivity : BaseActivity<ActivityCommunityBinding>({ ActivityCommu
         questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
     }
 
-    private fun selectedJobReview() = with(binding){
+    private fun selectedJobReview() = with(binding) {
         fullCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
         jobpostingCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
         jobreviewCommunityButton.setBackgroundResource(R.drawable.selected_tab)
@@ -154,7 +166,7 @@ class CommunityActivity : BaseActivity<ActivityCommunityBinding>({ ActivityCommu
         questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
     }
 
-    private fun selectedQuestion() = with(binding){
+    private fun selectedQuestion() = with(binding) {
         fullCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
         jobpostingCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
         jobreviewCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
@@ -168,8 +180,8 @@ class CommunityActivity : BaseActivity<ActivityCommunityBinding>({ ActivityCommu
         questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.white))
     }
 
-    fun setTopCategoryPosition(position : Int){
-        when(position){
+    fun setTopCategoryPosition(position: Int) {
+        when (position) {
             0 -> selectedJobPosting()
             1 -> selectedJobReview()
             2 -> selectedStudy()

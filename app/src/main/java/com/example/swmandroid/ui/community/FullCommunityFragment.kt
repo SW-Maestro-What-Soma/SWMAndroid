@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentFullCommunityBinding
 import com.example.swmandroid.model.community.JobReviewItem
@@ -15,8 +16,11 @@ import com.example.swmandroid.model.community.StudyItem
 import com.example.swmandroid.ui.community.adapter.JobReviewAdapter
 import com.example.swmandroid.ui.community.adapter.QuestionAdapter
 import com.example.swmandroid.ui.community.adapter.StudyAdapter
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
+
+    private val communityViewModel: CommunityViewModel by sharedViewModel()
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentFullCommunityBinding {
         return FragmentFullCommunityBinding.inflate(inflater, container, false)
@@ -31,9 +35,8 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
         buttonClick()
     }
 
-    fun moveSubCommunityFragment(category: String) {
-        val action = FullCommunityFragmentDirections.actionFullCommunityFragmentToSubCommunityFragment(category)
-        binding.root.findNavController().navigate(action)
+    fun moveSubCommunityFragment() {
+        binding.root.findNavController().navigate(R.id.action_fullCommunityFragment_to_subCommunityFragment)
     }
 
     private fun connectJobReviewAdapter() = with(binding) {
@@ -168,26 +171,26 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
 
     private fun buttonClick() = with(binding) {
         moreJobpostingButton.setOnClickListener {
-            val action = FullCommunityFragmentDirections.actionFullCommunityFragmentToSubCommunityFragment("채용공고")
-            binding.root.findNavController().navigate(action)
+            communityViewModel.setCategory("채용공고")
+            binding.root.findNavController().navigate(R.id.action_fullCommunityFragment_to_subCommunityFragment)
             (activity as CommunityActivity).setTopCategoryPosition(0)
         }
 
         jobreviewMoreTextview.setOnClickListener {
-            val action = FullCommunityFragmentDirections.actionFullCommunityFragmentToSubCommunityFragment("채용후기")
-            binding.root.findNavController().navigate(action)
+            communityViewModel.setCategory("채용후기")
+            binding.root.findNavController().navigate(R.id.action_fullCommunityFragment_to_subCommunityFragment)
             (activity as CommunityActivity).setTopCategoryPosition(1)
         }
 
         studyMoreTextview.setOnClickListener {
-            val action = FullCommunityFragmentDirections.actionFullCommunityFragmentToSubCommunityFragment("스터디")
-            binding.root.findNavController().navigate(action)
+            communityViewModel.setCategory("스터디")
+            binding.root.findNavController().navigate(R.id.action_fullCommunityFragment_to_subCommunityFragment)
             (activity as CommunityActivity).setTopCategoryPosition(2)
         }
 
         questionMoreTextview.setOnClickListener {
-            val action = FullCommunityFragmentDirections.actionFullCommunityFragmentToSubCommunityFragment("질문")
-            binding.root.findNavController().navigate(action)
+            communityViewModel.setCategory("질문")
+            binding.root.findNavController().navigate(R.id.action_fullCommunityFragment_to_subCommunityFragment)
             (activity as CommunityActivity).setTopCategoryPosition(3)
         }
 

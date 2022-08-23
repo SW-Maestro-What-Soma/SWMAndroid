@@ -1,5 +1,6 @@
 package com.example.swmandroid.ui.community
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,6 +16,12 @@ class CommunityViewModel(
     private val _recentSearchLiveData = MutableLiveData<List<RecentSearchEntity>>()
     val recentSearchLiveData: LiveData<List<RecentSearchEntity>> = _recentSearchLiveData
     private var recentSearchData = mutableListOf<RecentSearchEntity>()
+
+    private val _category = MutableLiveData<String>()
+    val category : LiveData<String> = _category
+
+    private val _techStack = MutableLiveData<String>()
+    val techStack : LiveData<String> = _techStack
 
     fun addRecentSearchData(recentSearchEntity: RecentSearchEntity) = viewModelScope.launch {
         recentSearchRepository.insertRecentSearch(recentSearchEntity)
@@ -33,7 +40,7 @@ class CommunityViewModel(
     fun removeAllRecentSearchData(category: String, techStack: String) = viewModelScope.launch {
         recentSearchRepository.clearRecentSearch(category, techStack)
 
-        recentSearchData = recentSearchData.filter { it.category == category && it.techStack == techStack }.toMutableList()
+        recentSearchData = recentSearchData.filter { it.category != category && it.techStack != techStack }.toMutableList()
         _recentSearchLiveData.value = recentSearchData
     }
 
@@ -43,6 +50,14 @@ class CommunityViewModel(
         recentSearchData.clear()
         recentSearchData = dataList.toMutableList()
         _recentSearchLiveData.value = recentSearchData
+    }
+
+    fun setCategory(category : String) {
+        _category.value = category
+    }
+
+    fun setTechStack(techStack : String) {
+        _techStack.value = techStack
     }
 
 }
