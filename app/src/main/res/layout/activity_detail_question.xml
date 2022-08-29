@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_blue"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/full_service_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="14dp"
+            android:background="@color/transparent"
+            android:src="@drawable/menu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/community_question_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:text="@string/community_question"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/my_page_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginBottom="14dp"
+            android:background="@color/transparent"
+            android:src="@drawable/mypage"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/question_top_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/detail_top_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topbar_layout">
+
+        <TextView
+            android:id="@+id/question_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="컴포즈 질문있어요" />
+
+        <TextView
+            android:id="@+id/question_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="@id/question_title"
+            app:layout_constraintTop_toBottomOf="@id/question_title"
+            tools:text="Mobile" />
+
+        <TextView
+            android:id="@+id/question_writer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:textColor="@color/light_black"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/question_category"
+            app:layout_constraintTop_toBottomOf="@id/question_category"
+            tools:text="김시진" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@color/line"
+            app:layout_constraintBottom_toBottomOf="@id/question_writer"
+            app:layout_constraintStart_toEndOf="@id/question_writer"
+            app:layout_constraintTop_toTopOf="@id/question_writer" />
+
+        <TextView
+            android:id="@+id/view_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="@string/view_count"
+            android:textColor="@color/gray"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/question_writer"
+            app:layout_constraintStart_toEndOf="@id/question_writer"
+            app:layout_constraintTop_toTopOf="@id/question_writer" />
+
+        <TextView
+            android:id="@+id/question_viewcount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:textColor="@color/light_black"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/view_count"
+            app:layout_constraintStart_toEndOf="@id/view_count"
+            app:layout_constraintTop_toTopOf="@id/view_count"
+            tools:text="13" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@color/line"
+            app:layout_constraintBottom_toBottomOf="@id/question_viewcount"
+            app:layout_constraintStart_toEndOf="@id/question_viewcount"
+            app:layout_constraintTop_toTopOf="@id/question_viewcount" />
+
+        <TextView
+            android:id="@+id/comment_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="@string/comment_count"
+            android:textColor="@color/gray"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/question_viewcount"
+            app:layout_constraintStart_toEndOf="@id/question_viewcount"
+            app:layout_constraintTop_toTopOf="@id/question_viewcount" />
+
+        <TextView
+            android:id="@+id/question_commentcount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:textColor="@color/light_black"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/comment_count"
+            app:layout_constraintStart_toEndOf="@id/comment_count"
+            app:layout_constraintTop_toTopOf="@id/comment_count"
+            tools:text="13" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@color/line"
+            app:layout_constraintBottom_toBottomOf="@id/question_commentcount"
+            app:layout_constraintStart_toEndOf="@id/question_commentcount"
+            app:layout_constraintTop_toTopOf="@id/question_commentcount" />
+
+        <ImageView
+            android:id="@+id/created_at_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:src="@drawable/created_at_icon"
+            app:layout_constraintBottom_toBottomOf="@id/question_commentcount"
+            app:layout_constraintStart_toEndOf="@id/question_commentcount"
+            app:layout_constraintTop_toTopOf="@id/question_commentcount" />
+
+        <TextView
+            android:id="@+id/question_createdat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:textColor="@color/gray"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/created_at_imageview"
+            app:layout_constraintStart_toEndOf="@id/created_at_imageview"
+            app:layout_constraintTop_toTopOf="@id/created_at_imageview"
+            tools:text="22.08.10 00:00:00" />
+
+        <ImageView
+            android:id="@+id/downvote_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/downvote"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/upvote_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/upvote"
+            app:layout_constraintEnd_toStartOf="@id/downvote_imageview"
+            app:layout_constraintTop_toTopOf="@id/downvote_imageview" />
+
+        <TextView
+            android:id="@+id/vote_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:textColor="@color/gray"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/downvote_imageview"
+            tools:text="vote +3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content_layout"
+        android:layout_width="0dp"
+        android:layout_height="350dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginVertical="15dp"
+        android:background="@drawable/detail_content_background"
+        app:layout_constraintBottom_toTopOf="@id/comment_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/question_top_layout">
+
+        <TextView
+            android:id="@+id/question_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="15dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@id/question_delete_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/question_delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="@string/delete"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/line"
+            app:layout_constraintBottom_toBottomOf="@id/question_delete_button"
+            app:layout_constraintEnd_toStartOf="@id/question_delete_button"
+            app:layout_constraintTop_toTopOf="@id/question_delete_button" />
+
+        <TextView
+            android:id="@+id/question_modify_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="@string/modify"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/question_delete_button"
+            app:layout_constraintEnd_toStartOf="@id/question_delete_button"
+            app:layout_constraintTop_toTopOf="@id/question_delete_button" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/line"
+            app:layout_constraintBottom_toBottomOf="@id/question_modify_button"
+            app:layout_constraintEnd_toStartOf="@id/question_modify_button"
+            app:layout_constraintTop_toTopOf="@id/question_modify_button" />
+
+        <TextView
+            android:id="@+id/question_scrab_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="@string/scrab"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/question_modify_button"
+            app:layout_constraintEnd_toStartOf="@id/question_modify_button"
+            app:layout_constraintTop_toTopOf="@id/question_modify_button" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/line"
+            app:layout_constraintBottom_toBottomOf="@id/question_scrab_button"
+            app:layout_constraintEnd_toStartOf="@id/question_scrab_button"
+            app:layout_constraintTop_toTopOf="@id/question_scrab_button" />
+
+        <TextView
+            android:id="@+id/question_like_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="@string/like"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/question_scrab_button"
+            app:layout_constraintEnd_toStartOf="@id/question_scrab_button"
+            app:layout_constraintTop_toTopOf="@id/question_scrab_button" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/comment_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/detail_content_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/content_layout">
+
+        <TextView
+            android:id="@+id/question_comment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="15dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

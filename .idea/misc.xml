@@ -11,6 +11,8 @@
         <entry key="app/src/main/res/drawable/button_background.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable/community_lightblue_background.xml" value="0.225" />
         <entry key="app/src/main/res/drawable/community_white_background.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/detail_content_background.xml" value="0.2355" />
+        <entry key="app/src/main/res/drawable/detail_content_background_no_top_stroke.xml" value="0.122" />
         <entry key="app/src/main/res/drawable/edittext_background.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable/hide_bottom_sheet.xml" value="0.187" />
         <entry key="app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.2025" />
@@ -36,6 +38,10 @@
         <entry key="app/src/main/res/drawable/unselected_tab.xml" value="0.115" />
         <entry key="app/src/main/res/layout/activity_book_detail.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_community.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_detail_jobposting.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/activity_detail_jobreview.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_detail_question.xml" value="0.25625" />
+        <entry key="app/src/main/res/layout/activity_detail_study.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_easy_learning.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/activity_email_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_find_password.xml" value="0.22604166666666667" />

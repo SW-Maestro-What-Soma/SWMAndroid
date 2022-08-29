@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_blue"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/full_service_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="14dp"
+            android:background="@color/transparent"
+            android:src="@drawable/menu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/community_study_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:text="@string/community_study"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/my_page_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginBottom="14dp"
+            android:background="@color/transparent"
+            android:src="@drawable/mypage"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/study_top_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/detail_top_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topbar_layout">
+
+        <TextView
+            android:id="@+id/study_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="안드로이드 컴포즈 스터디 모집합니다." />
+
+        <TextView
+            android:id="@+id/study_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="@id/study_title"
+            app:layout_constraintTop_toBottomOf="@id/study_title"
+            tools:text="Mobile" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@color/line"
+            app:layout_constraintBottom_toBottomOf="@id/study_category"
+            app:layout_constraintStart_toEndOf="@id/study_category"
+            app:layout_constraintTop_toTopOf="@id/study_category" />
+
+        <TextView
+            android:id="@+id/study_perweek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/study_category"
+            app:layout_constraintStart_toEndOf="@id/study_category"
+            app:layout_constraintTop_toTopOf="@id/study_category"
+            tools:text="주2회" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@color/line"
+            app:layout_constraintBottom_toBottomOf="@id/study_perweek"
+            app:layout_constraintStart_toEndOf="@id/study_perweek"
+            app:layout_constraintTop_toTopOf="@id/study_perweek" />
+
+        <TextView
+            android:id="@+id/study_dayofweek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/study_perweek"
+            app:layout_constraintStart_toEndOf="@id/study_perweek"
+            app:layout_constraintTop_toTopOf="@id/study_perweek"
+            tools:text="월,목" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@color/line"
+            app:layout_constraintBottom_toBottomOf="@id/study_dayofweek"
+            app:layout_constraintStart_toEndOf="@id/study_dayofweek"
+            app:layout_constraintTop_toTopOf="@id/study_dayofweek" />
+
+        <TextView
+            android:id="@+id/study_onoff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/study_dayofweek"
+            app:layout_constraintStart_toEndOf="@id/study_dayofweek"
+            app:layout_constraintTop_toTopOf="@id/study_dayofweek"
+            tools:text="온라인" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@color/line"
+            app:layout_constraintBottom_toBottomOf="@id/study_onoff"
+            app:layout_constraintStart_toEndOf="@id/study_onoff"
+            app:layout_constraintTop_toTopOf="@id/study_onoff" />
+
+        <TextView
+            android:id="@+id/mintier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="@string/mintier"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/study_onoff"
+            app:layout_constraintStart_toEndOf="@id/study_onoff"
+            app:layout_constraintTop_toTopOf="@id/study_onoff" />
+
+        <TextView
+            android:id="@+id/study_mintier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/mintier"
+            app:layout_constraintStart_toEndOf="@id/mintier"
+            app:layout_constraintTop_toTopOf="@id/mintier"
+            tools:text="실버V" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@color/line"
+            app:layout_constraintBottom_toBottomOf="@id/study_mintier"
+            app:layout_constraintStart_toEndOf="@id/study_mintier"
+            app:layout_constraintTop_toTopOf="@id/study_mintier" />
+
+        <TextView
+            android:id="@+id/maxtier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="@string/maxtier"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/study_mintier"
+            app:layout_constraintStart_toEndOf="@id/study_mintier"
+            app:layout_constraintTop_toTopOf="@id/study_mintier" />
+
+        <TextView
+            android:id="@+id/study_maxtier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/maxtier"
+            app:layout_constraintStart_toEndOf="@id/maxtier"
+            app:layout_constraintTop_toTopOf="@id/maxtier"
+            tools:text="실버V" />
+
+        <TextView
+            android:id="@+id/study_writer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:textColor="@color/light_black"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/study_category"
+            app:layout_constraintTop_toBottomOf="@id/study_category"
+            tools:text="김시진" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@color/line"
+            app:layout_constraintBottom_toBottomOf="@id/study_writer"
+            app:layout_constraintStart_toEndOf="@id/study_writer"
+            app:layout_constraintTop_toTopOf="@id/study_writer" />
+
+        <TextView
+            android:id="@+id/view_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="@string/view_count"
+            android:textColor="@color/gray"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/study_writer"
+            app:layout_constraintStart_toEndOf="@id/study_writer"
+            app:layout_constraintTop_toTopOf="@id/study_writer" />
+
+        <TextView
+            android:id="@+id/study_viewcount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:textColor="@color/light_black"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/view_count"
+            app:layout_constraintStart_toEndOf="@id/view_count"
+            app:layout_constraintTop_toTopOf="@id/view_count"
+            tools:text="13" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@color/line"
+            app:layout_constraintBottom_toBottomOf="@id/study_viewcount"
+            app:layout_constraintStart_toEndOf="@id/study_viewcount"
+            app:layout_constraintTop_toTopOf="@id/study_viewcount" />
+
+        <TextView
+            android:id="@+id/comment_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="@string/comment_count"
+            android:textColor="@color/gray"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/study_viewcount"
+            app:layout_constraintStart_toEndOf="@id/study_viewcount"
+            app:layout_constraintTop_toTopOf="@id/study_viewcount" />
+
+        <TextView
+            android:id="@+id/study_commentcount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:textColor="@color/light_black"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/comment_count"
+            app:layout_constraintStart_toEndOf="@id/comment_count"
+            app:layout_constraintTop_toTopOf="@id/comment_count"
+            tools:text="13" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@color/line"
+            app:layout_constraintBottom_toBottomOf="@id/study_commentcount"
+            app:layout_constraintStart_toEndOf="@id/study_commentcount"
+            app:layout_constraintTop_toTopOf="@id/study_commentcount" />
+
+        <ImageView
+            android:id="@+id/created_at_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:src="@drawable/created_at_icon"
+            app:layout_constraintBottom_toBottomOf="@id/study_commentcount"
+            app:layout_constraintStart_toEndOf="@id/study_commentcount"
+            app:layout_constraintTop_toTopOf="@id/study_commentcount" />
+
+        <TextView
+            android:id="@+id/study_createdat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:textColor="@color/gray"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/created_at_imageview"
+            app:layout_constraintStart_toEndOf="@id/created_at_imageview"
+            app:layout_constraintTop_toTopOf="@id/created_at_imageview"
+            tools:text="22.08.10 00:00:00" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/link_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/detail_content_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/study_top_layout">
+
+        <ImageView
+            android:id="@+id/link_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="15dp"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/link"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/link_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="@string/link"
+            android:textColor="@color/gray"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@id/link_imageview"
+            app:layout_constraintStart_toEndOf="@id/link_imageview"
+            app:layout_constraintTop_toTopOf="@id/link_imageview" />
+
+        <TextView
+            android:id="@+id/study_link"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/link_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/link_textview"
+            app:layout_constraintTop_toTopOf="@id/link_textview" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content_layout"
+        android:layout_width="0dp"
+        android:layout_height="350dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginVertical="15dp"
+        android:background="@drawable/detail_content_background"
+        app:layout_constraintBottom_toTopOf="@id/comment_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/link_layout">
+
+        <TextView
+            android:id="@+id/study_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="15dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@id/study_delete_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/study_delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="@string/delete"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/line"
+            app:layout_constraintBottom_toBottomOf="@id/study_delete_button"
+            app:layout_constraintEnd_toStartOf="@id/study_delete_button"
+            app:layout_constraintTop_toTopOf="@id/study_delete_button" />
+
+        <TextView
+            android:id="@+id/study_modify_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="@string/modify"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/study_delete_button"
+            app:layout_constraintEnd_toStartOf="@id/study_delete_button"
+            app:layout_constraintTop_toTopOf="@id/study_delete_button" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/line"
+            app:layout_constraintBottom_toBottomOf="@id/study_modify_button"
+            app:layout_constraintEnd_toStartOf="@id/study_modify_button"
+            app:layout_constraintTop_toTopOf="@id/study_modify_button" />
+
+        <TextView
+            android:id="@+id/study_scrab_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="@string/scrab"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/study_modify_button"
+            app:layout_constraintEnd_toStartOf="@id/study_modify_button"
+            app:layout_constraintTop_toTopOf="@id/study_modify_button" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/line"
+            app:layout_constraintBottom_toBottomOf="@id/study_scrab_button"
+            app:layout_constraintEnd_toStartOf="@id/study_scrab_button"
+            app:layout_constraintTop_toTopOf="@id/study_scrab_button" />
+
+        <TextView
+            android:id="@+id/study_like_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="@string/like"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/study_scrab_button"
+            app:layout_constraintEnd_toStartOf="@id/study_scrab_button"
+            app:layout_constraintTop_toTopOf="@id/study_scrab_button" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/comment_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/detail_content_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/content_layout">
+
+        <TextView
+            android:id="@+id/study_comment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="15dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
