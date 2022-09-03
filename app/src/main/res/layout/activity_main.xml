@@ -148,6 +148,7 @@
                 android:background="@drawable/blue_button_background"
                 android:fontFamily="@font/jeju_gothic"
                 android:gravity="center"
+                android:paddingVertical="20dp"
                 android:text="@string/make_problem"
                 android:textColor="@color/white"
                 android:textSize="17sp"

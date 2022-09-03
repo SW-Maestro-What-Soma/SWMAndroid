@@ -47,6 +47,7 @@
         android:background="@drawable/blue_button_background"
         android:fontFamily="@font/jeju_gothic"
         android:gravity="center"
+        android:paddingVertical="20dp"
         android:text="@string/start_learning"
         android:textColor="@color/white"
         android:textSize="17sp"
