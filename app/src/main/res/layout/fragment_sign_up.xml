@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.login.SignUpFragment">
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageButton
         android:id="@+id/back_button"
         android:layout_width="wrap_content"
@@ -34,18 +44,76 @@
         android:id="@+id/email_edittext"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
-        android:background="@drawable/edittext_background"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/light_gray_background"
         android:fontFamily="@font/spoqa_han_sans_neo_regular"
         android:hint="@string/input_email_hint"
         android:inputType="textEmailAddress"
         android:padding="15dp"
         android:textColorHint="@color/gray"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/transmit_textview"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sign_up_textview" />
+
+    <TextView
+        android:id="@+id/transmit_textview"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/sky_blue_background"
+        android:fontFamily="@font/jeju_gothic"
+        android:gravity="center"
+        android:paddingVertical="15dp"
+        android:text="@string/transmit_text"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/email_edittext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/email_edittext"
+        app:layout_constraintTop_toTopOf="@id/email_edittext" />
+
+    <EditText
+        android:id="@+id/certification_edittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/light_gray_background"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:hint="@string/certification_hint_text"
+        android:inputType="text"
+        android:padding="15dp"
+        android:textColor="@color/gray"
+        android:textColorHint="@color/gray"
+        android:textSize="15sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/check_certification_textview"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/email_edittext"
+        tools:ignore="TextFields" />
+
+    <TextView
+        android:id="@+id/check_certification_textview"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/sky_blue_background"
+        android:fontFamily="@font/jeju_gothic"
+        android:gravity="center"
+        android:paddingVertical="15dp"
+        android:text="@string/check_text"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/certification_edittext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/certification_edittext"
+        app:layout_constraintTop_toTopOf="@id/certification_edittext" />
+
 
     <EditText
         android:id="@+id/password_edittext"
@@ -53,7 +121,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/edittext_background"
+        android:background="@drawable/light_gray_background"
         android:fontFamily="@font/spoqa_han_sans_neo_regular"
         android:hint="@string/input_password_hint"
         android:inputType="textPassword"
@@ -62,7 +130,7 @@
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/email_edittext" />
+        app:layout_constraintTop_toBottomOf="@id/certification_edittext" />
 
     <EditText
         android:id="@+id/re_password_edittext"
@@ -70,7 +138,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/edittext_background"
+        android:background="@drawable/light_gray_background"
         android:fontFamily="@font/spoqa_han_sans_neo_regular"
         android:hint="@string/input_repassword_hint"
         android:inputType="textPassword"
@@ -87,7 +155,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/blue_button_background"
+        android:background="@drawable/blue_background"
         android:fontFamily="@font/jeju_gothic"
         android:gravity="center"
         android:paddingVertical="20dp"

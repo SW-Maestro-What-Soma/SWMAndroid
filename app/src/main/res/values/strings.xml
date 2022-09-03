@@ -71,4 +71,10 @@
     <string name="mintier">최소 :</string>
     <string name="maxtier">최대 :</string>
     <string name="community_question">질문 게시판</string>
+    <string name="email_auth">이메일 인증</string>송
+    <string name="transmit_text">전송</string>
+    <string name="retransmit_text">재전송</string>
+    <string name="certification_hint_text">인증번호를 입력해 주세요.</string>
+    <string name="check_text">확인</string>
+    <string name="certification_transmit_text">인증번호 받기</string>
 </resources>

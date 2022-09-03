@@ -1,5 +1,6 @@
 package com.example.swmandroid.data.repository
 
+import android.util.Log
 import com.example.swmandroid.model.ExampleErrorResponse
 import com.example.swmandroid.util.Resource
 import com.squareup.moshi.Moshi
@@ -25,10 +26,13 @@ abstract class BaseRepo() {
                 }
 
             } catch (e: HttpException) {
+                Log.e("BaseRepoError", e.printStackTrace().toString())
                 Resource.Error(errorMessage = e.message ?: "Something went wrong")
             } catch (e: IOException) {
+                Log.e("BaseRepoError", e.printStackTrace().toString())
                 Resource.Error("Please check your network connection")
             } catch (e: Exception) {
+                Log.e("BaseRepoError", e.printStackTrace().toString())
                 Resource.Error(errorMessage = "Something went wrong")
             }
         }

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.swmandroid.data.repository.login.email.LoginRepository
 import com.example.swmandroid.data.repository.login.google.GoogleRepository
+import com.example.swmandroid.model.login.EmailConfirm
 import com.example.swmandroid.model.login.LoginInfo
 import com.example.swmandroid.model.login.UserEntity
 import com.example.swmandroid.model.login.UserProfile
@@ -38,6 +39,9 @@ class LoginViewModel(
     private val _userProfile = MutableLiveData<Resource<UserProfile>>()
     val userProfile: LiveData<Resource<UserProfile>> = _userProfile
 
+    private val _certification = MutableLiveData<Resource<EmailConfirm>>()
+    val certification: LiveData<Resource<EmailConfirm>> = _certification
+
     fun googleAddToken(token: String) {
         googleRepository.getGoogleUser(token)
     }
@@ -61,4 +65,11 @@ class LoginViewModel(
 
         _userProfile.postValue(loginRepository.postLogin(loginInfo))
     }
+
+    fun postEmailConfirm(userEmail: String) = viewModelScope.launch {
+        _certification.postValue(Resource.Loading())
+
+        _certification.postValue(loginRepository.postEmailConfirm(userEmail))
+    }
+
 }

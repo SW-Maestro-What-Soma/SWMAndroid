@@ -10,7 +10,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="gray">#8F8F8F</color>
+    <color name="black_gray">#4E4E4E</color>
     <color name="main_blue">#0083E1</color>
+    <color name="sky_blue">#50BCDF</color>
     <color name="light_gray_background">#FAFAFA</color>
     <color name="unselected_tab_background">#E2EBF0</color>
     <color name="light_blue">#F0FCFF</color>

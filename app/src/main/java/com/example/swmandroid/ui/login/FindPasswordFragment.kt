@@ -20,19 +20,19 @@ class FindPasswordFragment : BaseFragment<FragmentFindPasswordBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        checkEmailEditText(binding.findPasswordEdittext)
+        checkEmailEditText(requireContext(), binding.findPasswordEdittext)
         buttonClick()
     }
 
     private fun buttonClick() = with(binding) {
         backButton.setOnClickListener { root.findNavController().popBackStack() }
         findPasswordButton.setOnClickListener {
-            if (checkEmail(findPasswordEdittext)) {
+            if (checkEmail(requireContext(), findPasswordEdittext)) {
                 //TODO 임시 비밀번호 발급 로직 추가해야함
-                Toast.makeText(context, "이메일을 확인해주세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "이메일을 확인해주세요.", Toast.LENGTH_SHORT).show()
                 root.findNavController().popBackStack()
             } else {
-                Toast.makeText(context, "이메일 형식을 확인해주세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "이메일 형식을 확인해주세요.", Toast.LENGTH_SHORT).show()
             }
         }
     }

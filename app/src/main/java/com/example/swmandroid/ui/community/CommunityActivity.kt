@@ -6,7 +6,6 @@ import androidx.core.content.ContextCompat
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityCommunityBinding
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CommunityActivity : BaseActivity<ActivityCommunityBinding>({ ActivityCommunityBinding.inflate(it) }) {

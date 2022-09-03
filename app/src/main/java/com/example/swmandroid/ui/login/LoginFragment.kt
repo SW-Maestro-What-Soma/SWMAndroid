@@ -70,7 +70,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     loginViewModel.googleAddToken(account.idToken!!)
                     account.email?.let { it -> apiPostLogin(it) }
                 } catch (e: ApiException) {
-                    Toast.makeText(context, "구글로그인 실패", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "구글로그인 실패", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -79,7 +79,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     private fun kakaoLoginSetting() {
         kakaoCallBack = { token, error ->
             if (error != null) {
-                Toast.makeText(context, "카카오로그인 실패", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "카카오로그인 실패", Toast.LENGTH_SHORT).show()
             } else if (token != null) {
                 loginViewModel.kakaoAddToken(token)
                 loginViewModel.kakaoEmail.observe(viewLifecycleOwner) {

@@ -25,8 +25,8 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.progressCircular.hide()
-        checkEmailEditText(binding.emailEdittext)
-        checkPasswordEditText(binding.passwordEdittext)
+        checkEmailEditText(requireContext(), binding.emailEdittext)
+        checkPasswordEditText(requireContext(), binding.passwordEdittext)
 
         buttonClick()
     }
@@ -34,10 +34,10 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
     private fun buttonClick() = with(binding) {
         backButton.setOnClickListener { root.findNavController().popBackStack() }
         loginButton.setOnClickListener {
-            if (checkEmail(emailEdittext) && checkPassword(passwordEdittext)) {
+            if (checkEmail(requireContext(), emailEdittext) && checkPassword(requireContext(), passwordEdittext)) {
                 apiPostLogin()
             } else {
-                Toast.makeText(context, "이메일과 비밀번호 형식을 확인하세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "이메일과 비밀번호 형식을 확인하세요.", Toast.LENGTH_SHORT).show()
             }
         }
         signInTextview.setOnClickListener { root.findNavController().navigate(R.id.action_emailLoginFragment_to_signUpFragment) }
@@ -60,7 +60,7 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
                 }
                 is Resource.Error -> {
                     progressCircular.hide()
-                    Toast.makeText(context, "로그인 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "로그인 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
         }
