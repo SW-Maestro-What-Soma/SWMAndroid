@@ -1,6 +1,5 @@
 package com.example.swmandroid.ui.login
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -23,8 +22,6 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
 
     private var certification = ""
 
-    private var isCert = false
-
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentSignUpBinding {
         return FragmentSignUpBinding.inflate(inflater, container, false)
     }
@@ -34,6 +31,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
 
         binding.progressCircular.hide()
 
+        initCertificationView()
         buttonClick()
         checkEmailEditText(requireContext(), binding.emailEdittext)
         checkPasswordEditText(requireContext(), binding.passwordEdittext)
@@ -41,27 +39,44 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
         checkCertificationEditText()
     }
 
+    private fun initCertificationView() {
+        loginViewModel.certification.observe(viewLifecycleOwner) {
+            if (it.data != null) {
+                showCertification()
+                setTransmitTextview()
+
+                if (loginViewModel.isCert) {
+                    setBlockEmailAndCertificationView()
+                } else {
+                    binding.certificationEdittext.setTextColor(-65536)
+                }
+            }
+        }
+
+    }
+
     private fun buttonClick() = with(binding) {
         backButton.setOnClickListener { root.findNavController().popBackStack() }
 
         transmitTextview.setOnClickListener {
+            certificationEdittext.text = null
             postEmailConfirm()
         }
 
         checkCertificationTextview.setOnClickListener {
             if (checkCertification()) {
-                isCert = true
+                loginViewModel.setCertificationStatus(true)
                 setBlockEmailAndCertificationView()
                 Toast.makeText(requireContext(), "인증 되었습니다.", Toast.LENGTH_SHORT).show()
             } else {
-                isCert = false
+                loginViewModel.setCertificationStatus(false)
                 certificationEdittext.setTextColor(-65536)
                 Toast.makeText(requireContext(), "인증번호를 확인해주세요.", Toast.LENGTH_SHORT).show()
             }
         }
 
         signUpButton.setOnClickListener {
-            if (isCert && checkEmail(requireContext(), emailEdittext) && checkPassword(requireContext(), passwordEdittext) && checkRePassword()) {
+            if (loginViewModel.isCert && checkEmail(requireContext(), emailEdittext) && checkPassword(requireContext(), passwordEdittext) && checkRePassword()) {
                 moveSetTechFragment()
             } else {
                 Toast.makeText(requireContext(), "이메일과 비밀번호 형식을 확인하세요.", Toast.LENGTH_SHORT).show()

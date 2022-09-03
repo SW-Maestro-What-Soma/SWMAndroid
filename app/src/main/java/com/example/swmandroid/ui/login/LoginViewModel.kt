@@ -42,6 +42,8 @@ class LoginViewModel(
     private val _certification = MutableLiveData<Resource<EmailConfirm>>()
     val certification: LiveData<Resource<EmailConfirm>> = _certification
 
+    var isCert = false
+
     fun googleAddToken(token: String) {
         googleRepository.getGoogleUser(token)
     }
@@ -70,6 +72,10 @@ class LoginViewModel(
         _certification.postValue(Resource.Loading())
 
         _certification.postValue(loginRepository.postEmailConfirm(userEmail))
+    }
+
+    fun setCertificationStatus(check : Boolean){
+        isCert = check
     }
 
 }
