@@ -53,6 +53,9 @@ class CommunityViewModel(
     private val _fullQuestionList = MutableLiveData<Resource<QuestionResponse>>()
     val fullQuestionList: LiveData<Resource<QuestionResponse>> = _fullQuestionList
 
+    private val _sort = MutableLiveData("id,DESC")
+    val sort: LiveData<String> = _sort
+
     fun addRecentSearchData(recentSearchEntity: RecentSearchEntity) = viewModelScope.launch {
         recentSearchRepository.insertRecentSearch(recentSearchEntity)
 
@@ -90,52 +93,60 @@ class CommunityViewModel(
         _techStack.value = techStack
     }
 
-    fun getJobPostingList(techStack: String, page: Int, size: Int) = viewModelScope.launch {
+    fun getJobPostingList(techStack: String, page: Int, size: Int, sort: String) = viewModelScope.launch {
         _jobPostingList.postValue(Resource.Loading())
 
-        _jobPostingList.postValue(communityRepository.getJobPostingList(techStack, page, size))
+        _jobPostingList.postValue(communityRepository.getJobPostingList(techStack, page, size, sort))
     }
 
-    fun getJobReviewList(techStack: String, page: Int, size: Int) = viewModelScope.launch {
+    fun getJobReviewList(techStack: String, page: Int, size: Int, sort: String) = viewModelScope.launch {
         _jobReviewList.postValue(Resource.Loading())
 
-        _jobReviewList.postValue(communityRepository.getJobReviewList(techStack, page, size))
+        _jobReviewList.postValue(communityRepository.getJobReviewList(techStack, page, size, sort))
     }
 
-    fun getStudyList(techStack: String, page: Int, size: Int) = viewModelScope.launch {
+    fun getStudyList(techStack: String, page: Int, size: Int, sort: String) = viewModelScope.launch {
         _studyList.postValue(Resource.Loading())
 
-        _studyList.postValue(communityRepository.getStudyList(techStack, page, size))
+        _studyList.postValue(communityRepository.getStudyList(techStack, page, size, sort))
     }
 
-    fun getQuestionList(techStack: String, page: Int, size: Int) = viewModelScope.launch {
+    fun getQuestionList(techStack: String, page: Int, size: Int, sort: String) = viewModelScope.launch {
         _questionList.postValue(Resource.Loading())
 
-        _questionList.postValue(communityRepository.getQuestionList(techStack, page, size))
+        _questionList.postValue(communityRepository.getQuestionList(techStack, page, size, sort))
     }
 
     fun getFullJobPostingList() = viewModelScope.launch {
         _fullJobPostingList.postValue(Resource.Loading())
 
-        _fullJobPostingList.postValue(communityRepository.getJobPostingList("ALL", 0, 3))
+        _fullJobPostingList.postValue(communityRepository.getJobPostingList("ALL", 0, 3, "id,DESC"))
     }
 
     fun getFullJobReviewList() = viewModelScope.launch {
         _fullJobReviewList.postValue(Resource.Loading())
 
-        _fullJobReviewList.postValue(communityRepository.getJobReviewList("ALL", 0, 3))
+        _fullJobReviewList.postValue(communityRepository.getJobReviewList("ALL", 0, 3, "id,DESC"))
     }
 
     fun getFullStudyList() = viewModelScope.launch {
         _fullStudyList.postValue(Resource.Loading())
 
-        _fullStudyList.postValue(communityRepository.getStudyList("ALL", 0, 3))
+        _fullStudyList.postValue(communityRepository.getStudyList("ALL", 0, 3, "id,DESC"))
     }
 
     fun getFullQuestionList() = viewModelScope.launch {
         _fullQuestionList.postValue(Resource.Loading())
 
-        _fullQuestionList.postValue(communityRepository.getQuestionList("ALL", 0, 4))
+        _fullQuestionList.postValue(communityRepository.getQuestionList("ALL", 0, 4, "id,DESC"))
+    }
+
+    fun setNewOrder() {
+        _sort.value = "id,DESC"
+    }
+
+    fun setViewOrder() {
+        _sort.value = "viewCount,DESC"
     }
 
 }

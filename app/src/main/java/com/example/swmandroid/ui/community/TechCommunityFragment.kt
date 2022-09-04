@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentTechCommunityBinding
 import com.example.swmandroid.model.community.jobposting.JobPostingItem
@@ -36,31 +38,70 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        buttonClick()
     }
 
     private fun initView() {
         communityViewModel.category.observe(viewLifecycleOwner) { category ->
             communityViewModel.techStack.observe(viewLifecycleOwner) { techStack ->
-                when (category) {
-                    "채용공고" -> {
-                        makeJobPostingView(techStack)
+                communityViewModel.sort.observe(viewLifecycleOwner) { sort ->
+                    if(sort == "id,DESC"){
+                        setNewOrderTextView()
+                    }else{
+                        setViewOrderTextView()
                     }
-                    "채용후기" -> {
-                        makeJobReviewView(techStack)
-                    }
-                    "스터디" -> {
-                        makeStudyView(techStack)
-                    }
-                    "질문" -> {
-                        makeQuestionView(techStack)
+
+                    when (category) {
+                        "채용공고" -> {
+                            makeJobPostingView(techStack, sort)
+                        }
+                        "채용후기" -> {
+                            makeJobReviewView(techStack, sort)
+                        }
+                        "스터디" -> {
+                            makeStudyView(techStack, sort)
+                        }
+                        "질문" -> {
+                            makeQuestionView(techStack, sort)
+                        }
                     }
                 }
             }
         }
     }
 
-    private fun makeJobPostingView(techStack: String) = with(binding) {
-        communityViewModel.getJobPostingList(techStack, 0, 10)
+    private fun buttonClick() = with(binding) {
+        neworderTextview.setOnClickListener {
+            setNewOrderTextView()
+            setNewOrderLiveData()
+        }
+
+        vieworderTextview.setOnClickListener {
+            setViewOrderTextView()
+            setViewOrderLiveData()
+        }
+    }
+
+    private fun setNewOrderTextView() = with(binding) {
+        neworderTextview.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+        vieworderTextview.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
+    }
+
+    private fun setNewOrderLiveData() {
+        communityViewModel.setNewOrder()
+    }
+
+    private fun setViewOrderTextView() = with(binding) {
+        neworderTextview.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
+        vieworderTextview.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+    }
+
+    private fun setViewOrderLiveData(){
+        communityViewModel.setViewOrder()
+    }
+
+    private fun makeJobPostingView(techStack: String, sort: String) = with(binding) {
+        communityViewModel.getJobPostingList(techStack, 0, 10, sort)
         communityViewModel.jobPostingList.observe(viewLifecycleOwner) { jobPostingResponse ->
             when (jobPostingResponse) {
                 is Resource.Loading -> {
@@ -79,8 +120,8 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         }
     }
 
-    private fun makeJobReviewView(techStack: String) = with(binding) {
-        communityViewModel.getJobReviewList(techStack, 0, 10)
+    private fun makeJobReviewView(techStack: String, sort: String) = with(binding) {
+        communityViewModel.getJobReviewList(techStack, 0, 10, sort)
         communityViewModel.jobReviewList.observe(viewLifecycleOwner) { jobReviewResponse ->
             when (jobReviewResponse) {
                 is Resource.Loading -> {
@@ -99,8 +140,8 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         }
     }
 
-    private fun makeStudyView(techStack: String) = with(binding) {
-        communityViewModel.getStudyList(techStack, 0, 10)
+    private fun makeStudyView(techStack: String, sort: String) = with(binding) {
+        communityViewModel.getStudyList(techStack, 0, 10, sort)
         communityViewModel.studyList.observe(viewLifecycleOwner) { studyResponse ->
             when (studyResponse) {
                 is Resource.Loading -> {
@@ -119,8 +160,8 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         }
     }
 
-    private fun makeQuestionView(techStack: String) = with(binding) {
-        communityViewModel.getQuestionList(techStack, 0, 10)
+    private fun makeQuestionView(techStack: String, sort: String) = with(binding) {
+        communityViewModel.getQuestionList(techStack, 0, 10, sort)
         communityViewModel.questionList.observe(viewLifecycleOwner) { questionResponse ->
             when (questionResponse) {
                 is Resource.Loading -> {

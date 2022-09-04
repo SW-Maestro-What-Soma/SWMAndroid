@@ -19,6 +19,5 @@ data class JobPostingItem(
     val techStack: String,
     val text: String,
     val title: String,
-    @Json(name = "view_count")
     val viewCount: Int
 ) : Parcelable

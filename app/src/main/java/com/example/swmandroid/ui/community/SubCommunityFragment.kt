@@ -14,7 +14,6 @@ import com.example.swmandroid.ui.all.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-
 class SubCommunityFragment : BaseFragment<FragmentSubCommunityBinding>() {
 
     private val mainTabArray = arrayOf("백엔드", "프론트엔드", "안드로이드", "IOS", "데이터사이언스", "데이터분석", "알고리즘", "자료구조", "네트워크", "운영체제")
@@ -34,7 +33,7 @@ class SubCommunityFragment : BaseFragment<FragmentSubCommunityBinding>() {
 
     private fun initView() = with(binding) {
         val fragments = initFragments()
-        viewPager.adapter = ViewPagerAdapter(requireActivity().supportFragmentManager, lifecycle, fragments)
+        viewPager.adapter = ViewPagerAdapter(childFragmentManager, lifecycle, fragments)
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {

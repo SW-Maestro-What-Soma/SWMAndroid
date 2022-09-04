@@ -14,6 +14,53 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/vieworder_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:text="@string/vieworder"
+        android:textColor="@color/gray"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="10dp"
+        android:layout_marginEnd="12dp"
+        android:background="@color/line"
+        app:layout_constraintBottom_toBottomOf="@id/vieworder_textview"
+        app:layout_constraintEnd_toStartOf="@id/vieworder_textview"
+        app:layout_constraintTop_toTopOf="@id/vieworder_textview" />
+
+    <TextView
+        android:id="@+id/neworder_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:text="@string/neworder"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/vieworder_textview"
+        app:layout_constraintEnd_toStartOf="@id/vieworder_textview"
+        app:layout_constraintTop_toTopOf="@id/vieworder_textview" />
+
+
+    <View
+        android:id="@+id/contour"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/neworder_textview" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/sub_community_recyclerview"
         android:layout_width="0dp"
@@ -23,7 +70,7 @@
         app:layout_constraintBottom_toTopOf="@id/write_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/contour"/>
 
     <TextView
         android:id="@+id/write_button"
