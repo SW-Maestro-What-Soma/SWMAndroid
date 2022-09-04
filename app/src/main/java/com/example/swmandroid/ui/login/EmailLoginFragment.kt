@@ -10,7 +10,9 @@ import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentEmailLoginBinding
 import com.example.swmandroid.model.login.LoginInfo
-import com.example.swmandroid.util.*
+import com.example.swmandroid.util.Resource
+import com.example.swmandroid.util.checkEmail
+import com.example.swmandroid.util.checkEmailEditText
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
@@ -26,7 +28,6 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
 
         binding.progressCircular.hide()
         checkEmailEditText(requireContext(), binding.emailEdittext)
-        checkPasswordEditText(requireContext(), binding.passwordEdittext)
 
         buttonClick()
     }
@@ -34,7 +35,7 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
     private fun buttonClick() = with(binding) {
         backButton.setOnClickListener { root.findNavController().popBackStack() }
         loginButton.setOnClickListener {
-            if (checkEmail(requireContext(), emailEdittext) && checkPassword(requireContext(), passwordEdittext)) {
+            if (checkEmail(requireContext(), emailEdittext) ) {
                 apiPostLogin()
             } else {
                 Toast.makeText(requireContext(), "이메일과 비밀번호 형식을 확인하세요.", Toast.LENGTH_SHORT).show()

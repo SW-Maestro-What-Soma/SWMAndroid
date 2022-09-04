@@ -42,6 +42,9 @@ class LoginViewModel(
     private val _certification = MutableLiveData<Resource<EmailConfirm>>()
     val certification: LiveData<Resource<EmailConfirm>> = _certification
 
+    private val _passwordToken = MutableLiveData<Resource<EmailConfirm>>()
+    val passwordToken: LiveData<Resource<EmailConfirm>> = _passwordToken
+
     var isCert = false
 
     fun googleAddToken(token: String) {
@@ -74,8 +77,14 @@ class LoginViewModel(
         _certification.postValue(loginRepository.postEmailConfirm(userEmail))
     }
 
-    fun setCertificationStatus(check : Boolean){
+    fun setCertificationStatus(check: Boolean) {
         isCert = check
+    }
+
+    fun postSearchPassword(email: String) = viewModelScope.launch {
+        _passwordToken.postValue(Resource.Loading())
+
+        _passwordToken.postValue(loginRepository.postSearchPassword(email))
     }
 
 }

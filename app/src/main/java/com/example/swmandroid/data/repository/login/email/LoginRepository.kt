@@ -17,4 +17,6 @@ class LoginRepository(private val profileApiService: LoginApiService) : BaseRepo
 
     suspend fun postEmailConfirm(userEmail : String) : Resource<EmailConfirm> = safeApiCall { profileApiService.postEmailConfirm(userEmail) }
 
+    suspend fun postSearchPassword(email : String) : Resource<EmailConfirm> = safeApiCall { profileApiService.postSearchPassword(email) }
+
 }

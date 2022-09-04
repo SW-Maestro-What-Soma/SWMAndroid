@@ -22,4 +22,8 @@ interface LoginApiService {
     @POST("/email/confirm")
     suspend fun postEmailConfirm(@Query("userEmail") userEmail: String): Response<EmailConfirm>
 
+    @Headers("Content-Type: Application/json")
+    @POST("/email/searchPw")
+    suspend fun postSearchPassword(@Query("email") email: String): Response<EmailConfirm>
+
 }
