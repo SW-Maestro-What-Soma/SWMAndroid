@@ -2,11 +2,13 @@ package com.example.swmandroid.data.repository.community
 
 import com.example.swmandroid.data.network.CommunityApiService
 import com.example.swmandroid.data.repository.BaseRepo
+import com.example.swmandroid.model.community.jobposting.JobPostingItem
 import com.example.swmandroid.model.community.jobposting.JobPostingResponse
 import com.example.swmandroid.model.community.jobreview.JobReviewResponse
 import com.example.swmandroid.model.community.question.QuestionResponse
 import com.example.swmandroid.model.community.study.StudyResponse
 import com.example.swmandroid.util.Resource
+import okhttp3.ResponseBody
 
 class CommunityRepository(private val communityApiService: CommunityApiService) : BaseRepo() {
 
@@ -24,6 +26,10 @@ class CommunityRepository(private val communityApiService: CommunityApiService) 
 
     suspend fun getQuestionList(techStack: String, page: Int, size: Int, sort: String): Resource<QuestionResponse> {
         return safeApiCall { communityApiService.getQuestionList(techStack, page, size, sort) }
+    }
+
+    suspend fun postJobPosting(jobPostingItem: JobPostingItem): Resource<ResponseBody> {
+        return safeApiCall { communityApiService.postJobPosting(jobPostingItem) }
     }
 
 }

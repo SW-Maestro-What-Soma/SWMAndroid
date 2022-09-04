@@ -7,12 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.swmandroid.data.entity.RecentSearchEntity
 import com.example.swmandroid.data.repository.community.CommunityRepository
 import com.example.swmandroid.data.repository.community.RecentSearchRepository
+import com.example.swmandroid.model.community.jobposting.JobPostingItem
 import com.example.swmandroid.model.community.jobposting.JobPostingResponse
 import com.example.swmandroid.model.community.jobreview.JobReviewResponse
 import com.example.swmandroid.model.community.question.QuestionResponse
 import com.example.swmandroid.model.community.study.StudyResponse
 import com.example.swmandroid.util.Resource
 import kotlinx.coroutines.launch
+import okhttp3.ResponseBody
 
 class CommunityViewModel(
     private val recentSearchRepository: RecentSearchRepository,
@@ -55,6 +57,9 @@ class CommunityViewModel(
 
     private val _sort = MutableLiveData("id,DESC")
     val sort: LiveData<String> = _sort
+
+    private val _statusPostJobPosting = MutableLiveData<Resource<ResponseBody>>()
+    val statusPostJobPosting: LiveData<Resource<ResponseBody>> = _statusPostJobPosting
 
     fun addRecentSearchData(recentSearchEntity: RecentSearchEntity) = viewModelScope.launch {
         recentSearchRepository.insertRecentSearch(recentSearchEntity)
@@ -147,6 +152,12 @@ class CommunityViewModel(
 
     fun setViewOrder() {
         _sort.value = "viewCount,DESC"
+    }
+
+    fun postJobPosting(jobPostingItem: JobPostingItem) = viewModelScope.launch {
+        _statusPostJobPosting.postValue(Resource.Loading())
+
+        _statusPostJobPosting.postValue(communityRepository.postJobPosting(jobPostingItem))
     }
 
 }

@@ -13,10 +13,7 @@ import com.example.swmandroid.model.login.UserProfile
 import com.example.swmandroid.util.Resource
 import com.google.firebase.auth.FirebaseUser
 import com.kakao.sdk.auth.model.OAuthToken
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
 
 class LoginViewModel(

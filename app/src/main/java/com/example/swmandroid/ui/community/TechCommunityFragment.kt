@@ -23,6 +23,7 @@ import com.example.swmandroid.ui.community.detail.DetailJobPostingActivity
 import com.example.swmandroid.ui.community.detail.DetailJobReviewActivity
 import com.example.swmandroid.ui.community.detail.DetailQuestionActivity
 import com.example.swmandroid.ui.community.detail.DetailStudyActivity
+import com.example.swmandroid.ui.community.post.PostJobPostingActivity
 import com.example.swmandroid.util.Resource
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -79,6 +80,11 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         vieworderTextview.setOnClickListener {
             setViewOrderTextView()
             setViewOrderLiveData()
+        }
+
+        writeButton.setOnClickListener {
+            val intent = Intent(requireContext(), PostJobPostingActivity::class.java)
+            startActivity(intent)
         }
     }
 

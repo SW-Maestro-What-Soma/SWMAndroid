@@ -18,6 +18,8 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
+        <activity android:name=".ui.community.post.PostJobPostingActivity"
+            android:exported="false"/>
         <activity
             android:name=".ui.community.detail.DetailJobPostingActivity"
             android:exported="false" />

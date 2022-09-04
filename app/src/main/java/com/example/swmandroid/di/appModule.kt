@@ -21,7 +21,7 @@ internal val appModule = module {
     single { LoginViewModel(get(), get()) }
     viewModel { (state: SavedStateHandle) -> EasyLearningViewModel(state, get()) }
     viewModel { (state: SavedStateHandle) -> TestViewModel(state, get()) }
-    viewModel { CommunityViewModel(get(), get()) }
+    single { CommunityViewModel(get(), get()) }
 
     // Repository
     single { LoginRepository(get()) }
