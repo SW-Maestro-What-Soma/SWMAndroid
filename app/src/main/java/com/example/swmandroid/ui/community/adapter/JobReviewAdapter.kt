@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.swmandroid.R
 import com.example.swmandroid.databinding.ItemJobreviewBinding
+import com.example.swmandroid.model.community.jobposting.JobPostingItem
 import com.example.swmandroid.model.community.jobreview.JobReviewItem
 import com.example.swmandroid.util.MetricsUtil.dp
 
@@ -17,6 +18,8 @@ class JobReviewAdapter(
 
     inner class ViewHolder(val binding: ItemJobreviewBinding) : RecyclerView.ViewHolder(binding.root)
 
+    var onItemClick : ((JobReviewItem) -> Unit)?  = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(ItemJobreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
@@ -26,6 +29,11 @@ class JobReviewAdapter(
         val item = dataList[position]
 
         with(holder) {
+
+            itemView.setOnClickListener {
+                onItemClick?.invoke(item)
+            }
+
             with(binding) {
                 jobreviewTitle.text = item.title
                 jobreviewTechCategory.text = item.techStack

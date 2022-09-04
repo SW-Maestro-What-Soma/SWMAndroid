@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.swmandroid.databinding.ItemQuestionBinding
+import com.example.swmandroid.model.community.jobreview.JobReviewItem
 import com.example.swmandroid.model.community.question.QuestionItem
 import com.example.swmandroid.util.MetricsUtil.dp
 
@@ -16,6 +17,8 @@ class QuestionAdapter(
 
     inner class ViewHolder(val binding: ItemQuestionBinding) : RecyclerView.ViewHolder(binding.root)
 
+    var onItemClick : ((QuestionItem) -> Unit)?  = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(ItemQuestionBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
@@ -25,6 +28,11 @@ class QuestionAdapter(
         val item = dataList[position]
 
         with(holder) {
+
+            itemView.setOnClickListener {
+                onItemClick?.invoke(item)
+            }
+
             with(binding) {
                 //TODO 백엔드 수정해야함
                 questionTitle.text = item.title

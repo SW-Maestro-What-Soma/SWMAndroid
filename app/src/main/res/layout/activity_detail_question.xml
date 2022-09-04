@@ -99,7 +99,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/question_category"
             app:layout_constraintTop_toBottomOf="@id/question_category"
-            tools:text="김시진" />
+            android:text="김시진" />
 
         <View
             android:layout_width="1dp"

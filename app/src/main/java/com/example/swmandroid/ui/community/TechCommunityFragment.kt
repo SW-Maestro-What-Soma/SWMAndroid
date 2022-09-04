@@ -1,5 +1,6 @@
 package com.example.swmandroid.ui.community
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,10 @@ import com.example.swmandroid.ui.community.adapter.JobPostingAdapter
 import com.example.swmandroid.ui.community.adapter.JobReviewAdapter
 import com.example.swmandroid.ui.community.adapter.QuestionAdapter
 import com.example.swmandroid.ui.community.adapter.StudyAdapter
+import com.example.swmandroid.ui.community.detail.DetailJobPostingActivity
+import com.example.swmandroid.ui.community.detail.DetailJobReviewActivity
+import com.example.swmandroid.ui.community.detail.DetailQuestionActivity
+import com.example.swmandroid.ui.community.detail.DetailStudyActivity
 import com.example.swmandroid.util.Resource
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -139,6 +144,12 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
 
         subCommunityRecyclerview.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         subCommunityRecyclerview.adapter = adapter
+
+        adapter.onItemClick = {
+            val intent = Intent(requireContext(), DetailJobPostingActivity::class.java)
+            intent.putExtra("JobPosting", it)
+            startActivity(intent)
+        }
     }
 
     private fun connectJobReviewAdapter(data: List<JobReviewItem>) = with(binding) {
@@ -146,6 +157,12 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
 
         subCommunityRecyclerview.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         subCommunityRecyclerview.adapter = adapter
+
+        adapter.onItemClick = {
+            val intent = Intent(requireContext(), DetailJobReviewActivity::class.java)
+            intent.putExtra("JobReview", it)
+            startActivity(intent)
+        }
     }
 
     private fun connectStudyAdapter(data: List<StudyItem>) = with(binding) {
@@ -153,6 +170,12 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
 
         subCommunityRecyclerview.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         subCommunityRecyclerview.adapter = adapter
+
+        adapter.onItemClick = {
+            val intent = Intent(requireContext(), DetailStudyActivity::class.java)
+            intent.putExtra("Study", it)
+            startActivity(intent)
+        }
     }
 
     private fun connectQuestionAdapter(data: List<QuestionItem>) = with(binding) {
@@ -160,6 +183,12 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
 
         subCommunityRecyclerview.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         subCommunityRecyclerview.adapter = adapter
+
+        adapter.onItemClick = {
+            val intent = Intent(requireContext(), DetailQuestionActivity::class.java)
+            intent.putExtra("Question", it)
+            startActivity(intent)
+        }
     }
 
 }

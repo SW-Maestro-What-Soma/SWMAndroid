@@ -1,9 +1,12 @@
 package com.example.swmandroid.model.community.jobposting
 
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class JobPostingItem(
     val career: String,
@@ -18,4 +21,4 @@ data class JobPostingItem(
     val title: String,
     @Json(name = "view_count")
     val viewCount: Int
-)
+) : Parcelable

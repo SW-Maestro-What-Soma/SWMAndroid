@@ -1,5 +1,6 @@
 package com.example.swmandroid.ui.community
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,10 @@ import com.example.swmandroid.ui.community.adapter.JobPostingAdapter
 import com.example.swmandroid.ui.community.adapter.JobReviewAdapter
 import com.example.swmandroid.ui.community.adapter.QuestionAdapter
 import com.example.swmandroid.ui.community.adapter.StudyAdapter
+import com.example.swmandroid.ui.community.detail.DetailJobPostingActivity
+import com.example.swmandroid.ui.community.detail.DetailJobReviewActivity
+import com.example.swmandroid.ui.community.detail.DetailQuestionActivity
+import com.example.swmandroid.ui.community.detail.DetailStudyActivity
 import com.example.swmandroid.util.Resource
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -81,6 +86,12 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
             layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
             this.adapter = adapter
         }
+
+        adapter.onItemClick = {
+            val intent = Intent(requireContext(), DetailJobPostingActivity::class.java)
+            intent.putExtra("JobPosting", it)
+            startActivity(intent)
+        }
     }
 
     private fun makeJobReviewView() = with(binding) {
@@ -109,6 +120,12 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
         jobreviewRecyclerview.apply {
             layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
             this.adapter = adapter
+        }
+
+        adapter.onItemClick = {
+            val intent = Intent(requireContext(), DetailJobReviewActivity::class.java)
+            intent.putExtra("JobReview", it)
+            startActivity(intent)
         }
     }
 
@@ -139,6 +156,12 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
             layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
             this.adapter = adapter
         }
+
+        adapter.onItemClick = {
+            val intent = Intent(requireContext(), DetailStudyActivity::class.java)
+            intent.putExtra("Study", it)
+            startActivity(intent)
+        }
     }
 
     private fun makeQuestionView() = with(binding) {
@@ -167,6 +190,12 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
         questionRecyclerview.apply {
             layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
             this.adapter = adapter
+        }
+
+        adapter.onItemClick = {
+            val intent = Intent(requireContext(), DetailQuestionActivity::class.java)
+            intent.putExtra("Question", it)
+            startActivity(intent)
         }
     }
 

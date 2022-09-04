@@ -16,6 +16,8 @@ class JobPostingAdapter(
 
     inner class ViewHolder(val binding: ItemJobpostingBinding) : RecyclerView.ViewHolder(binding.root)
 
+    var onItemClick : ((JobPostingItem) -> Unit)?  = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(ItemJobpostingBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
@@ -24,6 +26,11 @@ class JobPostingAdapter(
         val item = dataList[position]
 
         with(holder) {
+
+            itemView.setOnClickListener{
+                onItemClick?.invoke(item)
+            }
+
             with(binding) {
                 jobpostingTitle.text = item.title
                 jobpostingTechCategory.text = item.techStack
@@ -43,6 +50,7 @@ class JobPostingAdapter(
                 if (position == dataList.size - 1) {
                     bottomContour.visibility = View.INVISIBLE
                 }
+
             }
         }
     }

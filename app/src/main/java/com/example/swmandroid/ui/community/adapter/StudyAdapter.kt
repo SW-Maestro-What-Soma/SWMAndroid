@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.swmandroid.databinding.ItemStudyBinding
+import com.example.swmandroid.model.community.jobreview.JobReviewItem
 import com.example.swmandroid.model.community.study.StudyItem
 import com.example.swmandroid.util.MetricsUtil.dp
 
@@ -16,6 +17,8 @@ class StudyAdapter(
 
     inner class ViewHolder(val binding: ItemStudyBinding) : RecyclerView.ViewHolder(binding.root)
 
+    var onItemClick : ((StudyItem) -> Unit)?  = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(ItemStudyBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
@@ -25,6 +28,11 @@ class StudyAdapter(
         val item = dataList[position]
 
         with(holder) {
+
+            itemView.setOnClickListener {
+                onItemClick?.invoke(item)
+            }
+
             with(binding) {
                 // TODO 유저정보 백엔드 수정
                 studyTitle.text = item.title

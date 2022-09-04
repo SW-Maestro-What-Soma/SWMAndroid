@@ -77,4 +77,6 @@
     <string name="certification_hint_text">인증번호를 입력해 주세요.</string>
     <string name="check_text">확인</string>
     <string name="certification_transmit_text">인증번호 받기</string>
+    <string name="per_week_text">주%2d회</string>
+    <string name="vote_count_text">vote +%2d</string>
 </resources>
