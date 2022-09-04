@@ -108,7 +108,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
                 }
                 is Resource.Error -> {
                     progressCircular.hide()
-                    Toast.makeText(requireContext(), "채용후기 게시글을 불러오는데 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "스터디 게시글을 불러오는데 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -128,7 +128,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
                 }
                 is Resource.Error -> {
                     progressCircular.hide()
-                    Toast.makeText(requireContext(), "채용후기 게시글을 불러오는데 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "질문 게시글을 불러오는데 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
         }

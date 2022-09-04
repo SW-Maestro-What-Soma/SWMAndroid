@@ -23,8 +23,7 @@ data class StudyItem(
     val onOffline: Boolean,
     @Json(name = "per_week")
     val perWeek: Int,
-    @Json(name = "techCategory")
-    val techCategory: String,
+    val techStack: String,
     val text: String,
     val title: String,
     @Json(name = "user_id")

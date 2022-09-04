@@ -42,7 +42,7 @@
     <string name="question_text">질문</string>
     <string name="study_text">스터디</string>
     <string name="jobreview_text">채용후기</string>
-    <string name="jobpostion_text">채용공고</string>
+    <string name="jobposting_text">채용공고</string>
     <string name="full_text">전체</string>
     <string name="more_jobposting">채용공고 더보기</string>
     <string name="jobreview">채용후기</string>

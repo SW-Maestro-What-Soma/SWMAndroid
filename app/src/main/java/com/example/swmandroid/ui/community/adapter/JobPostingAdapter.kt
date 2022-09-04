@@ -26,7 +26,7 @@ class JobPostingAdapter(
         with(holder) {
             with(binding) {
                 jobpostingTitle.text = item.title
-                jobpostingTechCategory.text = item.techCategory
+                jobpostingTechCategory.text = item.techStack
                 jobpostingStartEndTime.text = item.startEndTime
                 createdAtTextview.text = item.createdAt.split(" ")[0]
                 viewsTextview.text = item.viewCount.toString()

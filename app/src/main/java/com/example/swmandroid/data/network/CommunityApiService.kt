@@ -11,14 +11,14 @@ import retrofit2.http.Query
 
 interface CommunityApiService {
 
-    @GET("/jobPostingList/{tech_category}")
-    suspend fun getJobPostingList(@Path("tech_category") tech_category: String, @Query("page") page: Int, @Query("size") size: Int): Response<JobPostingResponse>
+    @GET("/jobPostingList/{tech_stack}")
+    suspend fun getJobPostingList(@Path("tech_stack") tech_stack: String, @Query("page") page: Int, @Query("size") size: Int): Response<JobPostingResponse>
 
-    @GET("/jobReviewList/{tech_category}")
-    suspend fun getJobReviewList(@Path("tech_category") tech_category: String, @Query("page") page: Int, @Query("size") size: Int): Response<JobReviewResponse>
+    @GET("/jobReviewList/{tech_stack}")
+    suspend fun getJobReviewList(@Path("tech_stack") tech_stack: String, @Query("page") page: Int, @Query("size") size: Int): Response<JobReviewResponse>
 
-    @GET("/studyList/{tech_category}")
-    suspend fun getStudyList(@Path("tech_category") tech_category: String, @Query("page") page: Int, @Query("size") size: Int): Response<StudyResponse>
+    @GET("/studyList/{tech_stack}")
+    suspend fun getStudyList(@Path("tech_stack") tech_stack: String, @Query("page") page: Int, @Query("size") size: Int): Response<StudyResponse>
 
     @GET("/qnaBoardList/{tech_stack}")
     suspend fun getQuestionList(@Path("tech_stack") tech_stack: String, @Query("page") page: Int, @Query("size") size: Int): Response<QuestionResponse>

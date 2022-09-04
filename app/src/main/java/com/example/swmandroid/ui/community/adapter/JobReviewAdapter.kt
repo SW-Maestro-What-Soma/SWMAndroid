@@ -28,7 +28,7 @@ class JobReviewAdapter(
         with(holder) {
             with(binding) {
                 jobreviewTitle.text = item.title
-                jobreviewTechCategory.text = item.techCategory
+                jobreviewTechCategory.text = item.techStack
                 jobreviewProcessTextview.text = item.processCategory
                 //TODO 백엔드에서 닉네임 티어 줘야함
                 jobreviewNickTextview.text = "김시진"

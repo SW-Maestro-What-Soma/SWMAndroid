@@ -54,7 +54,7 @@
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
             android:paddingHorizontal="10dp"
             android:paddingVertical="8dp"
-            android:text="@string/jobpostion_text"
+            android:text="@string/jobposting_text"
             android:textColor="@color/gray"
             android:textSize="15sp" />
 

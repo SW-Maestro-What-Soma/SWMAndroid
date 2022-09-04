@@ -10,20 +10,20 @@ import com.example.swmandroid.util.Resource
 
 class CommunityRepository(private val communityApiService: CommunityApiService) : BaseRepo() {
 
-    suspend fun getJobPostingList(techCategory: String, page: Int, size: Int): Resource<JobPostingResponse> {
-        return safeApiCall { communityApiService.getJobPostingList(techCategory, page, size) }
+    suspend fun getJobPostingList(techStack: String, page: Int, size: Int): Resource<JobPostingResponse> {
+        return safeApiCall { communityApiService.getJobPostingList(techStack, page, size) }
     }
 
-    suspend fun getJobReviewList(techCategory: String, page: Int, size: Int): Resource<JobReviewResponse> {
-        return safeApiCall { communityApiService.getJobReviewList(techCategory, page, size) }
+    suspend fun getJobReviewList(techStack: String, page: Int, size: Int): Resource<JobReviewResponse> {
+        return safeApiCall { communityApiService.getJobReviewList(techStack, page, size) }
     }
 
-    suspend fun getStudyList(techCategory: String, page: Int, size: Int): Resource<StudyResponse> {
-        return safeApiCall { communityApiService.getStudyList(techCategory, page, size) }
+    suspend fun getStudyList(techStack: String, page: Int, size: Int): Resource<StudyResponse> {
+        return safeApiCall { communityApiService.getStudyList(techStack, page, size) }
     }
 
-    suspend fun getQuestionList(techCategory: String, page: Int, size: Int): Resource<QuestionResponse> {
-        return safeApiCall { communityApiService.getQuestionList(techCategory, page, size) }
+    suspend fun getQuestionList(techStack: String, page: Int, size: Int): Resource<QuestionResponse> {
+        return safeApiCall { communityApiService.getQuestionList(techStack, page, size) }
     }
 
 }

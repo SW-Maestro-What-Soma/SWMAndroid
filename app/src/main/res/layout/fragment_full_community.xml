@@ -8,82 +8,86 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/jobposting_community_layout"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/jopposting_cardview"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="320dp"
             android:layout_marginHorizontal="15dp"
-            android:background="@drawable/community_lightblue_background"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/jobposting_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="14dp"
-                android:layout_marginStart="10dp"
-                android:src="@drawable/mock_job_posting_image"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/community_white_background">
 
-            <TextView
-                android:id="@+id/jobposting_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                android:text="카카오 엔터프라이즈"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                app:layout_constraintStart_toEndOf="@id/jobposting_image"
-                app:layout_constraintTop_toTopOf="parent" />
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/jobposting_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/jobposting_techstack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                android:text="Front-end"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                app:layout_constraintStart_toStartOf="@id/jobposting_title"
-                app:layout_constraintTop_toBottomOf="@id/jobposting_title" />
+                <TextView
+                    android:id="@+id/jobposting_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                    android:text="@string/jobposting_text"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/jobposting_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                android:text="06/23 ~ 07/22"
-                android:textColor="@color/gray"
-                android:textSize="13sp"
-                app:layout_constraintStart_toStartOf="@id/jobposting_techstack"
-                app:layout_constraintTop_toBottomOf="@id/jobposting_techstack" />
+                <TextView
+                    android:id="@+id/jobposting_more_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="19dp"
+                    android:layout_marginEnd="15dp"
+                    android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                    android:paddingVertical="5dp"
+                    android:text="@string/more"
+                    android:textColor="@color/main_blue"
+                    android:textSize="13sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <View
+                    android:id="@+id/jobposting_line"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/line"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/jobposting_textview" />
 
-        <TextView
-            android:id="@+id/more_jobposting_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/community_white_background"
-            android:fontFamily="@font/jeju_gothic"
-            android:gravity="center"
-            android:paddingVertical="16dp"
-            android:text="@string/more_jobposting"
-            android:textColor="@color/main_blue"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/jobposting_community_layout" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/jobposting_recyclerview"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginVertical="10dp"
+                    android:nestedScrollingEnabled="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/jobposting_line" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/jobreview_cardview"
@@ -95,12 +99,22 @@
             app:cardElevation="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/more_jobposting_button">
+            app:layout_constraintTop_toBottomOf="@id/jopposting_cardview">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/community_white_background">
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/jobreview_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/jobreview_textview"
@@ -172,6 +186,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/community_white_background">
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/study_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/study_textview"
@@ -245,6 +269,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/community_white_background">
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/question_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/question_textview"

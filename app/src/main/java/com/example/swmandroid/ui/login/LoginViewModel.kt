@@ -81,10 +81,10 @@ class LoginViewModel(
         isCert = check
     }
 
-    fun postSearchPassword(email: String) = viewModelScope.launch {
+    fun postSearchPassword(userEmail: String) = viewModelScope.launch {
         _passwordToken.postValue(Resource.Loading())
 
-        _passwordToken.postValue(loginRepository.postSearchPassword(email))
+        _passwordToken.postValue(loginRepository.postSearchPassword(userEmail))
     }
 
 }

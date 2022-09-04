@@ -30,7 +30,7 @@ class StudyAdapter(
                 studyTitle.text = item.title
                 minTierTextview.text = item.minGrade
                 maxTierTextview.text = item.maxGrade
-                studyTechCategory.text = item.techCategory
+                studyTechCategory.text = item.techStack
                 timesWeekTextview.text = "주${item.perWeek}회"
                 dayWeekTextview.text = item.dayOfTheWeek
                 onOffTextview.text = if (item.onOffline) "온라인" else "오프라인"
