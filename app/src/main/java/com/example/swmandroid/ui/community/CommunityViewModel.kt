@@ -41,6 +41,18 @@ class CommunityViewModel(
     private val _questionList = MutableLiveData<Resource<QuestionResponse>>()
     val questionList: LiveData<Resource<QuestionResponse>> = _questionList
 
+    private val _fullJobPostingList = MutableLiveData<Resource<JobPostingResponse>>()
+    val fullJobPostingList: LiveData<Resource<JobPostingResponse>> = _fullJobPostingList
+
+    private val _fullJobReviewList = MutableLiveData<Resource<JobReviewResponse>>()
+    val fullJobReviewList: LiveData<Resource<JobReviewResponse>> = _fullJobReviewList
+
+    private val _fullStudyList = MutableLiveData<Resource<StudyResponse>>()
+    val fullStudyList: LiveData<Resource<StudyResponse>> = _fullStudyList
+
+    private val _fullQuestionList = MutableLiveData<Resource<QuestionResponse>>()
+    val fullQuestionList: LiveData<Resource<QuestionResponse>> = _fullQuestionList
+
     fun addRecentSearchData(recentSearchEntity: RecentSearchEntity) = viewModelScope.launch {
         recentSearchRepository.insertRecentSearch(recentSearchEntity)
 
@@ -100,6 +112,30 @@ class CommunityViewModel(
         _questionList.postValue(Resource.Loading())
 
         _questionList.postValue(communityRepository.getQuestionList(techStack, page, size))
+    }
+
+    fun getFullJobPostingList() = viewModelScope.launch {
+        _fullJobPostingList.postValue(Resource.Loading())
+
+        _fullJobPostingList.postValue(communityRepository.getJobPostingList("ALL", 0, 3))
+    }
+
+    fun getFullJobReviewList() = viewModelScope.launch {
+        _fullJobReviewList.postValue(Resource.Loading())
+
+        _fullJobReviewList.postValue(communityRepository.getJobReviewList("ALL", 0, 3))
+    }
+
+    fun getFullStudyList() = viewModelScope.launch {
+        _fullStudyList.postValue(Resource.Loading())
+
+        _fullStudyList.postValue(communityRepository.getStudyList("ALL", 0, 3))
+    }
+
+    fun getFullQuestionList() = viewModelScope.launch {
+        _fullQuestionList.postValue(Resource.Loading())
+
+        _fullQuestionList.postValue(communityRepository.getQuestionList("ALL", 0, 4))
     }
 
 }

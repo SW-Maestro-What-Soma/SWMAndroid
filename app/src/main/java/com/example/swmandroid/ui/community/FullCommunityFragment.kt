@@ -55,8 +55,8 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
     }
 
     private fun makeJobPostingView() = with(binding) {
-        communityViewModel.getJobPostingList("ALL", 0, 3)
-        communityViewModel.jobPostingList.observe(viewLifecycleOwner) { jobPostingResponse ->
+        communityViewModel.getFullJobPostingList()
+        communityViewModel.fullJobPostingList.observe(viewLifecycleOwner) { jobPostingResponse ->
             when (jobPostingResponse) {
                 is Resource.Loading -> {
                     jobpostingProgress.show()
@@ -84,8 +84,8 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
     }
 
     private fun makeJobReviewView() = with(binding) {
-        communityViewModel.getJobReviewList("ALL", 0, 3)
-        communityViewModel.jobReviewList.observe(viewLifecycleOwner) { jobReviewResponse ->
+        communityViewModel.getFullJobReviewList()
+        communityViewModel.fullJobReviewList.observe(viewLifecycleOwner) { jobReviewResponse ->
             when (jobReviewResponse) {
                 is Resource.Loading -> {
                     jobreviewProgress.show()
@@ -113,8 +113,8 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
     }
 
     private fun makeStudyView() = with(binding) {
-        communityViewModel.getStudyList("ALL", 0, 3)
-        communityViewModel.studyList.observe(viewLifecycleOwner) { studyResponse ->
+        communityViewModel.getFullStudyList()
+        communityViewModel.fullStudyList.observe(viewLifecycleOwner) { studyResponse ->
             when (studyResponse) {
                 is Resource.Loading -> {
                     studyProgress.show()
@@ -142,8 +142,8 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
     }
 
     private fun makeQuestionView() = with(binding) {
-        communityViewModel.getQuestionList("ALL", 0, 3)
-        communityViewModel.questionList.observe(viewLifecycleOwner) { questionResponse ->
+        communityViewModel.getFullQuestionList()
+        communityViewModel.fullQuestionList.observe(viewLifecycleOwner) { questionResponse ->
             when (questionResponse) {
                 is Resource.Loading -> {
                     questionProgress.show()

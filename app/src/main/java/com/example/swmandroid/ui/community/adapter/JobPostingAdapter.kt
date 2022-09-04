@@ -31,13 +31,14 @@ class JobPostingAdapter(
                 createdAtTextview.text = item.createdAt.split(" ")[0]
                 viewsTextview.text = item.viewCount.toString()
 
-                if(item.career == "신입"){
+                if (item.career == "신입") {
                     newbieCareerImage.setImageResource(R.drawable.newbie)
-                }else{
+                } else {
                     newbieCareerImage.setImageResource(R.drawable.career)
                 }
 
-                jobpostingTitle.maxWidth = 260.dp
+                val maxWidth = getTitleMaxWidth()
+                jobpostingTitle.maxWidth = maxWidth
 
                 if (position == dataList.size - 1) {
                     bottomContour.visibility = View.INVISIBLE
@@ -47,5 +48,7 @@ class JobPostingAdapter(
     }
 
     override fun getItemCount(): Int = dataList.size
+
+    private fun getTitleMaxWidth(): Int = if (isFullCommunity) 230.dp else 260.dp
 
 }
