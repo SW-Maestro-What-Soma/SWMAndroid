@@ -25,9 +25,6 @@ class CommunityViewModel(
     val recentSearchLiveData: LiveData<List<RecentSearchEntity>> = _recentSearchLiveData
     private var recentSearchData = mutableListOf<RecentSearchEntity>()
 
-    private val _category = MutableLiveData<String>()
-    val category: LiveData<String> = _category
-
     private val _techStack = MutableLiveData<String>()
     val techStack: LiveData<String> = _techStack
 
@@ -61,6 +58,8 @@ class CommunityViewModel(
     private val _statusPostJobPosting = MutableLiveData<Resource<ResponseBody>>()
     val statusPostJobPosting: LiveData<Resource<ResponseBody>> = _statusPostJobPosting
 
+    var categoryData = ""
+
     fun addRecentSearchData(recentSearchEntity: RecentSearchEntity) = viewModelScope.launch {
         recentSearchRepository.insertRecentSearch(recentSearchEntity)
 
@@ -90,8 +89,8 @@ class CommunityViewModel(
         _recentSearchLiveData.value = recentSearchData
     }
 
-    fun setCategory(category: String) {
-        _category.value = category
+    fun setCategory(category : String) {
+        categoryData = category
     }
 
     fun setTechStack(techStack: String) {

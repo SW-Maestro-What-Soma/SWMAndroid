@@ -25,15 +25,16 @@ class SearchCommunityFragment : BaseFragment<FragmentSearchCommunityBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        communityViewModel.category.observe(viewLifecycleOwner) { category ->
-            communityViewModel.techStack.observe(viewLifecycleOwner) { techStack ->
-                initView(category, techStack)
-                buttonClick(category, techStack)
-            }
+        communityViewModel.techStack.observe(viewLifecycleOwner) { techStack ->
+            initView(communityViewModel.categoryData, techStack)
+            buttonClick(communityViewModel.categoryData, techStack)
         }
+
     }
 
     private fun initView(category: String, techStack: String) = with(binding) {
+        (activity as CommunityActivity).topButtonClickBlock(false)
+
         searchEdittext.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 communityViewModel.addRecentSearchData(RecentSearchEntity(category, techStack, searchEdittext.text.toString()))
@@ -73,6 +74,11 @@ class SearchCommunityFragment : BaseFragment<FragmentSearchCommunityBinding>() {
         allDeleteButton.setOnClickListener {
             communityViewModel.removeAllRecentSearchData(category, techStack)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as CommunityActivity).topButtonClickBlock(true)
     }
 
 }

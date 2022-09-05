@@ -12,10 +12,34 @@ class CommunityActivity : BaseActivity<ActivityCommunityBinding>({ ActivityCommu
 
     private val communityViewModel: CommunityViewModel by viewModel()
 
+    private val buttonList = ArrayList<TextView>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initList()
+        initView()
         buttonClick()
+    }
+
+    private fun initList() = with(binding) {
+        buttonList.apply {
+            add(fullCommunityButton)
+            add(jobpostingCommunityButton)
+            add(jobreviewCommunityButton)
+            add(studyCommunityButton)
+            add(questionCommunityButton)
+        }
+    }
+
+    private fun initView() {
+        when (communityViewModel.categoryData) {
+            "채용공고" -> selectedEvent(1)
+            "채용후기" -> selectedEvent(2)
+            "스터디" -> selectedEvent(3)
+            "질문" -> selectedEvent(4)
+            else -> selectedEvent(0)
+        }
     }
 
     private fun buttonClick() = with(binding) {
@@ -24,167 +48,125 @@ class CommunityActivity : BaseActivity<ActivityCommunityBinding>({ ActivityCommu
         }
 
         fullCommunityButton.setOnClickListener {
-            selectedEvent(fullCommunityButton)
-
-            val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
-            val nowFragment = hostFragment?.childFragmentManager?.fragments?.get(0)
-
-            if (nowFragment is SubCommunityFragment) {
-                nowFragment.moveFullCommunityFragment()
-            }
+            setFullView()
         }
 
         jobpostingCommunityButton.setOnClickListener {
-            selectedEvent(jobpostingCommunityButton)
-
             communityViewModel.setCategory("채용공고")
 
-            val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
-            val nowFragment = hostFragment?.childFragmentManager?.fragments?.get(0)
-
-            if (nowFragment is SubCommunityFragment) {
-                nowFragment.moveSubCommunityFragment()
-            }
-            if (nowFragment is FullCommunityFragment) {
-                nowFragment.moveSubCommunityFragment()
-            }
+            setJobPostingView()
         }
 
         jobreviewCommunityButton.setOnClickListener {
-            selectedEvent(jobreviewCommunityButton)
-
             communityViewModel.setCategory("채용후기")
 
-            val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
-            val nowFragment = hostFragment?.childFragmentManager?.fragments?.get(0)
-
-            if (nowFragment is SubCommunityFragment) {
-                nowFragment.moveSubCommunityFragment()
-            }
-            if (nowFragment is FullCommunityFragment) {
-                nowFragment.moveSubCommunityFragment()
-            }
+            setJobReviewView()
         }
 
         studyCommunityButton.setOnClickListener {
-            selectedEvent(studyCommunityButton)
-
             communityViewModel.setCategory("스터디")
 
-            val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
-            val nowFragment = hostFragment?.childFragmentManager?.fragments?.get(0)
-
-            if (nowFragment is SubCommunityFragment) {
-                nowFragment.moveSubCommunityFragment()
-            }
-            if (nowFragment is FullCommunityFragment) {
-                nowFragment.moveSubCommunityFragment()
-            }
+            setStudyView()
         }
 
         questionCommunityButton.setOnClickListener {
-            selectedEvent(questionCommunityButton)
-
             communityViewModel.setCategory("질문")
 
-            val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
-            val nowFragment = hostFragment?.childFragmentManager?.fragments?.get(0)
-
-            if (nowFragment is SubCommunityFragment) {
-                nowFragment.moveSubCommunityFragment()
-            }
-            if (nowFragment is FullCommunityFragment) {
-                nowFragment.moveSubCommunityFragment()
-            }
+            setQuestionView()
         }
     }
 
-    private fun selectedEvent(button: TextView) = with(binding) {
-        when (button) {
-            fullCommunityButton -> selectedFull()
-            jobpostingCommunityButton -> selectedJobPosting()
-            jobreviewCommunityButton -> selectedJobReview()
-            studyCommunityButton -> selectedStudy()
-            questionCommunityButton -> selectedQuestion()
+    private fun setFullView() {
+        selectedEvent(0)
+
+        val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        val nowFragment = hostFragment?.childFragmentManager?.fragments?.get(0)
+
+        if (nowFragment is SubCommunityFragment) {
+            nowFragment.moveFullCommunityFragment()
         }
     }
 
-    private fun selectedFull() = with(binding) {
-        fullCommunityButton.setBackgroundResource(R.drawable.selected_tab)
-        jobpostingCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-        jobreviewCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-        studyCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-        questionCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+    private fun setJobPostingView() {
+        selectedEvent(1)
 
-        fullCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.white))
-        jobpostingCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-        jobreviewCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-        studyCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-        questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+        val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        val nowFragment = hostFragment?.childFragmentManager?.fragments?.get(0)
+
+        if (nowFragment is SubCommunityFragment) {
+            nowFragment.moveSubCommunityFragment()
+        }
+        if (nowFragment is FullCommunityFragment) {
+            nowFragment.moveSubCommunityFragment()
+        }
     }
 
-    private fun selectedJobPosting() = with(binding) {
-        fullCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-        jobpostingCommunityButton.setBackgroundResource(R.drawable.selected_tab)
-        jobreviewCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-        studyCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-        questionCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+    private fun setJobReviewView() {
+        selectedEvent(2)
 
-        fullCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-        jobpostingCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.white))
-        jobreviewCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-        studyCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-        questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+        val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        val nowFragment = hostFragment?.childFragmentManager?.fragments?.get(0)
+
+        if (nowFragment is SubCommunityFragment) {
+            nowFragment.moveSubCommunityFragment()
+        }
+        if (nowFragment is FullCommunityFragment) {
+            nowFragment.moveSubCommunityFragment()
+        }
     }
 
-    private fun selectedJobReview() = with(binding) {
-        fullCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-        jobpostingCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-        jobreviewCommunityButton.setBackgroundResource(R.drawable.selected_tab)
-        studyCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-        questionCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+    private fun setStudyView() {
+        selectedEvent(3)
 
-        fullCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-        jobpostingCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-        jobreviewCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.white))
-        studyCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-        questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+        val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        val nowFragment = hostFragment?.childFragmentManager?.fragments?.get(0)
+
+        if (nowFragment is SubCommunityFragment) {
+            nowFragment.moveSubCommunityFragment()
+        }
+        if (nowFragment is FullCommunityFragment) {
+            nowFragment.moveSubCommunityFragment()
+        }
     }
 
-    private fun selectedStudy() = with(binding) {
-        fullCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-        jobpostingCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-        jobreviewCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-        studyCommunityButton.setBackgroundResource(R.drawable.selected_tab)
-        questionCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
+    private fun setQuestionView() {
+        selectedEvent(4)
 
-        fullCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-        jobpostingCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-        jobreviewCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-        studyCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.white))
-        questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+        val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        val nowFragment = hostFragment?.childFragmentManager?.fragments?.get(0)
+
+        if (nowFragment is SubCommunityFragment) {
+            nowFragment.moveSubCommunityFragment()
+        }
+        if (nowFragment is FullCommunityFragment) {
+            nowFragment.moveSubCommunityFragment()
+        }
     }
 
-    private fun selectedQuestion() = with(binding) {
-        fullCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-        jobpostingCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-        jobreviewCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-        studyCommunityButton.setBackgroundResource(R.drawable.unselected_tab)
-        questionCommunityButton.setBackgroundResource(R.drawable.selected_tab)
-
-        fullCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-        jobpostingCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-        jobreviewCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-        studyCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
-        questionCommunityButton.setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.white))
+    private fun selectedEvent(idx: Int) {
+        for (i in 0 until buttonList.size) {
+            if (i == idx) {
+                buttonList[i].apply {
+                    setBackgroundResource(R.drawable.selected_tab)
+                    setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.white))
+                }
+            } else {
+                buttonList[i].apply {
+                    setBackgroundResource(R.drawable.unselected_tab)
+                    setTextColor(ContextCompat.getColor(this@CommunityActivity, R.color.gray))
+                }
+            }
+        }
     }
 
     fun setTopCategoryPosition(position: Int) {
-        when (position) {
-            0 -> selectedJobPosting()
-            1 -> selectedJobReview()
-            2 -> selectedStudy()
-            3 -> selectedQuestion()
+        selectedEvent(position)
+    }
+
+    fun topButtonClickBlock(check : Boolean) {
+        buttonList.forEach {
+            it.isClickable = check
         }
     }
+
 }

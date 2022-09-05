@@ -43,28 +43,26 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
     }
 
     private fun initView() {
-        communityViewModel.category.observe(viewLifecycleOwner) { category ->
-            communityViewModel.techStack.observe(viewLifecycleOwner) { techStack ->
-                communityViewModel.sort.observe(viewLifecycleOwner) { sort ->
-                    if(sort == "id,DESC"){
-                        setNewOrderTextView()
-                    }else{
-                        setViewOrderTextView()
-                    }
+        communityViewModel.techStack.observe(viewLifecycleOwner) { techStack ->
+            communityViewModel.sort.observe(viewLifecycleOwner) { sort ->
+                if (sort == "id,DESC") {
+                    setNewOrderTextView()
+                } else {
+                    setViewOrderTextView()
+                }
 
-                    when (category) {
-                        "채용공고" -> {
-                            makeJobPostingView(techStack, sort)
-                        }
-                        "채용후기" -> {
-                            makeJobReviewView(techStack, sort)
-                        }
-                        "스터디" -> {
-                            makeStudyView(techStack, sort)
-                        }
-                        "질문" -> {
-                            makeQuestionView(techStack, sort)
-                        }
+                when (communityViewModel.categoryData) {
+                    "채용공고" -> {
+                        makeJobPostingView(techStack, sort)
+                    }
+                    "채용후기" -> {
+                        makeJobReviewView(techStack, sort)
+                    }
+                    "스터디" -> {
+                        makeStudyView(techStack, sort)
+                    }
+                    "질문" -> {
+                        makeQuestionView(techStack, sort)
                     }
                 }
             }
@@ -102,7 +100,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         vieworderTextview.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
     }
 
-    private fun setViewOrderLiveData(){
+    private fun setViewOrderLiveData() {
         communityViewModel.setViewOrder()
     }
 

@@ -42,6 +42,11 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
         buttonClick()
     }
 
+    override fun onResume() {
+        communityViewModel.getFullJobPostingList()
+        super.onResume()
+    }
+
     fun moveSubCommunityFragment() {
         binding.root.findNavController().navigate(R.id.action_fullCommunityFragment_to_subCommunityFragment)
     }
@@ -60,7 +65,6 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
     }
 
     private fun makeJobPostingView() = with(binding) {
-        communityViewModel.getFullJobPostingList()
         communityViewModel.fullJobPostingList.observe(viewLifecycleOwner) { jobPostingResponse ->
             when (jobPostingResponse) {
                 is Resource.Loading -> {
@@ -203,25 +207,25 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
         jobpostingMoreTextview.setOnClickListener {
             communityViewModel.setCategory("채용공고")
             binding.root.findNavController().navigate(R.id.action_fullCommunityFragment_to_subCommunityFragment)
-            (activity as CommunityActivity).setTopCategoryPosition(0)
+            (activity as CommunityActivity).setTopCategoryPosition(1)
         }
 
         jobreviewMoreTextview.setOnClickListener {
             communityViewModel.setCategory("채용후기")
             binding.root.findNavController().navigate(R.id.action_fullCommunityFragment_to_subCommunityFragment)
-            (activity as CommunityActivity).setTopCategoryPosition(1)
+            (activity as CommunityActivity).setTopCategoryPosition(2)
         }
 
         studyMoreTextview.setOnClickListener {
             communityViewModel.setCategory("스터디")
             binding.root.findNavController().navigate(R.id.action_fullCommunityFragment_to_subCommunityFragment)
-            (activity as CommunityActivity).setTopCategoryPosition(2)
+            (activity as CommunityActivity).setTopCategoryPosition(3)
         }
 
         questionMoreTextview.setOnClickListener {
             communityViewModel.setCategory("질문")
             binding.root.findNavController().navigate(R.id.action_fullCommunityFragment_to_subCommunityFragment)
-            (activity as CommunityActivity).setTopCategoryPosition(3)
+            (activity as CommunityActivity).setTopCategoryPosition(4)
         }
 
     }

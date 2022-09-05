@@ -14,9 +14,9 @@ class JobPostingAdapter(
     private val isFullCommunity: Boolean,
 ) : RecyclerView.Adapter<JobPostingAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val binding: ItemJobpostingBinding) : RecyclerView.ViewHolder(binding.root)
+    var onItemClick: ((JobPostingItem) -> Unit)? = null
 
-    var onItemClick : ((JobPostingItem) -> Unit)?  = null
+    inner class ViewHolder(val binding: ItemJobpostingBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(ItemJobpostingBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -27,7 +27,7 @@ class JobPostingAdapter(
 
         with(holder) {
 
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
                 onItemClick?.invoke(item)
             }
 

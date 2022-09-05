@@ -102,7 +102,9 @@ class PostJobPostingActivity : BaseActivity<ActivityPostJobpostingBinding>({ Act
     }
 
     private fun postJobPosting() = with(binding) {
-        communityViewModel.postJobPosting(getJobPostingItem())
+        val addItem = getJobPostingItem()
+
+        communityViewModel.postJobPosting(addItem)
         communityViewModel.statusPostJobPosting.observe(this@PostJobPostingActivity) { status ->
             when (status) {
                 is Resource.Loading -> {
