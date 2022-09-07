@@ -9,6 +9,7 @@ import com.example.swmandroid.data.repository.community.CommunityRepository
 import com.example.swmandroid.data.repository.community.RecentSearchRepository
 import com.example.swmandroid.model.community.jobposting.JobPostingItem
 import com.example.swmandroid.model.community.jobposting.JobPostingResponse
+import com.example.swmandroid.model.community.jobreview.JobReviewItem
 import com.example.swmandroid.model.community.jobreview.JobReviewResponse
 import com.example.swmandroid.model.community.question.QuestionResponse
 import com.example.swmandroid.model.community.study.StudyResponse
@@ -58,6 +59,9 @@ class CommunityViewModel(
     private val _statusPostJobPosting = MutableLiveData<Resource<ResponseBody>>()
     val statusPostJobPosting: LiveData<Resource<ResponseBody>> = _statusPostJobPosting
 
+    private val _statusPostJobReview = MutableLiveData<Resource<ResponseBody>>()
+    val statusPostJobReview: LiveData<Resource<ResponseBody>> = _statusPostJobReview
+
     var categoryData = ""
 
     fun addRecentSearchData(recentSearchEntity: RecentSearchEntity) = viewModelScope.launch {
@@ -89,7 +93,7 @@ class CommunityViewModel(
         _recentSearchLiveData.value = recentSearchData
     }
 
-    fun setCategory(category : String) {
+    fun setCategory(category: String) {
         categoryData = category
     }
 
@@ -157,6 +161,12 @@ class CommunityViewModel(
         _statusPostJobPosting.postValue(Resource.Loading())
 
         _statusPostJobPosting.postValue(communityRepository.postJobPosting(jobPostingItem))
+    }
+
+    fun postJobReview(jobReviewItem: JobReviewItem) = viewModelScope.launch {
+        _statusPostJobReview.postValue(Resource.Loading())
+
+        _statusPostJobReview.postValue(communityRepository.postJobReview(jobReviewItem))
     }
 
 }

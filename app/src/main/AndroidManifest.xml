@@ -20,6 +20,8 @@
 
         <activity android:name=".ui.community.post.PostJobPostingActivity"
             android:exported="false"/>
+        <activity android:name=".ui.community.post.PostJobReviewActivity"
+            android:exported="false"/>
         <activity
             android:name=".ui.community.detail.DetailJobPostingActivity"
             android:exported="false" />

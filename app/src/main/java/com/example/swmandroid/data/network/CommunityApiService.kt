@@ -2,6 +2,7 @@ package com.example.swmandroid.data.network
 
 import com.example.swmandroid.model.community.jobposting.JobPostingItem
 import com.example.swmandroid.model.community.jobposting.JobPostingResponse
+import com.example.swmandroid.model.community.jobreview.JobReviewItem
 import com.example.swmandroid.model.community.jobreview.JobReviewResponse
 import com.example.swmandroid.model.community.question.QuestionResponse
 import com.example.swmandroid.model.community.study.StudyResponse
@@ -25,5 +26,8 @@ interface CommunityApiService {
 
     @POST("/writeJobPosting")
     suspend fun postJobPosting(@Body jobPostingContents: JobPostingItem): Response<ResponseBody>
+
+    @POST("/writeJobReview")
+    suspend fun postJobReview(@Body jobReviewContents: JobReviewItem): Response<ResponseBody>
 
 }

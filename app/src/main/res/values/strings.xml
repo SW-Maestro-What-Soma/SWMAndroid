@@ -53,7 +53,7 @@
     <string name="neworder">최신순</string>
     <string name="write">글쓰기</string>
     <string name="input_search">검색어를 입력해주세요.</string>
-    <string name="cancel">취소</string>
+    <string name="cancel_text">취소</string>
     <string name="recent_search">최근 검색어</string>
     <string name="full_delete">전체 삭제</string>
     <string name="community_jobposting">채용공고 게시판</string>
@@ -86,8 +86,16 @@
     <string name="input_link_text">채용공고 링크를 입력해주세요.</string>
     <string name="input_career_text">경력을 입력해주세요.</string>
     <string name="input_content_textview">내용을 입력해주세요.</string>
-    <string name="tech_drop_text">기술선택</string>
+    <string name="tech_drop_text">기술스택을 선택해주세요.</string>
     <string name="wave_text">~</string>
     <string name="start_end_date_text">%1s</string>
     <string name="https_text">https://</string>
+    <string name="job_posting_date_input">채용공고 날짜를 입력해주세요.</string>
+    <string name="pass_fail_text">합격여부</string>
+    <string name="pass_fail_choice_text">합격여부를 선택해주세요.</string>
+    <string name="process_text">채용전형</string>
+    <string name="process_choice_text">채용전형을 선택해주세요.</string>
+    <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
+    <string name="reset">RESET</string>
 </resources>

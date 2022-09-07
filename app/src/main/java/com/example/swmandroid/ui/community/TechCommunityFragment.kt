@@ -24,6 +24,7 @@ import com.example.swmandroid.ui.community.detail.DetailJobReviewActivity
 import com.example.swmandroid.ui.community.detail.DetailQuestionActivity
 import com.example.swmandroid.ui.community.detail.DetailStudyActivity
 import com.example.swmandroid.ui.community.post.PostJobPostingActivity
+import com.example.swmandroid.ui.community.post.PostJobReviewActivity
 import com.example.swmandroid.util.Resource
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -81,8 +82,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         }
 
         writeButton.setOnClickListener {
-            val intent = Intent(requireContext(), PostJobPostingActivity::class.java)
-            startActivity(intent)
+            startActivity(getIntentByCategory())
         }
     }
 
@@ -102,6 +102,14 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
 
     private fun setViewOrderLiveData() {
         communityViewModel.setViewOrder()
+    }
+
+    private fun getIntentByCategory() : Intent {
+        return when(communityViewModel.categoryData){
+            "채용공고" -> Intent(requireContext(), PostJobPostingActivity::class.java)
+            "채용후기" -> Intent(requireContext(), PostJobReviewActivity::class.java)
+            else -> Intent(requireContext(), PostJobPostingActivity::class.java)
+        }
     }
 
     private fun makeJobPostingView(techStack: String, sort: String) = with(binding) {

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -99,80 +98,51 @@
                 app:layout_constraintTop_toBottomOf="@id/techstack_textview" />
 
             <TextView
-                android:id="@+id/link_textview"
+                android:id="@+id/pass_fail_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                android:text="@string/link"
+                android:text="@string/pass_fail_text"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tech_alert_textview" />
 
-            <EditText
-                android:id="@+id/link_edittext"
+            <TextView
+                android:id="@+id/pass_fail_alert_textview"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/light_gray_background"
                 android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                android:inputType="textUri"
                 android:padding="15dp"
-                android:text="@string/https_text"
-                android:textColorHint="@color/gray"
+                android:text="@string/pass_fail_choice_text"
+                android:textColor="@color/black"
                 android:textSize="15sp"
+                app:drawableRightCompat="@drawable/more"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/link_textview" />
+                app:layout_constraintTop_toBottomOf="@id/pass_fail_textview" />
+
 
             <TextView
-                android:id="@+id/career_textview"
+                android:id="@+id/process_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                android:text="@string/career"
+                android:text="@string/process_text"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/link_edittext" />
-
-            <EditText
-                android:id="@+id/career_edittext"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/light_gray_background"
-                android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                android:hint="@string/input_career_text"
-                android:inputType="text"
-                android:padding="15dp"
-                android:textColorHint="@color/gray"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/career_textview" />
+                app:layout_constraintTop_toBottomOf="@id/pass_fail_alert_textview" />
 
             <TextView
-                android:id="@+id/date_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                android:text="@string/date"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/career_edittext" />
-
-            <TextView
-                android:id="@+id/date_picker_textview"
+                android:id="@+id/process_alert_textview"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
@@ -180,13 +150,13 @@
                 android:background="@drawable/light_gray_background"
                 android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:padding="15dp"
-                android:text="@string/job_posting_date_input"
+                android:text="@string/process_choice_text"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                app:drawableRightCompat="@drawable/calendar"
+                app:drawableRightCompat="@drawable/more"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/date_textview" />
+                app:layout_constraintTop_toBottomOf="@id/process_textview" />
 
             <TextView
                 android:id="@+id/content_textview"
@@ -199,7 +169,7 @@
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/date_picker_textview" />
+                app:layout_constraintTop_toBottomOf="@id/process_alert_textview" />
 
             <EditText
                 android:id="@+id/content_edittext"
@@ -238,11 +208,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/content_edittext" />
 
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
