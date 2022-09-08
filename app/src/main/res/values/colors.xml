@@ -22,4 +22,5 @@
     <color name="gold">#FFAD31</color>
     <color name="gray_stroke">#DCDCDC</color>
     <color name="detail_top_background">#F2F5F9</color>
+    <color name="unselected_day_button">#E2E2E2</color>
 </resources>

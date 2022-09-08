@@ -29,7 +29,9 @@
         <entry key="app/src/main/res/drawable/pre_test_button_background.xml" value="0.2195" />
         <entry key="app/src/main/res/drawable/problem_background.xml" value="0.187" />
         <entry key="app/src/main/res/drawable/search_background.xml" value="0.1975" />
+        <entry key="app/src/main/res/drawable/selected_day_button.xml" value="0.1435" />
         <entry key="app/src/main/res/drawable/selected_tab.xml" value="0.115" />
+        <entry key="app/src/main/res/drawable/selector_day_button.xml" value="0.1435" />
         <entry key="app/src/main/res/drawable/set_tech_background.xml" value="0.207" />
         <entry key="app/src/main/res/drawable/spash.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/splash.xml" value="0.1" />
@@ -40,6 +42,7 @@
         <entry key="app/src/main/res/drawable/submit_button_background.xml" value="0.141" />
         <entry key="app/src/main/res/drawable/tab_selector_indicator.xml" value="0.115" />
         <entry key="app/src/main/res/drawable/tab_selector_text.xml" value="0.231" />
+        <entry key="app/src/main/res/drawable/unselected_day_button.xml" value="0.1435" />
         <entry key="app/src/main/res/drawable/unselected_tab.xml" value="0.115" />
         <entry key="app/src/main/res/drawable/white_background.xml" value="0.3665" />
         <entry key="app/src/main/res/layout/activity_book_detail.xml" value="0.375" />
@@ -57,8 +60,9 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_make_problem.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_my_page.xml" value="0.37604166666666666" />
-        <entry key="app/src/main/res/layout/activity_post_jobposting.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_post_jobposting.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_post_jobreview.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_post_study.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_set_nick.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/activity_set_tech.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.22604166666666667" />

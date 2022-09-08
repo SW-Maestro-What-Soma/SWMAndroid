@@ -98,4 +98,21 @@
     <string name="ok">OK</string>
     <string name="cancel">CANCEL</string>
     <string name="reset">RESET</string>
+    <string name="open_chat_text">오픈채팅방 링크</string>
+    <string name="study_on_off_text">스터디 방식</string>
+    <string name="on_off_input_hint">스터디 방식을 선택해주세요.</string>
+    <string name="study_per_week_text">스터디 횟수</string>
+    <string name="per_week_input_hint">주간 스터디 횟수를 선택해주세요.</string>
+    <string name="min_tier_text">최소 티어</string>
+    <string name="min_tier_input_text">최소 티어를 선택해주세요.</string>
+    <string name="max_tier_text">최대 티어</string>
+    <string name="max_tier_input_hint">최대 티어를 선택해주세요.</string>
+    <string name="day_choose_text">요일 선택</string>
+    <string name="monday">월</string>
+    <string name="tuesday">화</string>
+    <string name="wednesday">수</string>
+    <string name="thursday">목</string>
+    <string name="friday">금</string>
+    <string name="saturday">토</string>
+    <string name="sunday">일</string>
 </resources>
