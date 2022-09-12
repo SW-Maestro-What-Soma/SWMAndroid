@@ -44,6 +44,9 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
 
     override fun onResume() {
         communityViewModel.getFullJobPostingList()
+        communityViewModel.getFullJobReviewList()
+        communityViewModel.getFullStudyList()
+        communityViewModel.getFullQuestionList()
         super.onResume()
     }
 
@@ -99,7 +102,6 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
     }
 
     private fun makeJobReviewView() = with(binding) {
-        communityViewModel.getFullJobReviewList()
         communityViewModel.fullJobReviewList.observe(viewLifecycleOwner) { jobReviewResponse ->
             when (jobReviewResponse) {
                 is Resource.Loading -> {
@@ -134,7 +136,6 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
     }
 
     private fun makeStudyView() = with(binding) {
-        communityViewModel.getFullStudyList()
         communityViewModel.fullStudyList.observe(viewLifecycleOwner) { studyResponse ->
             when (studyResponse) {
                 is Resource.Loading -> {
@@ -169,7 +170,6 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
     }
 
     private fun makeQuestionView() = with(binding) {
-        communityViewModel.getFullQuestionList()
         communityViewModel.fullQuestionList.observe(viewLifecycleOwner) { questionResponse ->
             when (questionResponse) {
                 is Resource.Loading -> {
