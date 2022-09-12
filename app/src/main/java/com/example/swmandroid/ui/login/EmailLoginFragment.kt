@@ -12,10 +12,7 @@ import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentEmailLoginBinding
 import com.example.swmandroid.model.login.LoginInfo
 import com.example.swmandroid.model.login.UserProfile
-import com.example.swmandroid.util.Resource
-import com.example.swmandroid.util.checkEmail
-import com.example.swmandroid.util.checkEmailEditText
-import com.example.swmandroid.util.saveUserProfileAtDataStore
+import com.example.swmandroid.util.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,9 +29,8 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.progressCircular.hide()
+        hideProgressCircular(binding.progressCircular)
         checkEmailEditText(requireContext(), binding.emailEdittext)
-
         buttonClick()
     }
 

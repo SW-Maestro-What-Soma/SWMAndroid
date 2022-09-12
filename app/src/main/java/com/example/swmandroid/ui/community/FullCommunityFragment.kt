@@ -24,6 +24,8 @@ import com.example.swmandroid.ui.community.detail.DetailJobReviewActivity
 import com.example.swmandroid.ui.community.detail.DetailQuestionActivity
 import com.example.swmandroid.ui.community.detail.DetailStudyActivity
 import com.example.swmandroid.util.Resource
+import com.example.swmandroid.util.hideProgressCircular
+import com.example.swmandroid.util.showProgressCircular
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
@@ -55,9 +57,10 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
     }
 
     private fun initProgressView() = with(binding) {
-        jobreviewProgress.hide()
-        studyProgress.hide()
-        questionProgress.hide()
+        hideProgressCircular(jobpostingProgress)
+        hideProgressCircular(jobreviewProgress)
+        hideProgressCircular(studyProgress)
+        hideProgressCircular(questionProgress)
     }
 
     private fun initView() {
@@ -71,15 +74,15 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
         communityViewModel.fullJobPostingList.observe(viewLifecycleOwner) { jobPostingResponse ->
             when (jobPostingResponse) {
                 is Resource.Loading -> {
-                    jobpostingProgress.show()
+                    showProgressCircular(jobpostingProgress)
                 }
                 is Resource.Success -> {
-                    jobpostingProgress.hide()
+                    hideProgressCircular(jobpostingProgress)
                     val jobPostingList = jobPostingResponse.data?.jobPostingList?.content
                     connectJobPostingAdapter(jobPostingList ?: emptyList())
                 }
                 is Resource.Error -> {
-                    jobpostingProgress.hide()
+                    hideProgressCircular(jobpostingProgress)
                     Toast.makeText(requireContext(), "채용공고 게시글을 불러오는데 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -105,15 +108,15 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
         communityViewModel.fullJobReviewList.observe(viewLifecycleOwner) { jobReviewResponse ->
             when (jobReviewResponse) {
                 is Resource.Loading -> {
-                    jobreviewProgress.show()
+                    showProgressCircular(jobreviewProgress)
                 }
                 is Resource.Success -> {
-                    jobreviewProgress.hide()
+                    hideProgressCircular(jobreviewProgress)
                     val jobReviewList = jobReviewResponse.data?.jobReviewList?.content
                     connectJobReviewAdapter(jobReviewList ?: emptyList())
                 }
                 is Resource.Error -> {
-                    jobreviewProgress.hide()
+                    hideProgressCircular(jobreviewProgress)
                     Toast.makeText(requireContext(), "채용후기 게시글을 불러오는데 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -139,15 +142,15 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
         communityViewModel.fullStudyList.observe(viewLifecycleOwner) { studyResponse ->
             when (studyResponse) {
                 is Resource.Loading -> {
-                    studyProgress.show()
+                    showProgressCircular(studyProgress)
                 }
                 is Resource.Success -> {
-                    studyProgress.hide()
+                    hideProgressCircular(studyProgress)
                     val studyList = studyResponse.data?.studyList?.content
                     connectStudyAdapter(studyList ?: emptyList())
                 }
                 is Resource.Error -> {
-                    studyProgress.hide()
+                    hideProgressCircular(studyProgress)
                     Toast.makeText(requireContext(), "스터디 게시글을 불러오는데 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -173,15 +176,15 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
         communityViewModel.fullQuestionList.observe(viewLifecycleOwner) { questionResponse ->
             when (questionResponse) {
                 is Resource.Loading -> {
-                    questionProgress.show()
+                    showProgressCircular(questionProgress)
                 }
                 is Resource.Success -> {
-                    questionProgress.hide()
+                    hideProgressCircular(questionProgress)
                     val questionList = questionResponse.data?.nowQnaList?.content
                     connectQuestionAdapter(questionList ?: emptyList())
                 }
                 is Resource.Error -> {
-                    questionProgress.hide()
+                    hideProgressCircular(questionProgress)
                     Toast.makeText(requireContext(), "질문 게시글을 불러오는데 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 }
             }

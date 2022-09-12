@@ -11,6 +11,8 @@ import com.example.swmandroid.model.community.jobposting.JobPostingItem
 import com.example.swmandroid.ui.community.CommunityViewModel
 import com.example.swmandroid.util.Resource
 import com.example.swmandroid.util.getCurrentTime
+import com.example.swmandroid.util.hideProgressCircular
+import com.example.swmandroid.util.showProgressCircular
 import com.google.android.material.datepicker.MaterialDatePicker
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
@@ -30,16 +32,8 @@ class PostJobPostingActivity : BaseActivity<ActivityPostJobpostingBinding>({ Act
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        hideProgressCircular()
+        hideProgressCircular(binding.progressCircular)
         buttonClick()
-    }
-
-    private fun hideProgressCircular() {
-        binding.progressCircular.hide()
-    }
-
-    private fun showProgressCircular() {
-        binding.progressCircular.show()
     }
 
     private fun buttonClick() = with(binding) {
@@ -138,14 +132,14 @@ class PostJobPostingActivity : BaseActivity<ActivityPostJobpostingBinding>({ Act
         communityViewModel.statusPostJobPosting.observe(this@PostJobPostingActivity) { status ->
             when (status) {
                 is Resource.Loading -> {
-                    showProgressCircular()
+                    showProgressCircular(progressCircular)
                 }
                 is Resource.Success -> {
-                    hideProgressCircular()
+                    hideProgressCircular(progressCircular)
                     finish()
                 }
                 is Resource.Error -> {
-                    hideProgressCircular()
+                    hideProgressCircular(progressCircular)
                     Toast.makeText(this@PostJobPostingActivity, "채용공고를 등록하는데 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 }
             }

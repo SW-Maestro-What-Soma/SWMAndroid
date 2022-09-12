@@ -10,6 +10,8 @@ import com.example.swmandroid.model.community.study.StudyItem
 import com.example.swmandroid.ui.community.CommunityViewModel
 import com.example.swmandroid.util.Resource
 import com.example.swmandroid.util.getCurrentTime
+import com.example.swmandroid.util.hideProgressCircular
+import com.example.swmandroid.util.showProgressCircular
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -53,7 +55,7 @@ class PostStudyActivity : BaseActivity<ActivityPostStudyBinding>({ ActivityPostS
         super.onCreate(savedInstanceState)
 
         initChangeChecker()
-        hideProgressCircular()
+        hideProgressCircular(binding.progressCircular)
         buttonClick()
         dayButtonClick()
     }
@@ -106,14 +108,6 @@ class PostStudyActivity : BaseActivity<ActivityPostStudyBinding>({ ActivityPostS
                 }
             }
         }
-    }
-
-    private fun hideProgressCircular() {
-        binding.progressCircular.hide()
-    }
-
-    private fun showProgressCircular() {
-        binding.progressCircular.show()
     }
 
     private fun buttonClick() = with(binding) {
@@ -258,14 +252,14 @@ class PostStudyActivity : BaseActivity<ActivityPostStudyBinding>({ ActivityPostS
         communityViewModel.statusPostStudy.observe(this@PostStudyActivity) { status ->
             when (status) {
                 is Resource.Loading -> {
-                    showProgressCircular()
+                    showProgressCircular(progressCircular)
                 }
                 is Resource.Success -> {
-                    hideProgressCircular()
+                    hideProgressCircular(progressCircular)
                     finish()
                 }
                 is Resource.Error -> {
-                    hideProgressCircular()
+                    hideProgressCircular(progressCircular)
                     Toast.makeText(this@PostStudyActivity, "스터디 게시글을 등록하는데 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 }
             }

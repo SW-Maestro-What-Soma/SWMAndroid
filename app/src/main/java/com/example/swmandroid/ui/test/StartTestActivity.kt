@@ -10,6 +10,7 @@ import com.example.swmandroid.databinding.ActivityStartTestBinding
 import com.example.swmandroid.ui.all.ViewPagerAdapter
 import com.example.swmandroid.ui.test.problem.TestProblemFragment
 import com.example.swmandroid.util.Resource
+import com.example.swmandroid.util.hideProgressCircular
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
 class StartTestActivity : BaseActivity<ActivityStartTestBinding>({ ActivityStartTestBinding.inflate(it) }) {
@@ -23,7 +24,7 @@ class StartTestActivity : BaseActivity<ActivityStartTestBinding>({ ActivityStart
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding.progressCircular.hide()
+        hideProgressCircular(binding.progressCircular)
 
         leftTimer = object : CountDownTimer(600000, 1000) {
             override fun onTick(millisUntilFinished: Long) {

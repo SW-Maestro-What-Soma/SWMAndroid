@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +16,7 @@ import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentSetNickBinding
 import com.example.swmandroid.model.login.LoginInfo
 import com.example.swmandroid.util.Resource
+import com.example.swmandroid.util.hideProgressCircular
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.regex.Pattern
 
@@ -31,7 +31,7 @@ class SetNickFragment : BaseFragment<FragmentSetNickBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.progressCircular.hide()
+        hideProgressCircular(binding.progressCircular)
         checkNickEditText(binding.setNickEdittext)
         buttonClick()
     }
