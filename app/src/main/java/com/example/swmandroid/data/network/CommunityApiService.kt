@@ -5,6 +5,7 @@ import com.example.swmandroid.model.community.jobposting.JobPostingResponse
 import com.example.swmandroid.model.community.jobreview.JobReviewItem
 import com.example.swmandroid.model.community.jobreview.JobReviewResponse
 import com.example.swmandroid.model.community.question.QuestionResponse
+import com.example.swmandroid.model.community.study.StudyItem
 import com.example.swmandroid.model.community.study.StudyResponse
 import okhttp3.ResponseBody
 import retrofit2.Response
@@ -30,4 +31,6 @@ interface CommunityApiService {
     @POST("/writeJobReview")
     suspend fun postJobReview(@Body jobReviewContents: JobReviewItem): Response<ResponseBody>
 
+    @POST("/writeStudy")
+    suspend fun postStudy(@Body studyContents : StudyItem ) : Response<ResponseBody>
 }

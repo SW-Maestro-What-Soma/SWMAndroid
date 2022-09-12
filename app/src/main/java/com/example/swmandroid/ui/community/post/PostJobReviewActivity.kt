@@ -30,7 +30,9 @@ class PostJobReviewActivity : BaseActivity<ActivityPostJobreviewBinding>({ Activ
     private var selectedPassFail = "합격"
     private var selectedProcess = "코딩테스트"
 
-    private val checkedItem = 0
+    private var checkedTechStackItemIdx = 0
+    private var checkedPassFailItemIdx = 0
+    private var checkedProcessItemIdx = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,8 +80,9 @@ class PostJobReviewActivity : BaseActivity<ActivityPostJobreviewBinding>({ Activ
             .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
                 binding.techAlertTextview.text = selectedTechStack
             }
-            .setSingleChoiceItems(techStackItems, checkedItem) { _, which ->
+            .setSingleChoiceItems(techStackItems, checkedTechStackItemIdx) { _, which ->
                 selectedTechStack = techStackItems[which]
+                checkedTechStackItemIdx = which
             }
         techStackDialog?.show()
     }
@@ -93,8 +96,9 @@ class PostJobReviewActivity : BaseActivity<ActivityPostJobreviewBinding>({ Activ
             .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
                 binding.passFailAlertTextview.text = selectedPassFail
             }
-            .setSingleChoiceItems(passFailItems, checkedItem) { _, which ->
+            .setSingleChoiceItems(passFailItems, checkedPassFailItemIdx) { _, which ->
                 selectedPassFail = passFailItems[which]
+                checkedPassFailItemIdx
             }
         passFailDialog?.show()
     }
@@ -108,8 +112,9 @@ class PostJobReviewActivity : BaseActivity<ActivityPostJobreviewBinding>({ Activ
             .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
                 binding.processAlertTextview.text = selectedProcess
             }
-            .setSingleChoiceItems(processItems, checkedItem) { _, which ->
+            .setSingleChoiceItems(processItems, checkedProcessItemIdx) { _, which ->
                 selectedProcess = processItems[which]
+                checkedProcessItemIdx = which
             }
         processDialog?.show()
     }

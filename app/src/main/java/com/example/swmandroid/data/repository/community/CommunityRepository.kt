@@ -7,6 +7,7 @@ import com.example.swmandroid.model.community.jobposting.JobPostingResponse
 import com.example.swmandroid.model.community.jobreview.JobReviewItem
 import com.example.swmandroid.model.community.jobreview.JobReviewResponse
 import com.example.swmandroid.model.community.question.QuestionResponse
+import com.example.swmandroid.model.community.study.StudyItem
 import com.example.swmandroid.model.community.study.StudyResponse
 import com.example.swmandroid.util.Resource
 import okhttp3.ResponseBody
@@ -35,6 +36,10 @@ class CommunityRepository(private val communityApiService: CommunityApiService) 
 
     suspend fun postJobReview(jobReviewItem: JobReviewItem): Resource<ResponseBody> {
         return safeApiCall { communityApiService.postJobReview(jobReviewItem) }
+    }
+
+    suspend fun postStudy(studyItem: StudyItem) : Resource<ResponseBody>{
+        return safeApiCall { communityApiService.postStudy(studyItem) }
     }
 
 }

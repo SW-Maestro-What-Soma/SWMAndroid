@@ -12,6 +12,7 @@ import com.example.swmandroid.model.community.jobposting.JobPostingResponse
 import com.example.swmandroid.model.community.jobreview.JobReviewItem
 import com.example.swmandroid.model.community.jobreview.JobReviewResponse
 import com.example.swmandroid.model.community.question.QuestionResponse
+import com.example.swmandroid.model.community.study.StudyItem
 import com.example.swmandroid.model.community.study.StudyResponse
 import com.example.swmandroid.util.Resource
 import kotlinx.coroutines.launch
@@ -61,6 +62,9 @@ class CommunityViewModel(
 
     private val _statusPostJobReview = MutableLiveData<Resource<ResponseBody>>()
     val statusPostJobReview: LiveData<Resource<ResponseBody>> = _statusPostJobReview
+
+    private val _statusPostStudy = MutableLiveData<Resource<ResponseBody>>()
+    val statusPostStudy : LiveData<Resource<ResponseBody>> = _statusPostStudy
 
     var categoryData = ""
 
@@ -167,6 +171,12 @@ class CommunityViewModel(
         _statusPostJobReview.postValue(Resource.Loading())
 
         _statusPostJobReview.postValue(communityRepository.postJobReview(jobReviewItem))
+    }
+
+    fun postStudy(studyItem: StudyItem) = viewModelScope.launch {
+        _statusPostStudy.postValue(Resource.Loading())
+
+        _statusPostStudy.postValue(communityRepository.postStudy(studyItem))
     }
 
 }
