@@ -189,9 +189,27 @@ class CommunityViewModel(
         _statusPostQuestion.postValue(communityRepository.postQuestion(questionItem))
     }
 
-    fun getSearchQna(keyword: String, page: Int, size: Int, sort: String) = viewModelScope.launch {
+    fun getSearchJobPosting(techStack: String, keyword: String, page: Int, size: Int, sort: String) = viewModelScope.launch {
+        _jobPostingList.postValue(Resource.Loading())
+
+        _jobPostingList.postValue(communityRepository.getSearchJobPosting(techStack, keyword, page, size, sort))
+    }
+
+    fun getSearchJobReview(techStack: String, keyword: String, page: Int, size: Int, sort: String) = viewModelScope.launch {
+        _jobReviewList.postValue(Resource.Loading())
+
+        _jobReviewList.postValue(communityRepository.getSearchJobReview(techStack, keyword, page, size, sort))
+    }
+
+    fun getSearchStudy(techStack: String, keyword: String, page: Int, size: Int, sort: String) = viewModelScope.launch {
+        _studyList.postValue(Resource.Loading())
+
+        _studyList.postValue(communityRepository.getSearchStudy(techStack, keyword, page, size, sort))
+    }
+
+    fun getSearchQna(techStack: String, keyword: String, page: Int, size: Int, sort: String) = viewModelScope.launch {
         _questionList.postValue(Resource.Loading())
 
-        _questionList.postValue(communityRepository.getSearchQna(keyword, page, size, sort))
+        _questionList.postValue(communityRepository.getSearchQna(techStack, keyword, page, size, sort))
     }
 }

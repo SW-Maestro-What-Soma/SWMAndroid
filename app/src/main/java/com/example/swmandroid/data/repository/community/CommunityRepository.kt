@@ -47,8 +47,20 @@ class CommunityRepository(private val communityApiService: CommunityApiService) 
         return safeApiCall { communityApiService.postQuestion(questionItem) }
     }
 
-    suspend fun getSearchQna(keyword: String, page: Int, size: Int, sort: String): Resource<QuestionResponse> {
-        return safeApiCall { communityApiService.getSearchQna(keyword, page, size, sort) }
+    suspend fun getSearchJobPosting(techStack: String, keyword: String, page: Int, size: Int, sort: String): Resource<JobPostingResponse> {
+        return safeApiCall { communityApiService.getSearchPosting(techStack, keyword, page, size, sort) }
+    }
+
+    suspend fun getSearchJobReview(techStack: String, keyword: String, page: Int, size: Int, sort: String): Resource<JobReviewResponse> {
+        return safeApiCall { communityApiService.getSearchReview(techStack, keyword, page, size, sort) }
+    }
+
+    suspend fun getSearchStudy(techStack: String, keyword: String, page: Int, size: Int, sort: String): Resource<StudyResponse> {
+        return safeApiCall { communityApiService.getSearchStudy(techStack, keyword, page, size, sort) }
+    }
+
+    suspend fun getSearchQna(techStack: String, keyword: String, page: Int, size: Int, sort: String): Resource<QuestionResponse> {
+        return safeApiCall { communityApiService.getSearchQna(techStack, keyword, page, size, sort) }
     }
 
 }

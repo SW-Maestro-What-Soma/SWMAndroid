@@ -33,11 +33,44 @@ interface CommunityApiService {
     suspend fun postJobReview(@Body jobReviewContents: JobReviewItem): Response<ResponseBody>
 
     @POST("/writeStudy")
-    suspend fun postStudy(@Body studyContents : StudyItem ) : Response<ResponseBody>
+    suspend fun postStudy(@Body studyContents: StudyItem): Response<ResponseBody>
 
     @POST("/writeQna")
-    suspend fun postQuestion(@Body qnaContents : QuestionItem ) : Response<ResponseBody>
+    suspend fun postQuestion(@Body qnaContents: QuestionItem): Response<ResponseBody>
 
-    @GET("/searchQna/{keyword}")
-    suspend fun getSearchQna(@Path("keyword") keyword : String, @Query("page") page : Int, @Query("size") size:Int, @Query("sort") sort: String) : Response<QuestionResponse>
+    @GET("/searchPosting/{tech_stack}/{keyword}")
+    suspend fun getSearchPosting(
+        @Path("tech_stack") techStack: String,
+        @Path("keyword") keyword: String,
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+        @Query("sort") sort: String
+    ): Response<JobPostingResponse>
+
+    @GET("/searchReview/{tech_stack}/{keyword}")
+    suspend fun getSearchReview(
+        @Path("tech_stack") techStack: String,
+        @Path("keyword") keyword: String,
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+        @Query("sort") sort: String
+    ): Response<JobReviewResponse>
+
+    @GET("/searchStudy/{tech_stack}/{keyword}")
+    suspend fun getSearchStudy(
+        @Path("tech_stack") techStack: String,
+        @Path("keyword") keyword: String,
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+        @Query("sort") sort: String
+    ): Response<StudyResponse>
+
+    @GET("/searchQna/{tech_stack}/{keyword}")
+    suspend fun getSearchQna(
+        @Path("tech_stack") techStack: String,
+        @Path("keyword") keyword: String,
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+        @Query("sort") sort: String
+    ): Response<QuestionResponse>
 }

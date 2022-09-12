@@ -117,10 +117,10 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
 
     private fun getSearchList(category: String, keyword: String, techStack: String, sort: String) {
         when (category) {
-            "채용공고" -> communityViewModel.getSearchQna(keyword, 0, 10, sort)
-            "채용후기" -> communityViewModel.getSearchQna(keyword, 0, 10, sort)
-            "스터디" -> communityViewModel.getSearchQna(keyword, 0, 10, sort)
-            "질문" -> communityViewModel.getSearchQna(keyword, 0, 10, sort)
+            "채용공고" -> communityViewModel.getSearchJobPosting(techStack, keyword, 0, 10, sort)
+            "채용후기" -> communityViewModel.getSearchJobReview(techStack, keyword, 0, 10, sort)
+            "스터디" -> communityViewModel.getSearchStudy(techStack, keyword, 0, 10, sort)
+            "질문" -> communityViewModel.getSearchQna(techStack, keyword, 0, 10, sort)
         }
     }
 
