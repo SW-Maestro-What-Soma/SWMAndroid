@@ -188,4 +188,10 @@ class CommunityViewModel(
 
         _statusPostQuestion.postValue(communityRepository.postQuestion(questionItem))
     }
+
+    fun getSearchQna(keyword: String, page: Int, size: Int, sort: String) = viewModelScope.launch {
+        _questionList.postValue(Resource.Loading())
+
+        _questionList.postValue(communityRepository.getSearchQna(keyword, page, size, sort))
+    }
 }

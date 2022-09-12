@@ -37,4 +37,7 @@ interface CommunityApiService {
 
     @POST("/writeQna")
     suspend fun postQuestion(@Body qnaContents : QuestionItem ) : Response<ResponseBody>
+
+    @GET("/searchQna/{keyword}")
+    suspend fun getSearchQna(@Path("keyword") keyword : String, @Query("page") page : Int, @Query("size") size:Int, @Query("sort") sort: String) : Response<QuestionResponse>
 }

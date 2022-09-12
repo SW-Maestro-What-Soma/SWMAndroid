@@ -23,12 +23,5 @@
         <action
             android:id="@+id/action_subCommunityFragment_to_fullCommunityFragment"
             app:destination="@id/fullCommunityFragment" />
-        <action
-            android:id="@+id/action_subCommunityFragment_to_searchCommunityFragment"
-            app:destination="@id/searchCommunityFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/searchCommunityFragment"
-        android:name="com.example.swmandroid.ui.community.SearchCommunityFragment"
-        android:label="SearchCommunityFragment" />
 </navigation>

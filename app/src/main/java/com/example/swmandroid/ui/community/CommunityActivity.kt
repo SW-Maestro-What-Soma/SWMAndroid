@@ -163,10 +163,4 @@ class CommunityActivity : BaseActivity<ActivityCommunityBinding>({ ActivityCommu
         selectedEvent(position)
     }
 
-    fun topButtonClickBlock(check : Boolean) {
-        buttonList.forEach {
-            it.isClickable = check
-        }
-    }
-
 }

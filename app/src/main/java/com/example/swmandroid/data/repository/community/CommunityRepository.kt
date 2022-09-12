@@ -39,12 +39,16 @@ class CommunityRepository(private val communityApiService: CommunityApiService) 
         return safeApiCall { communityApiService.postJobReview(jobReviewItem) }
     }
 
-    suspend fun postStudy(studyItem: StudyItem) : Resource<ResponseBody>{
+    suspend fun postStudy(studyItem: StudyItem): Resource<ResponseBody> {
         return safeApiCall { communityApiService.postStudy(studyItem) }
     }
 
-    suspend fun postQuestion(questionItem: QuestionItem) : Resource<ResponseBody>{
+    suspend fun postQuestion(questionItem: QuestionItem): Resource<ResponseBody> {
         return safeApiCall { communityApiService.postQuestion(questionItem) }
+    }
+
+    suspend fun getSearchQna(keyword: String, page: Int, size: Int, sort: String): Resource<QuestionResponse> {
+        return safeApiCall { communityApiService.getSearchQna(keyword, page, size, sort) }
     }
 
 }

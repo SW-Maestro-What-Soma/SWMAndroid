@@ -14,6 +14,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <EditText
+        android:id="@+id/search_edittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/search_background"
+        android:drawableStart="@drawable/search"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:padding="15dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/vieworder_textview"
         android:layout_width="wrap_content"
@@ -25,7 +44,7 @@
         android:textColor="@color/gray"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/search_edittext" />
 
     <View
         android:layout_width="1dp"
@@ -70,7 +89,7 @@
         app:layout_constraintBottom_toTopOf="@id/write_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/contour"/>
+        app:layout_constraintTop_toBottomOf="@id/contour" />
 
     <TextView
         android:id="@+id/write_button"

@@ -28,7 +28,6 @@ class SubCommunityFragment : BaseFragment<FragmentSubCommunityBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        buttonClick()
     }
 
     private fun initView() = with(binding) {
@@ -62,12 +61,6 @@ class SubCommunityFragment : BaseFragment<FragmentSubCommunityBinding>() {
             TechCommunityFragment(),
             TechCommunityFragment(),
         )
-    }
-
-    private fun buttonClick() = with(binding) {
-        searchLayout.setOnClickListener {
-            root.findNavController().navigate(R.id.action_subCommunityFragment_to_searchCommunityFragment)
-        }
     }
 
     fun moveFullCommunityFragment() {

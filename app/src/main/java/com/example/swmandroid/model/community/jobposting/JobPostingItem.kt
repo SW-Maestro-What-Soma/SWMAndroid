@@ -18,5 +18,5 @@ data class JobPostingItem(
     val techStack: String,
     val text: String,
     val title: String,
-    val viewCount: Int
+    val viewCount: Int,
 ) : Parcelable

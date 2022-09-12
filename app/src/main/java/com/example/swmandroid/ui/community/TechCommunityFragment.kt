@@ -1,10 +1,13 @@
 package com.example.swmandroid.ui.community
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,6 +37,9 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
 
     private val communityViewModel: CommunityViewModel by sharedViewModel()
 
+    private var techStack = ""
+    private var sort = ""
+
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentTechCommunityBinding {
         return FragmentTechCommunityBinding.inflate(inflater, container, false)
     }
@@ -42,6 +48,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        initSearchEdittext()
         buttonClick()
     }
 
@@ -49,26 +56,23 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         super.onResume()
 
         communityViewModel.techStack.observe(viewLifecycleOwner) { techStack ->
+            this.techStack = techStack
+
             communityViewModel.sort.observe(viewLifecycleOwner) { sort ->
+                this.sort = sort
+
                 if (sort == "id,DESC") {
                     setNewOrderTextView()
                 } else {
                     setViewOrderTextView()
                 }
 
-                when (communityViewModel.categoryData) {
-                    "채용공고" -> {
-                        communityViewModel.getJobPostingList(techStack, 0, 10, sort)
-                    }
-                    "채용후기" -> {
-                        communityViewModel.getJobReviewList(techStack, 0, 10, sort)
-                    }
-                    "스터디" -> {
-                        communityViewModel.getStudyList(techStack, 0, 10, sort)
-                    }
-                    "질문" -> {
-                        communityViewModel.getQuestionList(techStack, 0, 10, sort)
-                    }
+                val keyword = binding.searchEdittext.text.toString()
+
+                if (keyword.isBlank()) {
+                    getDataList(communityViewModel.categoryData, techStack, sort)
+                } else {
+                    getSearchList(communityViewModel.categoryData, keyword, techStack, sort)
                 }
             }
         }
@@ -76,19 +80,53 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
 
     private fun initView() {
         when (communityViewModel.categoryData) {
-            "채용공고" -> {
-                makeJobPostingView()
-            }
-            "채용후기" -> {
-                makeJobReviewView()
-            }
-            "스터디" -> {
-                makeStudyView()
-            }
-            "질문" -> {
-                makeQuestionView()
-            }
+            "채용공고" -> makeJobPostingView()
+            "채용후기" -> makeJobReviewView()
+            "스터디" -> makeStudyView()
+            "질문" -> makeQuestionView()
         }
+    }
+
+    private fun initSearchEdittext() {
+        binding.searchEdittext.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                val keyword = binding.searchEdittext.text.toString()
+
+                if (keyword.isNotBlank()) {
+                    getSearchList(communityViewModel.categoryData, keyword, techStack, sort)
+                } else {
+                    getDataList(communityViewModel.categoryData, techStack, sort)
+                }
+
+                hideKeyBoard()
+
+                true
+            }
+            false
+        }
+    }
+
+    private fun getDataList(category: String, techStack: String, sort: String) {
+        when (category) {
+            "채용공고" -> communityViewModel.getJobPostingList(techStack, 0, 10, sort)
+            "채용후기" -> communityViewModel.getJobReviewList(techStack, 0, 10, sort)
+            "스터디" -> communityViewModel.getStudyList(techStack, 0, 10, sort)
+            "질문" -> communityViewModel.getQuestionList(techStack, 0, 10, sort)
+        }
+    }
+
+    private fun getSearchList(category: String, keyword: String, techStack: String, sort: String) {
+        when (category) {
+            "채용공고" -> communityViewModel.getSearchQna(keyword, 0, 10, sort)
+            "채용후기" -> communityViewModel.getSearchQna(keyword, 0, 10, sort)
+            "스터디" -> communityViewModel.getSearchQna(keyword, 0, 10, sort)
+            "질문" -> communityViewModel.getSearchQna(keyword, 0, 10, sort)
+        }
+    }
+
+    private fun hideKeyBoard() {
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.searchEdittext.windowToken, 0)
     }
 
     private fun buttonClick() = with(binding) {
