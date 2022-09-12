@@ -2,6 +2,7 @@ package com.example.swmandroid.ui.community.post
 
 import android.os.Bundle
 import android.widget.Toast
+import com.example.swmandroid.GlobalApplication
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityPostJobreviewBinding
@@ -12,6 +13,8 @@ import com.example.swmandroid.util.getCurrentTime
 import com.example.swmandroid.util.hideProgressCircular
 import com.example.swmandroid.util.showProgressCircular
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.first
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PostJobReviewActivity : BaseActivity<ActivityPostJobreviewBinding>({ ActivityPostJobreviewBinding.inflate(it) }) {
@@ -154,7 +157,11 @@ class PostJobReviewActivity : BaseActivity<ActivityPostJobreviewBinding>({ Activ
             userId = 0,
             viewCount = 0,
             createdAt = getCurrentTime(),
+            userEmail = getEmailFromDataStore(),
         )
+
+    private fun getEmailFromDataStore(): String =
+        runBlocking { GlobalApplication.getInstance().getDataStore().email.first() }
 
     override fun onDestroy() {
         super.onDestroy()

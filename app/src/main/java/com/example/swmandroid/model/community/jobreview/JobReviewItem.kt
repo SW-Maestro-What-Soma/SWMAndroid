@@ -21,5 +21,7 @@ data class JobReviewItem(
     val title: String,
     @Json(name = "user_id")
     val userId: Int,
-    val viewCount: Int
+    val viewCount: Int,
+    @Json(name = "user_email")
+val userEmail : String,
 ) : Parcelable

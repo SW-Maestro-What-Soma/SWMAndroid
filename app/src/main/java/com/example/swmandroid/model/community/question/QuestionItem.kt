@@ -1,6 +1,5 @@
 package com.example.swmandroid.model.community.question
 
-
 import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -20,5 +19,7 @@ data class QuestionItem(
     val title: String,
     val viewCount: Int,
     @Json(name = "vote_count")
-    val voteCount: Int
+    val voteCount: Int,
+    @Json(name = "user_email")
+    val userEmail : String,
 ) : Parcelable

@@ -22,7 +22,6 @@ import com.example.swmandroid.model.jobposting.JobPostingAdItem
 import com.example.swmandroid.ui.community.CommunityActivity
 import com.example.swmandroid.ui.easylearning.EasyLearningActivity
 import com.example.swmandroid.ui.fullservice.FullServiceActivity
-import com.example.swmandroid.ui.login.LoginViewModel
 import com.example.swmandroid.ui.main.adapter.BookAdapter
 import com.example.swmandroid.ui.main.adapter.JobPostingAdAdapter
 import com.example.swmandroid.ui.mypage.MyPageActivity
@@ -32,8 +31,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.get
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.abs
 
 class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inflate(it) }) {
@@ -60,6 +57,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         bookItemRecyclerview()
         initBookItem()
         initNickNameView()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        jobPostingHandle.removeCallbacks(jobPostingRun)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        jobPostingHandle.postDelayed(jobPostingRun, 2000)
     }
 
     @SuppressLint("SetTextI18n")
@@ -167,16 +174,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
             val nickName = GlobalApplication.getInstance().getDataStore().nickName.first()
             binding.nickNameTextview.text = nickName
         }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        jobPostingHandle.removeCallbacks(jobPostingRun)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        jobPostingHandle.postDelayed(jobPostingRun, 2000)
     }
 
 }
