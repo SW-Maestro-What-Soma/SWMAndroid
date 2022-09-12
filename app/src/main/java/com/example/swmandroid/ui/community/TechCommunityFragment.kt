@@ -25,6 +25,7 @@ import com.example.swmandroid.ui.community.detail.DetailQuestionActivity
 import com.example.swmandroid.ui.community.detail.DetailStudyActivity
 import com.example.swmandroid.ui.community.post.PostJobPostingActivity
 import com.example.swmandroid.ui.community.post.PostJobReviewActivity
+import com.example.swmandroid.ui.community.post.PostQuestionActivity
 import com.example.swmandroid.ui.community.post.PostStudyActivity
 import com.example.swmandroid.util.Resource
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -105,11 +106,12 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         communityViewModel.setViewOrder()
     }
 
-    private fun getIntentByCategory() : Intent {
-        return when(communityViewModel.categoryData){
+    private fun getIntentByCategory(): Intent {
+        return when (communityViewModel.categoryData) {
             "채용공고" -> Intent(requireContext(), PostJobPostingActivity::class.java)
             "채용후기" -> Intent(requireContext(), PostJobReviewActivity::class.java)
             "스터디" -> Intent(requireContext(), PostStudyActivity::class.java)
+            "질문" -> Intent(requireContext(), PostQuestionActivity::class.java)
             else -> Intent(requireContext(), PostJobPostingActivity::class.java)
         }
     }

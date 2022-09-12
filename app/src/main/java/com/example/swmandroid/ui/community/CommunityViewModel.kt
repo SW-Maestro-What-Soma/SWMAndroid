@@ -11,6 +11,7 @@ import com.example.swmandroid.model.community.jobposting.JobPostingItem
 import com.example.swmandroid.model.community.jobposting.JobPostingResponse
 import com.example.swmandroid.model.community.jobreview.JobReviewItem
 import com.example.swmandroid.model.community.jobreview.JobReviewResponse
+import com.example.swmandroid.model.community.question.QuestionItem
 import com.example.swmandroid.model.community.question.QuestionResponse
 import com.example.swmandroid.model.community.study.StudyItem
 import com.example.swmandroid.model.community.study.StudyResponse
@@ -64,7 +65,10 @@ class CommunityViewModel(
     val statusPostJobReview: LiveData<Resource<ResponseBody>> = _statusPostJobReview
 
     private val _statusPostStudy = MutableLiveData<Resource<ResponseBody>>()
-    val statusPostStudy : LiveData<Resource<ResponseBody>> = _statusPostStudy
+    val statusPostStudy: LiveData<Resource<ResponseBody>> = _statusPostStudy
+
+    private val _statusPostQuestion = MutableLiveData<Resource<ResponseBody>>()
+    val statusPostQuestion: LiveData<Resource<ResponseBody>> = _statusPostQuestion
 
     var categoryData = ""
 
@@ -179,4 +183,9 @@ class CommunityViewModel(
         _statusPostStudy.postValue(communityRepository.postStudy(studyItem))
     }
 
+    fun postQuestion(questionItem: QuestionItem) = viewModelScope.launch {
+        _statusPostQuestion.postValue(Resource.Loading())
+
+        _statusPostQuestion.postValue(communityRepository.postQuestion(questionItem))
+    }
 }

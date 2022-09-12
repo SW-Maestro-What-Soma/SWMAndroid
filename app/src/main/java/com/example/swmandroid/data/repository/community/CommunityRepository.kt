@@ -6,6 +6,7 @@ import com.example.swmandroid.model.community.jobposting.JobPostingItem
 import com.example.swmandroid.model.community.jobposting.JobPostingResponse
 import com.example.swmandroid.model.community.jobreview.JobReviewItem
 import com.example.swmandroid.model.community.jobreview.JobReviewResponse
+import com.example.swmandroid.model.community.question.QuestionItem
 import com.example.swmandroid.model.community.question.QuestionResponse
 import com.example.swmandroid.model.community.study.StudyItem
 import com.example.swmandroid.model.community.study.StudyResponse
@@ -40,6 +41,10 @@ class CommunityRepository(private val communityApiService: CommunityApiService) 
 
     suspend fun postStudy(studyItem: StudyItem) : Resource<ResponseBody>{
         return safeApiCall { communityApiService.postStudy(studyItem) }
+    }
+
+    suspend fun postQuestion(questionItem: QuestionItem) : Resource<ResponseBody>{
+        return safeApiCall { communityApiService.postQuestion(questionItem) }
     }
 
 }

@@ -246,6 +246,7 @@ class PostStudyActivity : BaseActivity<ActivityPostStudyBinding>({ ActivityPostS
                     && getDay().isNotBlank()
                     && minTierAlertTextview.text != resources.getString(R.string.min_tier_input_text)
                     && maxTierAlertTextview.text != resources.getString(R.string.max_tier_input_hint)
+                    && contentEdittext.text.isNotBlank()
                     )
         }
     }

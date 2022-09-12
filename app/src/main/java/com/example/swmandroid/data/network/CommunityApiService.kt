@@ -4,6 +4,7 @@ import com.example.swmandroid.model.community.jobposting.JobPostingItem
 import com.example.swmandroid.model.community.jobposting.JobPostingResponse
 import com.example.swmandroid.model.community.jobreview.JobReviewItem
 import com.example.swmandroid.model.community.jobreview.JobReviewResponse
+import com.example.swmandroid.model.community.question.QuestionItem
 import com.example.swmandroid.model.community.question.QuestionResponse
 import com.example.swmandroid.model.community.study.StudyItem
 import com.example.swmandroid.model.community.study.StudyResponse
@@ -33,4 +34,7 @@ interface CommunityApiService {
 
     @POST("/writeStudy")
     suspend fun postStudy(@Body studyContents : StudyItem ) : Response<ResponseBody>
+
+    @POST("/writeQna")
+    suspend fun postQuestion(@Body qnaContents : QuestionItem ) : Response<ResponseBody>
 }
