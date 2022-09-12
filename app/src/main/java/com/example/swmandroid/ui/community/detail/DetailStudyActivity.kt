@@ -5,31 +5,49 @@ import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityDetailStudyBinding
 import com.example.swmandroid.model.community.study.StudyItem
+import com.example.swmandroid.util.getEmailFromDataStore
+import com.example.swmandroid.util.hideMyContentLayout
+import com.example.swmandroid.util.showMyContentLayout
 
 class DetailStudyActivity : BaseActivity<ActivityDetailStudyBinding>({ ActivityDetailStudyBinding.inflate(it) }) {
 
+    private var studyItem : StudyItem? = null
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initView()
+        initMyContentLayout()
     }
 
     private fun initView() = with(binding) {
-        val data = intent.getParcelableExtra<StudyItem>("Study")
+        studyItem = intent.getParcelableExtra<StudyItem>("Study")
 
-        studyTitle.text = data?.title
-        studyCategory.text = data?.techStack
-        studyPerweek.text = getString(R.string.per_week_text, data?.perWeek)
-        studyDayofweek.text = data?.dayOfTheWeek
-        studyOnoff.text = if (data?.onOffline == true) "온라인" else "오프라인"
-        studyMintier.text = data?.minGrade
-        studyMaxtier.text = data?.maxGrade
-        studyViewcount.text = data?.viewCount.toString()
-        studyCommentcount.text = data?.commentCount.toString()
-        studyCreatedat.text = data?.createdAt
-        studyLink.text = data?.meetingLink
-        studyContent.text = data?.text
+        studyTitle.text = studyItem?.title
+        studyCategory.text = studyItem?.techStack
+        studyPerweek.text = getString(R.string.per_week_text, studyItem?.perWeek)
+        studyDayofweek.text = studyItem?.dayOfTheWeek
+        studyOnoff.text = if (studyItem?.onOffline == true) "온라인" else "오프라인"
+        studyMintier.text = studyItem?.minGrade
+        studyMaxtier.text = studyItem?.maxGrade
+        studyViewcount.text = studyItem?.viewCount.toString()
+        studyCommentcount.text = studyItem?.commentCount.toString()
+        studyCreatedat.text = studyItem?.createdAt
+        studyLink.text = studyItem?.meetingLink
+        studyContent.text = studyItem?.text
 
         //TODO 닉네임 변경
     }
+
+    private fun initMyContentLayout() = with(binding) {
+        if(checkUserEmail()){
+            showMyContentLayout(myContentLayout)
+        }else{
+            hideMyContentLayout(myContentLayout)
+        }
+    }
+
+    private fun checkUserEmail(): Boolean =
+        studyItem?.userEmail == getEmailFromDataStore()
+
 }
