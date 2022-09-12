@@ -6,13 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.findNavController
+import com.example.swmandroid.GlobalApplication
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentEmailLoginBinding
 import com.example.swmandroid.model.login.LoginInfo
+import com.example.swmandroid.model.login.UserProfile
 import com.example.swmandroid.util.Resource
 import com.example.swmandroid.util.checkEmail
 import com.example.swmandroid.util.checkEmailEditText
+import com.example.swmandroid.util.saveUserProfileAtDataStore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
@@ -35,7 +41,7 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
     private fun buttonClick() = with(binding) {
         backButton.setOnClickListener { root.findNavController().popBackStack() }
         loginButton.setOnClickListener {
-            if (checkEmail(requireContext(), emailEdittext) ) {
+            if (checkEmail(requireContext(), emailEdittext)) {
                 apiPostLogin()
             } else {
                 Toast.makeText(requireContext(), "이메일과 비밀번호 형식을 확인하세요.", Toast.LENGTH_SHORT).show()
@@ -57,6 +63,7 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
                 }
                 is Resource.Success -> {
                     progressCircular.hide()
+                    saveUserProfileAtDataStore(it.data)
                     root.findNavController().navigate(R.id.action_emailLoginFragment_to_mainActivity)
                 }
                 is Resource.Error -> {

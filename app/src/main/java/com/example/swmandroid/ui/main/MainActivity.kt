@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
+import com.example.swmandroid.GlobalApplication
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityMainBinding
@@ -27,6 +28,11 @@ import com.example.swmandroid.ui.main.adapter.JobPostingAdAdapter
 import com.example.swmandroid.ui.mypage.MyPageActivity
 import com.example.swmandroid.ui.test.TestActivity
 import com.example.swmandroid.ui.test.TestResultActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.abs
 
@@ -39,8 +45,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
 
     private lateinit var bookItemList: ArrayList<BookItem>
 
-    private val loginViewModel by viewModel<LoginViewModel>()
-
     var totalScore = 0
     var isPlatinum = false
 
@@ -49,16 +53,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
 
         window.statusBarColor = Color.parseColor("#0083E1")
 
-        loginViewModel.userProfile.observe(this) {
-            binding.nickNameTextview.text = it.data?.nick_name
-        }
-
         initView()
         buttonClick()
         jobPostingItemSlider()
         initJobPostingItem()
         bookItemRecyclerview()
         initBookItem()
+        initNickNameView()
     }
 
     @SuppressLint("SetTextI18n")
@@ -159,6 +160,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         bookItemList.add(BookItem(R.drawable.book3, "클린코드", "좋은 클린코드 책입니다.", "https://naver.com"))
         bookItemList.add(BookItem(R.drawable.book4, "코틀린 쿡북", "좋은 코틀린 쿡북 책입니다.", "https://naver.com"))
         bookItemList.add(BookItem(R.drawable.book5, "코틀린을 다루는 기술", "좋은 코틀린을 다루는 기술 책입술다.", "https://naver.com"))
+    }
+
+    private fun initNickNameView() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val nickName = GlobalApplication.getInstance().getDataStore().nickName.first()
+            binding.nickNameTextview.text = nickName
+        }
     }
 
     override fun onPause() {

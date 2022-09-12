@@ -18,6 +18,7 @@ import com.example.swmandroid.databinding.FragmentLoginBinding
 import com.example.swmandroid.model.login.LoginInfo
 import com.example.swmandroid.model.login.UserEntity
 import com.example.swmandroid.util.Resource
+import com.example.swmandroid.util.saveUserProfileAtDataStore
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -100,6 +101,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 }
                 is Resource.Success -> {
                     progressCircular.hide()
+                    saveUserProfileAtDataStore(it.data)
                     root.findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
                 }
                 is Resource.Error -> {
