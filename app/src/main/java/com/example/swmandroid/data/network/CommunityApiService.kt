@@ -1,5 +1,6 @@
 package com.example.swmandroid.data.network
 
+import com.example.swmandroid.model.community.delete.DeleteItemInfo
 import com.example.swmandroid.model.community.jobposting.JobPostingItem
 import com.example.swmandroid.model.community.jobposting.JobPostingResponse
 import com.example.swmandroid.model.community.jobreview.JobReviewItem
@@ -73,4 +74,17 @@ interface CommunityApiService {
         @Query("size") size: Int,
         @Query("sort") sort: String
     ): Response<QuestionResponse>
+
+    @POST("/deleteJobPosting")
+    suspend fun deleteJobPostingPost(@Body deleteItemInfo: DeleteItemInfo) : Response<ResponseBody>
+
+    @POST("/deleteJobReview")
+    suspend fun deleteJobReviewPost(@Body deleteItemInfo: DeleteItemInfo) : Response<ResponseBody>
+
+    @POST("/deleteStudy")
+    suspend fun deleteStudyPost(@Body deleteItemInfo: DeleteItemInfo) : Response<ResponseBody>
+
+    @POST("/deleteQna")
+    suspend fun deleteQnaPost(@Body deleteItemInfo: DeleteItemInfo) : Response<ResponseBody>
+
 }

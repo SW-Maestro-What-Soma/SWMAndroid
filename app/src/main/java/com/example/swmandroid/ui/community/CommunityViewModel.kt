@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.swmandroid.data.entity.RecentSearchEntity
 import com.example.swmandroid.data.repository.community.CommunityRepository
 import com.example.swmandroid.data.repository.community.RecentSearchRepository
+import com.example.swmandroid.model.community.delete.DeleteItemInfo
 import com.example.swmandroid.model.community.jobposting.JobPostingItem
 import com.example.swmandroid.model.community.jobposting.JobPostingResponse
 import com.example.swmandroid.model.community.jobreview.JobReviewItem
@@ -18,6 +19,7 @@ import com.example.swmandroid.model.community.study.StudyResponse
 import com.example.swmandroid.util.Resource
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
+import retrofit2.Response
 
 class CommunityViewModel(
     private val recentSearchRepository: RecentSearchRepository,
@@ -69,6 +71,18 @@ class CommunityViewModel(
 
     private val _statusPostQuestion = MutableLiveData<Resource<ResponseBody>>()
     val statusPostQuestion: LiveData<Resource<ResponseBody>> = _statusPostQuestion
+
+    private val _statusDeleteJobPostingPost = MutableLiveData<Response<ResponseBody>>()
+    val statusDeleteJobPostingPost : LiveData<Response<ResponseBody>> = _statusDeleteJobPostingPost
+
+    private val _statusDeleteJobReviewPost = MutableLiveData<Response<ResponseBody>>()
+    val statusDeleteJobReviewPost : LiveData<Response<ResponseBody>> = _statusDeleteJobReviewPost
+
+    private val _statusDeleteStudyPost = MutableLiveData<Response<ResponseBody>>()
+    val statusDeleteStudyPost : LiveData<Response<ResponseBody>> = _statusDeleteStudyPost
+
+    private val _statusDeleteQnaPost = MutableLiveData<Response<ResponseBody>>()
+    val statusDeleteQnaPost : LiveData<Response<ResponseBody>> = _statusDeleteQnaPost
 
     var categoryData = ""
 
@@ -212,4 +226,21 @@ class CommunityViewModel(
 
         _questionList.postValue(communityRepository.getSearchQna(techStack, keyword, page, size, sort))
     }
+
+    fun deleteJobPostingPost(deleteItemInfo: DeleteItemInfo) = viewModelScope.launch {
+        _statusDeleteJobPostingPost.postValue(communityRepository.deleteJobPostingPost(deleteItemInfo))
+    }
+
+    fun deleteJobReviewPost(deleteItemInfo: DeleteItemInfo) = viewModelScope.launch {
+        _statusDeleteJobReviewPost.postValue(communityRepository.deleteJobReviewPost(deleteItemInfo))
+    }
+
+    fun deleteStudyPost(deleteItemInfo: DeleteItemInfo) = viewModelScope.launch {
+        _statusDeleteStudyPost.postValue(communityRepository.deleteStudyPost(deleteItemInfo))
+    }
+
+    fun deleteQnaPost(deleteItemInfo: DeleteItemInfo) = viewModelScope.launch {
+        _statusDeleteQnaPost.postValue(communityRepository.deleteQnaPost(deleteItemInfo))
+    }
+
 }

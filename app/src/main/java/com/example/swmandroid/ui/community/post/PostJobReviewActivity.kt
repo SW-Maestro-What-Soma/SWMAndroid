@@ -2,7 +2,6 @@ package com.example.swmandroid.ui.community.post
 
 import android.os.Bundle
 import android.widget.Toast
-import com.example.swmandroid.GlobalApplication
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityPostJobreviewBinding
@@ -10,8 +9,6 @@ import com.example.swmandroid.model.community.jobreview.JobReviewItem
 import com.example.swmandroid.ui.community.CommunityViewModel
 import com.example.swmandroid.util.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.first
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PostJobReviewActivity : BaseActivity<ActivityPostJobreviewBinding>({ ActivityPostJobreviewBinding.inflate(it) }) {

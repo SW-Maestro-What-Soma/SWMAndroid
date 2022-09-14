@@ -304,10 +304,11 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
     }
 
     private fun initWriteButtonView() {
-        if (checkUserRole() && communityViewModel.categoryData == "채용공고") {
-            showWriteButton()
-        } else {
+        if(!checkUserRole() && communityViewModel.categoryData == "채용공고"){
             hideWriteButton()
+        }
+        else {
+            showWriteButton()
         }
     }
 
