@@ -7,3 +7,7 @@ import kotlinx.coroutines.runBlocking
 fun getEmailFromDataStore(): String = runBlocking {
     GlobalApplication.getInstance().getDataStore().email.first()
 }
+
+fun getUserRoleFromDataStore() : String = runBlocking {
+    GlobalApplication.getInstance().getDataStore().userRole.first()
+}

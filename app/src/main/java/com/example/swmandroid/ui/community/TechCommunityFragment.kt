@@ -31,6 +31,7 @@ import com.example.swmandroid.ui.community.post.PostJobReviewActivity
 import com.example.swmandroid.ui.community.post.PostQuestionActivity
 import com.example.swmandroid.ui.community.post.PostStudyActivity
 import com.example.swmandroid.util.Resource
+import com.example.swmandroid.util.getUserRoleFromDataStore
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
@@ -50,6 +51,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         initView()
         initSearchEdittext()
         buttonClick()
+        initWriteButtonView()
     }
 
     override fun onResume() {
@@ -299,6 +301,25 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
             intent.putExtra("Question", it)
             startActivity(intent)
         }
+    }
+
+    private fun initWriteButtonView() {
+        if (checkUserRole() && communityViewModel.categoryData == "채용공고") {
+            showWriteButton()
+        } else {
+            hideWriteButton()
+        }
+    }
+
+    private fun checkUserRole(): Boolean =
+        getUserRoleFromDataStore() == "MANAGER"
+
+    private fun showWriteButton() {
+        binding.writeButton.visibility = View.VISIBLE
+    }
+
+    private fun hideWriteButton() {
+        binding.writeButton.visibility = View.GONE
     }
 
 }

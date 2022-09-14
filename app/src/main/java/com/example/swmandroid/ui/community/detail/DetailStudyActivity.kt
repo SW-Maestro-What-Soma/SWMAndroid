@@ -12,7 +12,7 @@ import com.example.swmandroid.util.showMyContentLayout
 class DetailStudyActivity : BaseActivity<ActivityDetailStudyBinding>({ ActivityDetailStudyBinding.inflate(it) }) {
 
     private var studyItem : StudyItem? = null
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
