@@ -5,7 +5,6 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
 
-@Parcelize
 @JsonClass(generateAdapter = true)
 data class StudyItem(
     @Json(name = "comment_count")
@@ -33,4 +32,4 @@ data class StudyItem(
     val viewCount: Int,
     @Json(name = "user_email")
     val userEmail: String,
-) : Parcelable
+)

@@ -6,11 +6,8 @@ import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityDetailStudyBinding
 import com.example.swmandroid.model.community.delete.DeleteItemInfo
-import com.example.swmandroid.model.community.study.StudyItem
 import com.example.swmandroid.ui.community.CommunityViewModel
-import com.example.swmandroid.util.getEmailFromDataStore
-import com.example.swmandroid.util.hideMyContentLayout
-import com.example.swmandroid.util.showMyContentLayout
+import com.example.swmandroid.util.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -18,35 +15,59 @@ class DetailStudyActivity : BaseActivity<ActivityDetailStudyBinding>({ ActivityD
 
     private val communityViewModel: CommunityViewModel by viewModel()
 
-    private var studyItem : StudyItem? = null
-
     private var deleteDialog : MaterialAlertDialogBuilder? = null
+
+    private var postId = -1
+
+    private var postUserEmail = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initPostId()
         initView()
         initMyContentLayout()
         buttonClick()
     }
 
+    private fun initPostId() {
+        postId = intent.getIntExtra("postId", -1)
+    }
+
     private fun initView() = with(binding) {
-        studyItem = intent.getParcelableExtra<StudyItem>("Study")
+        communityViewModel.getStudy(postId)
+        communityViewModel.study.observe(this@DetailStudyActivity) { studyResponse ->
+            when (studyResponse) {
+                is Resource.Loading -> {
+                    showProgressCircular(progressCircular)
+                }
 
-        studyTitle.text = studyItem?.title
-        studyCategory.text = studyItem?.techStack
-        studyPerweek.text = getString(R.string.per_week_text, studyItem?.perWeek)
-        studyDayofweek.text = studyItem?.dayOfTheWeek
-        studyOnoff.text = if (studyItem?.onOffline == true) "온라인" else "오프라인"
-        studyMintier.text = studyItem?.minGrade
-        studyMaxtier.text = studyItem?.maxGrade
-        studyViewcount.text = studyItem?.viewCount.toString()
-        studyCommentcount.text = studyItem?.commentCount.toString()
-        studyCreatedat.text = studyItem?.createdAt
-        studyLink.text = studyItem?.meetingLink
-        studyContent.text = studyItem?.text
+                is Resource.Success -> {
+                    hideProgressCircular(progressCircular)
 
-        //TODO 닉네임 변경
+                    postUserEmail = studyResponse.data?.userEmail ?: ""
+
+                    studyTitle.text = studyResponse.data?.title
+                    studyCategory.text = studyResponse.data?.techStack
+                    studyPerweek.text = getString(R.string.per_week_text, studyResponse.data?.perWeek)
+                    studyDayofweek.text = studyResponse.data?.dayOfTheWeek
+                    studyOnoff.text = if (studyResponse.data?.onOffline == true) "온라인" else "오프라인"
+                    studyMintier.text = studyResponse.data?.minGrade
+                    studyMaxtier.text = studyResponse.data?.maxGrade
+                    studyViewcount.text = studyResponse.data?.viewCount.toString()
+                    studyCommentcount.text = studyResponse.data?.commentCount.toString()
+                    studyCreatedat.text = studyResponse.data?.createdAt
+                    studyLink.text = studyResponse.data?.meetingLink
+                    studyContent.text = studyResponse.data?.text
+
+                    //TODO 닉네임 연결해야함
+                }
+
+                is Resource.Error -> {
+                    hideProgressCircular(progressCircular)
+                }
+            }
+        }
     }
 
     private fun initMyContentLayout() = with(binding) {
@@ -58,7 +79,7 @@ class DetailStudyActivity : BaseActivity<ActivityDetailStudyBinding>({ ActivityD
     }
 
     private fun checkUserEmail(): Boolean =
-        studyItem?.userEmail == getEmailFromDataStore()
+        postUserEmail == getEmailFromDataStore()
 
     private fun buttonClick() = with(binding) {
         studyDeleteButton.setOnClickListener {
@@ -68,7 +89,7 @@ class DetailStudyActivity : BaseActivity<ActivityDetailStudyBinding>({ ActivityD
 
     private fun getDeleteItemInfo() : DeleteItemInfo =
         DeleteItemInfo(
-            studyItem?.id ?: 0,
+            postId,
             getEmailFromDataStore(),
         )
 

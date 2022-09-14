@@ -99,7 +99,7 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
 
         adapter.onItemClick = {
             val intent = Intent(requireContext(), DetailJobPostingActivity::class.java)
-            intent.putExtra("JobPosting", it)
+            intent.putExtra("postId", it.id)
             startActivity(intent)
         }
     }
@@ -133,7 +133,7 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
 
         adapter.onItemClick = {
             val intent = Intent(requireContext(), DetailJobReviewActivity::class.java)
-            intent.putExtra("JobReview", it)
+            intent.putExtra("postId", it.id)
             startActivity(intent)
         }
     }
@@ -167,7 +167,7 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
 
         adapter.onItemClick = {
             val intent = Intent(requireContext(), DetailStudyActivity::class.java)
-            intent.putExtra("Study", it)
+            intent.putExtra("postId", it.id)
             startActivity(intent)
         }
     }
@@ -201,7 +201,7 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
 
         adapter.onItemClick = {
             val intent = Intent(requireContext(), DetailQuestionActivity::class.java)
-            intent.putExtra("Question", it)
+            intent.putExtra("postId", it.id)
             startActivity(intent)
         }
     }

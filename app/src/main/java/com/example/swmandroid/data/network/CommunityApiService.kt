@@ -76,15 +76,27 @@ interface CommunityApiService {
     ): Response<QuestionResponse>
 
     @POST("/deleteJobPosting")
-    suspend fun deleteJobPostingPost(@Body deleteItemInfo: DeleteItemInfo) : Response<ResponseBody>
+    suspend fun deleteJobPostingPost(@Body deleteItemInfo: DeleteItemInfo): Response<ResponseBody>
 
     @POST("/deleteJobReview")
-    suspend fun deleteJobReviewPost(@Body deleteItemInfo: DeleteItemInfo) : Response<ResponseBody>
+    suspend fun deleteJobReviewPost(@Body deleteItemInfo: DeleteItemInfo): Response<ResponseBody>
 
     @POST("/deleteStudy")
-    suspend fun deleteStudyPost(@Body deleteItemInfo: DeleteItemInfo) : Response<ResponseBody>
+    suspend fun deleteStudyPost(@Body deleteItemInfo: DeleteItemInfo): Response<ResponseBody>
 
     @POST("/deleteQna")
-    suspend fun deleteQnaPost(@Body deleteItemInfo: DeleteItemInfo) : Response<ResponseBody>
+    suspend fun deleteQnaPost(@Body deleteItemInfo: DeleteItemInfo): Response<ResponseBody>
+
+    @GET("jobPostingContent/{id}")
+    suspend fun getJobPosting(@Path("id") id: Int): Response<JobPostingItem>
+
+    @GET("jobReviewContent/{id}")
+    suspend fun getJobReview(@Path("id") id: Int): Response<JobReviewItem>
+
+    @GET("studyContent/{id}")
+    suspend fun getStudy(@Path("id") id: Int): Response<StudyItem>
+
+    @GET("qnaContent/{id}")
+    suspend fun getQna(@Path("id") id: Int): Response<QuestionItem>
 
 }

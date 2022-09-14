@@ -6,12 +6,8 @@ import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityDetailJobpostingBinding
 import com.example.swmandroid.model.community.delete.DeleteItemInfo
-import com.example.swmandroid.model.community.jobposting.JobPostingItem
 import com.example.swmandroid.ui.community.CommunityViewModel
-import com.example.swmandroid.util.getEmailFromDataStore
-import com.example.swmandroid.util.getUserRoleFromDataStore
-import com.example.swmandroid.util.hideMyContentLayout
-import com.example.swmandroid.util.showMyContentLayout
+import com.example.swmandroid.util.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -19,41 +15,61 @@ class DetailJobPostingActivity : BaseActivity<ActivityDetailJobpostingBinding>({
 
     private val communityViewModel: CommunityViewModel by viewModel()
 
-    private var jobPostingItem: JobPostingItem? = null
+    private var deleteDialog: MaterialAlertDialogBuilder? = null
 
-    private var deleteDialog : MaterialAlertDialogBuilder? = null
+    private var postId = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initPostId()
         initView()
         initMyContentLayout()
         buttonClick()
     }
 
-    private fun initView() = with(binding) {
-        jobPostingItem = intent.getParcelableExtra<JobPostingItem>("JobPosting")
-
-        jobpostingTitle.text = jobPostingItem?.title
-        jobpostingCategory.text = jobPostingItem?.techStack
-        jobpostingCareer.text = jobPostingItem?.career
-        jobpostingViewcount.text = jobPostingItem?.viewCount.toString()
-        jobpostingCreatedat.text = jobPostingItem?.createdAt
-        jobpostingLink.text = jobPostingItem?.incruitLink
-        jobpostingStartEndTime.text = jobPostingItem?.startEndTime
-        jobpostingContent.text = jobPostingItem?.text
-        //TODO 닉네임 연결해야함
+    private fun initPostId() {
+        postId = intent.getIntExtra("postId", -1)
     }
 
-    private fun initMyContentLayout() = with(binding){
-        if(checkUserRole()){
+    private fun initView() = with(binding) {
+        communityViewModel.getJobPosting(postId)
+        communityViewModel.jobPosting.observe(this@DetailJobPostingActivity) { jobPostingResponse ->
+            when (jobPostingResponse) {
+                is Resource.Loading -> {
+                    showProgressCircular(progressCircular)
+                }
+
+                is Resource.Success -> {
+                    hideProgressCircular(progressCircular)
+
+                    jobpostingTitle.text = jobPostingResponse.data?.title
+                    jobpostingCategory.text = jobPostingResponse.data?.techStack
+                    jobpostingCareer.text = jobPostingResponse.data?.career
+                    jobpostingViewcount.text = jobPostingResponse.data?.viewCount.toString()
+                    jobpostingCreatedat.text = jobPostingResponse.data?.createdAt
+                    jobpostingLink.text = jobPostingResponse.data?.incruitLink
+                    jobpostingStartEndTime.text = jobPostingResponse.data?.startEndTime
+                    jobpostingContent.text = jobPostingResponse.data?.text
+                    //TODO 닉네임 연결해야함
+                }
+
+                is Resource.Error -> {
+                    hideProgressCircular(progressCircular)
+                }
+            }
+        }
+    }
+
+    private fun initMyContentLayout() = with(binding) {
+        if (checkUserRole()) {
             showMyContentLayout(myContentLayout)
-        }else{
+        } else {
             hideMyContentLayout(myContentLayout)
         }
     }
 
-    private fun checkUserRole() : Boolean =
+    private fun checkUserRole(): Boolean =
         getUserRoleFromDataStore() == "MANAGER"
 
     private fun buttonClick() = with(binding) {
@@ -64,18 +80,18 @@ class DetailJobPostingActivity : BaseActivity<ActivityDetailJobpostingBinding>({
 
     private fun getDeleteItemInfo(): DeleteItemInfo =
         DeleteItemInfo(
-            jobPostingItem?.id ?: 0,
+            postId,
             getEmailFromDataStore(),
         )
 
-    private fun showDeleteDialog(){
+    private fun showDeleteDialog() {
         deleteDialog = MaterialAlertDialogBuilder(this)
             .setTitle(resources.getString(R.string.delete))
             .setMessage(resources.getString(R.string.dialog_delete_title))
-            .setNeutralButton(resources.getString(R.string.cancel)){ dialog, _ ->
+            .setNeutralButton(resources.getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
             }
-            .setPositiveButton(resources.getString(R.string.ok)){ _, _ ->
+            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
                 communityViewModel.deleteJobPostingPost(getDeleteItemInfo())
                 communityViewModel.statusDeleteJobPostingPost.observe(this@DetailJobPostingActivity) { deleteResponse ->
                     if (deleteResponse.code() == 200) {

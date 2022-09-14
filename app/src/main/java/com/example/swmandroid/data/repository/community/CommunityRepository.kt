@@ -81,4 +81,20 @@ class CommunityRepository(private val communityApiService: CommunityApiService) 
         return communityApiService.deleteQnaPost(deleteItemInfo)
     }
 
+    suspend fun getJobPosting(postId: Int): Resource<JobPostingItem> {
+        return safeApiCall { communityApiService.getJobPosting(postId) }
+    }
+
+    suspend fun getJobReview(postId: Int): Resource<JobReviewItem> {
+        return safeApiCall { communityApiService.getJobReview(postId) }
+    }
+
+    suspend fun getStudy(postId: Int): Resource<StudyItem> {
+        return safeApiCall { communityApiService.getStudy(postId) }
+    }
+
+    suspend fun getQna(postId: Int): Resource<QuestionItem> {
+        return safeApiCall { communityApiService.getQna(postId) }
+    }
+
 }

@@ -6,11 +6,8 @@ import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityDetailJobreviewBinding
 import com.example.swmandroid.model.community.delete.DeleteItemInfo
-import com.example.swmandroid.model.community.jobreview.JobReviewItem
 import com.example.swmandroid.ui.community.CommunityViewModel
-import com.example.swmandroid.util.getEmailFromDataStore
-import com.example.swmandroid.util.hideMyContentLayout
-import com.example.swmandroid.util.showMyContentLayout
+import com.example.swmandroid.util.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -18,43 +15,65 @@ class DetailJobReviewActivity : BaseActivity<ActivityDetailJobreviewBinding>({ A
 
     private val communityViewModel: CommunityViewModel by viewModel()
 
-    private var jobReviewItem: JobReviewItem? = null
+    private var deleteDialog: MaterialAlertDialogBuilder? = null
 
-    private var deleteDialog : MaterialAlertDialogBuilder? = null
+    private var postId = -1
+
+    private var postUserEmail = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initPostId()
         initView()
         initMyContentLayout()
         buttonClick()
     }
 
+    private fun initPostId() {
+        postId = intent.getIntExtra("postId", -1)
+    }
+
     private fun initView() = with(binding) {
-        jobReviewItem = intent.getParcelableExtra("JobReview")
+        communityViewModel.getJobReview(postId)
+        communityViewModel.jobReview.observe(this@DetailJobReviewActivity) { jobReviewResponse ->
+            when (jobReviewResponse) {
+                is Resource.Loading -> {
+                    showProgressCircular(progressCircular)
+                }
 
-        jobreviewTitle.text = jobReviewItem?.title
-        jobreviewCategory.text = jobReviewItem?.techStack
-        jobreviewProgress.text = jobReviewItem?.processCategory
-        jobreviewViewcount.text = jobReviewItem?.viewCount.toString()
-        jobreviewCommentcount.text = jobReviewItem?.commentCount.toString()
-        jobreviewCreatedat.text = jobReviewItem?.createdAt
-        jobreviewContent.text = jobReviewItem?.text
+                is Resource.Success -> {
+                    hideProgressCircular(progressCircular)
 
-        //TODO 닉네임 연결해야함
-        //TODO 댓글 연결해야함
+                    postUserEmail = jobReviewResponse.data?.userEmail ?: ""
+
+                    jobreviewTitle.text = jobReviewResponse.data?.title
+                    jobreviewCategory.text = jobReviewResponse.data?.techStack
+                    jobreviewProgress.text = jobReviewResponse.data?.processCategory
+                    jobreviewViewcount.text = jobReviewResponse.data?.viewCount.toString()
+                    jobreviewCommentcount.text = jobReviewResponse.data?.commentCount.toString()
+                    jobreviewCreatedat.text = jobReviewResponse.data?.createdAt
+
+                    //TODO 닉네임 연결해야함
+                }
+
+                is Resource.Error -> {
+                    hideProgressCircular(progressCircular)
+                }
+            }
+        }
     }
 
     private fun initMyContentLayout() = with(binding) {
-        if(checkUserEmail()){
+        if (checkUserEmail()) {
             showMyContentLayout(myContentLayout)
-        }else{
+        } else {
             hideMyContentLayout(myContentLayout)
         }
     }
 
     private fun checkUserEmail(): Boolean =
-        jobReviewItem?.userEmail == getEmailFromDataStore()
+        postUserEmail == getEmailFromDataStore()
 
     private fun buttonClick() = with(binding) {
         jobreviewDeleteButton.setOnClickListener {
@@ -64,18 +83,18 @@ class DetailJobReviewActivity : BaseActivity<ActivityDetailJobreviewBinding>({ A
 
     private fun getDeleteItemInfo(): DeleteItemInfo =
         DeleteItemInfo(
-            jobReviewItem?.id ?: 0,
+            postId,
             getEmailFromDataStore(),
         )
 
-    private fun showDeleteDialog(){
+    private fun showDeleteDialog() {
         deleteDialog = MaterialAlertDialogBuilder(this)
             .setTitle(resources.getString(R.string.delete))
             .setMessage(resources.getString(R.string.dialog_delete_title))
-            .setNeutralButton(resources.getString(R.string.cancel)){dialog, _ ->
+            .setNeutralButton(resources.getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
             }
-            .setPositiveButton(resources.getString(R.string.ok)){_, _ ->
+            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
                 communityViewModel.deleteJobReviewPost(getDeleteItemInfo())
                 communityViewModel.statusDeleteJobReviewPost.observe(this@DetailJobReviewActivity) { deleteResponse ->
                     if (deleteResponse.code() == 200) {

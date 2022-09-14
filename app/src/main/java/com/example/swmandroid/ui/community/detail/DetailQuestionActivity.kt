@@ -6,11 +6,8 @@ import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityDetailQuestionBinding
 import com.example.swmandroid.model.community.delete.DeleteItemInfo
-import com.example.swmandroid.model.community.question.QuestionItem
 import com.example.swmandroid.ui.community.CommunityViewModel
-import com.example.swmandroid.util.getEmailFromDataStore
-import com.example.swmandroid.util.hideMyContentLayout
-import com.example.swmandroid.util.showMyContentLayout
+import com.example.swmandroid.util.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -18,28 +15,54 @@ class DetailQuestionActivity : BaseActivity<ActivityDetailQuestionBinding>({ Act
 
     private val communityViewModel: CommunityViewModel by viewModel()
 
-    private var questionItem: QuestionItem? = null
-
     private var deleteDialog : MaterialAlertDialogBuilder? = null
+
+    private var postId = -1
+
+    private var postUserEmail = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initPostId()
         initView()
         initMyContentLayout()
         buttonClick()
     }
 
-    private fun initView() = with(binding) {
-        questionItem = intent.getParcelableExtra("Question")
+    private fun initPostId() {
+        postId = intent.getIntExtra("postId", -1)
+    }
 
-        questionTitle.text = questionItem?.title
-        questionCategory.text = questionItem?.techStack
-        questionViewcount.text = questionItem?.viewCount.toString()
-        questionCommentcount.text = questionItem?.commentCount.toString()
-        questionCreatedat.text = questionItem?.createdAt
-        voteCount.text = getString(R.string.vote_count_text, questionItem?.voteCount)
-        questionContent.text = questionItem?.text
+    private fun initView() = with(binding) {
+        communityViewModel.getQna(postId)
+        communityViewModel.question.observe(this@DetailQuestionActivity) { questionResponse ->
+            when (questionResponse) {
+                is Resource.Loading -> {
+                    showProgressCircular(progressCircular)
+                }
+
+                is Resource.Success -> {
+                    hideProgressCircular(progressCircular)
+
+                    postUserEmail = questionResponse.data?.userEmail ?: ""
+
+                    questionTitle.text = questionResponse.data?.title
+                    questionCategory.text = questionResponse.data?.techStack
+                    questionViewcount.text = questionResponse.data?.viewCount.toString()
+                    questionCommentcount.text = questionResponse.data?.commentCount.toString()
+                    questionCreatedat.text = questionResponse.data?.createdAt
+                    voteCount.text = getString(R.string.vote_count_text, questionResponse.data?.voteCount)
+                    questionContent.text = questionResponse.data?.text
+
+                    //TODO 닉네임 연결해야함
+                }
+
+                is Resource.Error -> {
+                    hideProgressCircular(progressCircular)
+                }
+            }
+        }
     }
 
     private fun initMyContentLayout() = with(binding) {
@@ -51,7 +74,7 @@ class DetailQuestionActivity : BaseActivity<ActivityDetailQuestionBinding>({ Act
     }
 
     private fun checkUserEmail(): Boolean =
-        questionItem?.userEmail == getEmailFromDataStore()
+        postUserEmail == getEmailFromDataStore()
 
     private fun buttonClick() = with(binding) {
         questionDeleteButton.setOnClickListener {
@@ -61,7 +84,7 @@ class DetailQuestionActivity : BaseActivity<ActivityDetailQuestionBinding>({ Act
 
     private fun getDeleteItemInfo(): DeleteItemInfo =
         DeleteItemInfo(
-            questionItem?.id ?: 0,
+            postId,
             getEmailFromDataStore(),
         )
 

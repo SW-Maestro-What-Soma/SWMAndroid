@@ -84,6 +84,18 @@ class CommunityViewModel(
     private val _statusDeleteQnaPost = MutableLiveData<Response<ResponseBody>>()
     val statusDeleteQnaPost : LiveData<Response<ResponseBody>> = _statusDeleteQnaPost
 
+    private val _jobPosting = MutableLiveData<Resource<JobPostingItem>>()
+    val jobPosting : LiveData<Resource<JobPostingItem>> = _jobPosting
+
+    private val _jobReview = MutableLiveData<Resource<JobReviewItem>>()
+    val jobReview : LiveData<Resource<JobReviewItem>> = _jobReview
+
+    private val _study = MutableLiveData<Resource<StudyItem>>()
+    val study : LiveData<Resource<StudyItem>> = _study
+
+    private val _question = MutableLiveData<Resource<QuestionItem>>()
+    val question : LiveData<Resource<QuestionItem>> = _question
+
     var categoryData = ""
 
     fun addRecentSearchData(recentSearchEntity: RecentSearchEntity) = viewModelScope.launch {
@@ -241,6 +253,30 @@ class CommunityViewModel(
 
     fun deleteQnaPost(deleteItemInfo: DeleteItemInfo) = viewModelScope.launch {
         _statusDeleteQnaPost.postValue(communityRepository.deleteQnaPost(deleteItemInfo))
+    }
+
+    fun getJobPosting(postId : Int) = viewModelScope.launch {
+        _jobPosting.postValue(Resource.Loading())
+
+        _jobPosting.postValue(communityRepository.getJobPosting(postId))
+    }
+
+    fun getJobReview(postId : Int) = viewModelScope.launch {
+        _jobReview.postValue(Resource.Loading())
+
+        _jobReview.postValue(communityRepository.getJobReview(postId))
+    }
+
+    fun getStudy(postId : Int) = viewModelScope.launch {
+        _study.postValue(Resource.Loading())
+
+        _study.postValue(communityRepository.getStudy(postId))
+    }
+
+    fun getQna(postId : Int) = viewModelScope.launch {
+        _question.postValue(Resource.Loading())
+
+        _question.postValue(communityRepository.getQna(postId))
     }
 
 }
