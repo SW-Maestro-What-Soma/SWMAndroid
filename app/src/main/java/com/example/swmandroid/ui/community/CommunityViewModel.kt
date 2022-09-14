@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.swmandroid.data.entity.RecentSearchEntity
 import com.example.swmandroid.data.repository.community.CommunityRepository
 import com.example.swmandroid.data.repository.community.RecentSearchRepository
+import com.example.swmandroid.model.community.update.UpdateJobReviewItem
 import com.example.swmandroid.model.community.delete.DeleteItemInfo
 import com.example.swmandroid.model.community.jobposting.JobPostingItem
 import com.example.swmandroid.model.community.jobposting.JobPostingResponse
@@ -16,6 +17,9 @@ import com.example.swmandroid.model.community.question.QuestionItem
 import com.example.swmandroid.model.community.question.QuestionResponse
 import com.example.swmandroid.model.community.study.StudyItem
 import com.example.swmandroid.model.community.study.StudyResponse
+import com.example.swmandroid.model.community.update.UpdateJobPostingItem
+import com.example.swmandroid.model.community.update.UpdateQnaItem
+import com.example.swmandroid.model.community.update.UpdateStudyItem
 import com.example.swmandroid.util.Resource
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
@@ -95,6 +99,18 @@ class CommunityViewModel(
 
     private val _question = MutableLiveData<Resource<QuestionItem>>()
     val question : LiveData<Resource<QuestionItem>> = _question
+
+    private val _updateJobPostingPost = MutableLiveData<Response<ResponseBody>>()
+    val updateJobPostingPost : LiveData<Response<ResponseBody>> = _updateJobPostingPost
+
+    private val _updateJobReviewPost = MutableLiveData<Response<ResponseBody>>()
+    val updateJobReviewPost : LiveData<Response<ResponseBody>> = _updateJobReviewPost
+
+    private val _updateStudyPost = MutableLiveData<Response<ResponseBody>>()
+    val updateStudyPost : LiveData<Response<ResponseBody>> = _updateStudyPost
+
+    private val _updateQnaPost = MutableLiveData<Response<ResponseBody>>()
+    val updateQnaPost : LiveData<Response<ResponseBody>> = _updateQnaPost
 
     var categoryData = ""
 
@@ -277,6 +293,22 @@ class CommunityViewModel(
         _question.postValue(Resource.Loading())
 
         _question.postValue(communityRepository.getQna(postId))
+    }
+
+    fun updateJobPosting(updateJobPostingItem: UpdateJobPostingItem) = viewModelScope.launch {
+        _updateJobPostingPost.postValue(communityRepository.updateJobPosting(updateJobPostingItem))
+    }
+
+    fun updateJobReview(updateJobReviewItem: UpdateJobReviewItem) = viewModelScope.launch {
+        _updateJobReviewPost.postValue(communityRepository.updateJobReview(updateJobReviewItem))
+    }
+
+    fun updateStudy(updateStudyItem: UpdateStudyItem) = viewModelScope.launch {
+        _updateStudyPost.postValue(communityRepository.updateStudy(updateStudyItem))
+    }
+
+    fun updateQna(updateQnaItem: UpdateQnaItem) = viewModelScope.launch {
+        _updateQnaPost.postValue(communityRepository.updateQna(updateQnaItem))
     }
 
 }

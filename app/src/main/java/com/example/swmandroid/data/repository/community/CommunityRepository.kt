@@ -11,6 +11,10 @@ import com.example.swmandroid.model.community.question.QuestionItem
 import com.example.swmandroid.model.community.question.QuestionResponse
 import com.example.swmandroid.model.community.study.StudyItem
 import com.example.swmandroid.model.community.study.StudyResponse
+import com.example.swmandroid.model.community.update.UpdateJobPostingItem
+import com.example.swmandroid.model.community.update.UpdateJobReviewItem
+import com.example.swmandroid.model.community.update.UpdateQnaItem
+import com.example.swmandroid.model.community.update.UpdateStudyItem
 import com.example.swmandroid.util.Resource
 import okhttp3.ResponseBody
 import retrofit2.Response
@@ -95,6 +99,22 @@ class CommunityRepository(private val communityApiService: CommunityApiService) 
 
     suspend fun getQna(postId: Int): Resource<QuestionItem> {
         return safeApiCall { communityApiService.getQna(postId) }
+    }
+
+    suspend fun updateJobPosting(updateJobPostingItem: UpdateJobPostingItem): Response<ResponseBody> {
+        return communityApiService.updateJobPosting(updateJobPostingItem)
+    }
+
+    suspend fun updateJobReview(updateJobReviewItem: UpdateJobReviewItem): Response<ResponseBody> {
+        return communityApiService.updateJobReview(updateJobReviewItem)
+    }
+
+    suspend fun updateStudy(updateStudyItem: UpdateStudyItem): Response<ResponseBody> {
+        return communityApiService.updateStudy(updateStudyItem)
+    }
+
+    suspend fun updateQna(updateQnaItem: UpdateQnaItem): Response<ResponseBody> {
+        return communityApiService.updateQna(updateQnaItem)
     }
 
 }

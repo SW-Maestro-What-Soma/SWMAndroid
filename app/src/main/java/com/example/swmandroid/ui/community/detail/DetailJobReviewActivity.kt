@@ -1,12 +1,15 @@
 package com.example.swmandroid.ui.community.detail
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityDetailJobreviewBinding
 import com.example.swmandroid.model.community.delete.DeleteItemInfo
+import com.example.swmandroid.model.community.jobreview.JobReviewItem
 import com.example.swmandroid.ui.community.CommunityViewModel
+import com.example.swmandroid.ui.community.post.PostJobReviewActivity
 import com.example.swmandroid.util.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -17,25 +20,28 @@ class DetailJobReviewActivity : BaseActivity<ActivityDetailJobreviewBinding>({ A
 
     private var deleteDialog: MaterialAlertDialogBuilder? = null
 
-    private var postId = -1
-
-    private var postUserEmail = ""
+    private var jobReviewItem: JobReviewItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initPostId()
+        initJobReviewItem()
         initView()
         initMyContentLayout()
         buttonClick()
     }
 
-    private fun initPostId() {
-        postId = intent.getIntExtra("postId", -1)
+    override fun onResume() {
+        super.onResume()
+
+        communityViewModel.getJobReview(jobReviewItem?.id ?: -1)
+    }
+
+    private fun initJobReviewItem() {
+        jobReviewItem = intent.getParcelableExtra("jobReviewItem")
     }
 
     private fun initView() = with(binding) {
-        communityViewModel.getJobReview(postId)
         communityViewModel.jobReview.observe(this@DetailJobReviewActivity) { jobReviewResponse ->
             when (jobReviewResponse) {
                 is Resource.Loading -> {
@@ -44,8 +50,6 @@ class DetailJobReviewActivity : BaseActivity<ActivityDetailJobreviewBinding>({ A
 
                 is Resource.Success -> {
                     hideProgressCircular(progressCircular)
-
-                    postUserEmail = jobReviewResponse.data?.userEmail ?: ""
 
                     jobreviewTitle.text = jobReviewResponse.data?.title
                     jobreviewCategory.text = jobReviewResponse.data?.techStack
@@ -73,17 +77,23 @@ class DetailJobReviewActivity : BaseActivity<ActivityDetailJobreviewBinding>({ A
     }
 
     private fun checkUserEmail(): Boolean =
-        postUserEmail == getEmailFromDataStore()
+        jobReviewItem?.userEmail == getEmailFromDataStore()
 
     private fun buttonClick() = with(binding) {
         jobreviewDeleteButton.setOnClickListener {
             showDeleteDialog()
         }
+
+        jobreviewModifyButton.setOnClickListener {
+            val intent = Intent(this@DetailJobReviewActivity, PostJobReviewActivity::class.java)
+            intent.putExtra("modify", jobReviewItem)
+            startActivity(intent)
+        }
     }
 
     private fun getDeleteItemInfo(): DeleteItemInfo =
         DeleteItemInfo(
-            postId,
+            jobReviewItem?.id ?: -1,
             getEmailFromDataStore(),
         )
 

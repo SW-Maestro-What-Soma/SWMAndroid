@@ -116,4 +116,5 @@
     <string name="saturday">토</string>
     <string name="sunday">일</string>
     <string name="dialog_delete_title">해당 게시글을 삭제하시겠습니까?</string>
+    <string name="modify_button_text">수정하기</string>
 </resources>

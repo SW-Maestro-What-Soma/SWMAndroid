@@ -1,17 +1,10 @@
-package com.example.swmandroid.model.community.study
+package com.example.swmandroid.model.community.update
 
-import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
 @JsonClass(generateAdapter = true)
-data class StudyItem(
-    @Json(name = "comment_count")
-    val commentCount: Int,
-    @Json(name = "created_at")
-    val createdAt: String,
+data class UpdateStudyItem(
     @Json(name = "day_of_the_week")
     val dayOfTheWeek: String,
     val id: Int,
@@ -22,15 +15,13 @@ data class StudyItem(
     @Json(name = "min_grade")
     val minGrade: String,
     @Json(name = "on_offline")
-    val onOffline: Boolean,
+    val onOffLine: Boolean,
     @Json(name = "per_week")
     val perWeek: Int,
+    @Json(name = "tech_stack")
     val techStack: String,
     val text: String,
     val title: String,
-    @Json(name = "user_id")
-    val userId: Int,
-    val viewCount: Int,
     @Json(name = "user_email")
     val userEmail: String,
-) : Parcelable
+)

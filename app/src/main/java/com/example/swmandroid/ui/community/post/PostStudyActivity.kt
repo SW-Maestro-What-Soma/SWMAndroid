@@ -1,12 +1,13 @@
 package com.example.swmandroid.ui.community.post
 
 import android.os.Bundle
-import android.widget.CompoundButton.OnCheckedChangeListener
+import android.widget.CompoundButton
 import android.widget.Toast
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityPostStudyBinding
 import com.example.swmandroid.model.community.study.StudyItem
+import com.example.swmandroid.model.community.update.UpdateStudyItem
 import com.example.swmandroid.ui.community.CommunityViewModel
 import com.example.swmandroid.util.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -32,6 +33,7 @@ class PostStudyActivity : BaseActivity<ActivityPostStudyBinding>({ ActivityPostS
         "플래티넘Ⅰ", "플래티넘Ⅱ", "플래티넘Ⅲ", "플래티넘Ⅳ", "플래티넘Ⅴ",
         "다이아몬드Ⅰ", "다이아몬드Ⅱ", "다이아몬드Ⅲ", "다이아몬드Ⅳ", "다이아몬드Ⅴ"
     )
+    private val dayItems = arrayOf("월", "화", "수", "목", "금", "토", "일")
 
     private var selectedTechStack = "Backend"
     private var selectedOnOff = "온라인"
@@ -45,64 +47,67 @@ class PostStudyActivity : BaseActivity<ActivityPostStudyBinding>({ ActivityPostS
     private var checkedMinTierItemIdx = 0
     private var checkedMaxTierItemIdx = 0
 
-    private var changeChecker: OnCheckedChangeListener? = null
-    private val checkedDayList = mutableListOf<String>()
+    private val toggleButtonList = mutableListOf<CompoundButton>()
+
+    private var studyItem: StudyItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initChangeChecker()
+        getIntentData()
+        initWriteButton()
+        initToggleButtonList()
         hideProgressCircular(binding.progressCircular)
         buttonClick()
-        dayButtonClick()
     }
 
-    private fun initChangeChecker() {
-        changeChecker = OnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                if (buttonView == binding.mondayToggleButton) {
-                    checkedDayList.add("월")
-                }
-                if (buttonView == binding.tuesdayToggleButton) {
-                    checkedDayList.add("화")
-                }
-                if (buttonView == binding.wednesdayToggleButton) {
-                    checkedDayList.add("수")
-                }
-                if (buttonView == binding.thursdayToggleButton) {
-                    checkedDayList.add("목")
-                }
-                if (buttonView == binding.fridayToggleButton) {
-                    checkedDayList.add("금")
-                }
-                if (buttonView == binding.saturdayToggleButton) {
-                    checkedDayList.add("토")
-                }
-                if (buttonView == binding.sundayToggleButton) {
-                    checkedDayList.add("일")
-                }
-            } else {
-                if (buttonView == binding.mondayToggleButton) {
-                    checkedDayList.remove("월")
-                }
-                if (buttonView == binding.tuesdayToggleButton) {
-                    checkedDayList.remove("화")
-                }
-                if (buttonView == binding.wednesdayToggleButton) {
-                    checkedDayList.remove("수")
-                }
-                if (buttonView == binding.thursdayToggleButton) {
-                    checkedDayList.remove("목")
-                }
-                if (buttonView == binding.fridayToggleButton) {
-                    checkedDayList.remove("금")
-                }
-                if (buttonView == binding.saturdayToggleButton) {
-                    checkedDayList.remove("토")
-                }
-                if (buttonView == binding.sundayToggleButton) {
-                    checkedDayList.remove("일")
-                }
+    private fun getIntentData() {
+        studyItem = intent.getParcelableExtra("modify")
+    }
+
+    private fun initWriteButton() = with(binding) {
+        if (studyItem == null) {
+            writeButton.text = resources.getString(R.string.write)
+        } else {
+            writeButton.text = resources.getString(R.string.modify_button_text)
+            initView()
+        }
+    }
+
+    private fun initToggleButtonList() = with(binding) {
+        toggleButtonList.add(mondayToggleButton)
+        toggleButtonList.add(tuesdayToggleButton)
+        toggleButtonList.add(wednesdayToggleButton)
+        toggleButtonList.add(thursdayToggleButton)
+        toggleButtonList.add(fridayToggleButton)
+        toggleButtonList.add(saturdayToggleButton)
+        toggleButtonList.add(sundayToggleButton)
+    }
+
+    private fun initView() = with(binding) {
+        titleEdittext.setText(studyItem?.title)
+        techAlertTextview.text = studyItem?.techStack
+        openChatLinkEdittext.setText(studyItem?.meetingLink)
+        onOffAlertTextview.text = if (studyItem?.onOffline == true) "온라인" else "오프라인"
+        perWeekAlertTextview.text = getString(R.string.per_week_text, studyItem?.perWeek)
+        minTierAlertTextview.text = studyItem?.minGrade
+        maxTierAlertTextview.text = studyItem?.maxGrade
+        contentEdittext.setText(studyItem?.text)
+        initToggleButton()
+    }
+
+    private fun initToggleButton() = with(binding) {
+        val splitDay = studyItem?.dayOfTheWeek?.split(", ")
+
+        splitDay?.forEach {
+            when (it) {
+                "월" -> mondayToggleButton.isChecked = true
+                "화" -> tuesdayToggleButton.isChecked = true
+                "수" -> wednesdayToggleButton.isChecked = true
+                "목" -> thursdayToggleButton.isChecked = true
+                "금" -> fridayToggleButton.isChecked = true
+                "토" -> saturdayToggleButton.isChecked = true
+                "일" -> sundayToggleButton.isChecked = true
             }
         }
     }
@@ -130,7 +135,11 @@ class PostStudyActivity : BaseActivity<ActivityPostStudyBinding>({ ActivityPostS
 
         writeButton.setOnClickListener {
             if (checkAllContentInput()) {
-                postStudy()
+                if (studyItem == null) {
+                    postStudy()
+                } else {
+                    postUpdateStudy()
+                }
             } else {
                 Toast.makeText(this@PostStudyActivity, "모든 내용을 입력해주세요.", Toast.LENGTH_SHORT).show()
             }
@@ -217,16 +226,6 @@ class PostStudyActivity : BaseActivity<ActivityPostStudyBinding>({ ActivityPostS
         maxTierDialog?.show()
     }
 
-    private fun dayButtonClick() = with(binding) {
-        mondayToggleButton.setOnCheckedChangeListener(changeChecker)
-        tuesdayToggleButton.setOnCheckedChangeListener(changeChecker)
-        wednesdayToggleButton.setOnCheckedChangeListener(changeChecker)
-        thursdayToggleButton.setOnCheckedChangeListener(changeChecker)
-        fridayToggleButton.setOnCheckedChangeListener(changeChecker)
-        saturdayToggleButton.setOnCheckedChangeListener(changeChecker)
-        sundayToggleButton.setOnCheckedChangeListener(changeChecker)
-    }
-
     private fun checkAllContentInput(): Boolean {
         with(binding) {
             return (titleEdittext.text.isNotBlank()
@@ -263,6 +262,20 @@ class PostStudyActivity : BaseActivity<ActivityPostStudyBinding>({ ActivityPostS
         }
     }
 
+    private fun postUpdateStudy() {
+        val addItem = getUpdateStudyItem()
+
+        communityViewModel.updateStudy(addItem)
+        communityViewModel.updateStudyPost.observe(this@PostStudyActivity) { updateResponse ->
+            if (updateResponse.code() == 200) {
+                Toast.makeText(this@PostStudyActivity, "수정이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                finish()
+            } else {
+                Toast.makeText(this@PostStudyActivity, "수정이 실패하였습니다", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     private fun getPostItem(): StudyItem =
         StudyItem(
             title = binding.titleEdittext.text.toString(),
@@ -285,16 +298,35 @@ class PostStudyActivity : BaseActivity<ActivityPostStudyBinding>({ ActivityPostS
     private fun getDay(): String {
         val stringBuilder = StringBuilder()
 
-        for (i in 0 until checkedDayList.size) {
-            stringBuilder.append(checkedDayList[i])
+        var commaIdx = 0
+        toggleButtonList.forEachIndexed { index, compoundButton ->
+            if(compoundButton.isChecked){
+                if(commaIdx != 0){
+                    stringBuilder.append(", ")
+                }
+                stringBuilder.append(dayItems[index])
 
-            if (i != checkedDayList.size - 1) {
-                stringBuilder.append(", ")
+                commaIdx++
             }
         }
 
         return stringBuilder.toString()
     }
+
+    private fun getUpdateStudyItem(): UpdateStudyItem =
+        UpdateStudyItem(
+            dayOfTheWeek = getDay(),
+            id = studyItem?.id ?: -1,
+            maxGrade = binding.maxTierAlertTextview.text.toString(),
+            meetingLink = binding.openChatLinkEdittext.text.toString(),
+            minGrade = binding.minTierAlertTextview.text.toString(),
+            onOffLine = binding.onOffAlertTextview.text == "온라인",
+            perWeek = Character.getNumericValue(binding.perWeekAlertTextview.text[1]),
+            techStack = binding.techAlertTextview.text.toString(),
+            text = binding.contentEdittext.text.toString(),
+            title = binding.titleEdittext.text.toString(),
+            userEmail = getEmailFromDataStore(),
+        )
 
     override fun onDestroy() {
         super.onDestroy()

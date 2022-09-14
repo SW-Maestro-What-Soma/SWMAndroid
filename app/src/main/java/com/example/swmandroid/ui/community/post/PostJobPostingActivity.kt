@@ -8,11 +8,9 @@ import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityPostJobpostingBinding
 import com.example.swmandroid.model.community.jobposting.JobPostingItem
+import com.example.swmandroid.model.community.update.UpdateJobPostingItem
 import com.example.swmandroid.ui.community.CommunityViewModel
-import com.example.swmandroid.util.Resource
-import com.example.swmandroid.util.getCurrentTime
-import com.example.swmandroid.util.hideProgressCircular
-import com.example.swmandroid.util.showProgressCircular
+import com.example.swmandroid.util.*
 import com.google.android.material.datepicker.MaterialDatePicker
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
@@ -29,11 +27,37 @@ class PostJobPostingActivity : BaseActivity<ActivityPostJobpostingBinding>({ Act
     private var alertDialog: AlertDialog? = null
     private var datePicker: MaterialDatePicker<Pair<Long, Long>>? = null
 
+    private var jobPostingItem: JobPostingItem? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        getIntentData()
+        initWriteButton()
         hideProgressCircular(binding.progressCircular)
         buttonClick()
+    }
+
+    private fun getIntentData() {
+        jobPostingItem = intent.getParcelableExtra("modify")
+    }
+
+    private fun initWriteButton() = with(binding) {
+        if (jobPostingItem == null) {
+            writeButton.text = resources.getString(R.string.write)
+        } else {
+            writeButton.text = resources.getString(R.string.modify_button_text)
+            initView()
+        }
+    }
+
+    private fun initView() = with(binding) {
+        titleEdittext.setText(jobPostingItem?.title)
+        techAlertTextview.text = jobPostingItem?.techStack
+        linkEdittext.setText(jobPostingItem?.incruitLink)
+        careerEdittext.setText(jobPostingItem?.career)
+        datePickerTextview.text = jobPostingItem?.startEndTime
+        contentEdittext.setText(jobPostingItem?.text)
     }
 
     private fun buttonClick() = with(binding) {
@@ -47,7 +71,11 @@ class PostJobPostingActivity : BaseActivity<ActivityPostJobpostingBinding>({ Act
 
         writeButton.setOnClickListener {
             if (checkAllContentInput()) {
-                postJobPosting()
+                if (jobPostingItem == null) {
+                    postJobPosting()
+                } else {
+                    postUpdateJobPosting()
+                }
             } else {
                 Toast.makeText(this@PostJobPostingActivity, "모든 내용을 입력해주세요.", Toast.LENGTH_SHORT).show()
             }
@@ -146,6 +174,20 @@ class PostJobPostingActivity : BaseActivity<ActivityPostJobpostingBinding>({ Act
         }
     }
 
+    private fun postUpdateJobPosting() {
+        val addItem = getUpdateJobPostingItem()
+
+        communityViewModel.updateJobPosting(addItem)
+        communityViewModel.updateJobPostingPost.observe(this@PostJobPostingActivity) { updateResponse ->
+            if (updateResponse.code() == 200) {
+                Toast.makeText(this@PostJobPostingActivity, "수정이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                finish()
+            } else {
+                Toast.makeText(this@PostJobPostingActivity, "수정이 실패하였습니다", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     private fun getJobPostingItem(): JobPostingItem =
         JobPostingItem(
             title = binding.titleEdittext.text.toString(),
@@ -157,6 +199,18 @@ class PostJobPostingActivity : BaseActivity<ActivityPostJobpostingBinding>({ Act
             createdAt = getCurrentTime(),
             id = 0,
             viewCount = 0,
+        )
+
+    private fun getUpdateJobPostingItem(): UpdateJobPostingItem =
+        UpdateJobPostingItem(
+            career = binding.careerEdittext.text.toString(),
+            id = jobPostingItem?.id ?: -1,
+            incruitLink = binding.linkEdittext.text.toString(),
+            startEndTime = binding.datePickerTextview.text.toString(),
+            techStack = binding.techAlertTextview.text.toString(),
+            text = binding.contentEdittext.text.toString(),
+            title = binding.titleEdittext.text.toString(),
+            userEmail = getEmailFromDataStore()
         )
 
     override fun onDestroy() {

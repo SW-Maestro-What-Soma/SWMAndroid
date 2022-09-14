@@ -1,8 +1,11 @@
 package com.example.swmandroid.model.community.question
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class QuestionItem(
     @Json(name = "comment_count")
@@ -19,4 +22,4 @@ data class QuestionItem(
     val voteCount: Int,
     @Json(name = "user_email")
     val userEmail : String,
-)
+) : Parcelable

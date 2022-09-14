@@ -1,12 +1,15 @@
 package com.example.swmandroid.ui.community.detail
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityDetailJobpostingBinding
 import com.example.swmandroid.model.community.delete.DeleteItemInfo
+import com.example.swmandroid.model.community.jobposting.JobPostingItem
 import com.example.swmandroid.ui.community.CommunityViewModel
+import com.example.swmandroid.ui.community.post.PostJobPostingActivity
 import com.example.swmandroid.util.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -17,23 +20,28 @@ class DetailJobPostingActivity : BaseActivity<ActivityDetailJobpostingBinding>({
 
     private var deleteDialog: MaterialAlertDialogBuilder? = null
 
-    private var postId = -1
+    private var jobPostingItem: JobPostingItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initPostId()
+        initJobPostingItem()
         initView()
         initMyContentLayout()
         buttonClick()
     }
 
-    private fun initPostId() {
-        postId = intent.getIntExtra("postId", -1)
+    override fun onResume() {
+        super.onResume()
+
+        communityViewModel.getJobPosting(jobPostingItem?.id ?: -1)
+    }
+
+    private fun initJobPostingItem() {
+        jobPostingItem = intent.getParcelableExtra("jobPostingItem")
     }
 
     private fun initView() = with(binding) {
-        communityViewModel.getJobPosting(postId)
         communityViewModel.jobPosting.observe(this@DetailJobPostingActivity) { jobPostingResponse ->
             when (jobPostingResponse) {
                 is Resource.Loading -> {
@@ -76,11 +84,17 @@ class DetailJobPostingActivity : BaseActivity<ActivityDetailJobpostingBinding>({
         jobpostingDeleteButton.setOnClickListener {
             showDeleteDialog()
         }
+
+        jobpostingModifyButton.setOnClickListener {
+            val intent = Intent(this@DetailJobPostingActivity, PostJobPostingActivity::class.java)
+            intent.putExtra("modify", jobPostingItem)
+            startActivity(intent)
+        }
     }
 
     private fun getDeleteItemInfo(): DeleteItemInfo =
         DeleteItemInfo(
-            postId,
+            jobPostingItem?.id ?: -1,
             getEmailFromDataStore(),
         )
 

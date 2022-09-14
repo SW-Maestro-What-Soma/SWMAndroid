@@ -6,6 +6,7 @@ import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityPostQuestionBinding
 import com.example.swmandroid.model.community.question.QuestionItem
+import com.example.swmandroid.model.community.update.UpdateQnaItem
 import com.example.swmandroid.ui.community.CommunityViewModel
 import com.example.swmandroid.util.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -23,11 +24,34 @@ class PostQuestionActivity : BaseActivity<ActivityPostQuestionBinding>({ Activit
 
     private var checkedTechStackItemIdx = 0
 
+    private var questionItem: QuestionItem? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        getIntentData()
+        initWriteButton()
         hideProgressCircular(binding.progressCircular)
         buttonClick()
+    }
+
+    private fun getIntentData() {
+        questionItem = intent.getParcelableExtra("modify")
+    }
+
+    private fun initWriteButton() = with(binding) {
+        if (questionItem == null) {
+            writeButton.text = resources.getString(R.string.write)
+        } else {
+            writeButton.text = resources.getString(R.string.modify_button_text)
+            initView()
+        }
+    }
+
+    private fun initView() = with(binding) {
+        titleEdittext.setText(questionItem?.title)
+        techAlertTextview.text = questionItem?.techStack
+        contentEdittext.setText(questionItem?.text)
     }
 
     private fun buttonClick() = with(binding) {
@@ -37,7 +61,11 @@ class PostQuestionActivity : BaseActivity<ActivityPostQuestionBinding>({ Activit
 
         writeButton.setOnClickListener {
             if (checkAllContent()) {
-                postQuestion()
+                if (questionItem == null) {
+                    postQuestion()
+                } else {
+                    postUpdateQna()
+                }
             } else {
                 Toast.makeText(this@PostQuestionActivity, "모든 내용을 입력해주세요.", Toast.LENGTH_SHORT).show()
             }
@@ -102,6 +130,30 @@ class PostQuestionActivity : BaseActivity<ActivityPostQuestionBinding>({ Activit
             viewCount = 0,
             voteCount = 0,
             userEmail = getEmailFromDataStore()
+        )
+
+    private fun postUpdateQna() {
+        val addItem = getUpdateQnaItem()
+
+        communityViewModel.updateQna(addItem)
+        communityViewModel.updateQnaPost.observe(this@PostQuestionActivity) { updateResponse ->
+            if (updateResponse.code() == 200) {
+                Toast.makeText(this@PostQuestionActivity, "수정이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                finish()
+            } else {
+                Toast.makeText(this@PostQuestionActivity, "수정이 실패하였습니다", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+    }
+
+    private fun getUpdateQnaItem(): UpdateQnaItem =
+        UpdateQnaItem(
+            id = questionItem?.id ?: -1,
+            techStack = binding.techAlertTextview.text.toString(),
+            text = binding.contentEdittext.text.toString(),
+            title = binding.titleEdittext.text.toString(),
+            userEmail = getEmailFromDataStore(),
         )
 
     override fun onDestroy() {

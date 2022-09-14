@@ -1,12 +1,15 @@
 package com.example.swmandroid.ui.community.detail
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityDetailQuestionBinding
 import com.example.swmandroid.model.community.delete.DeleteItemInfo
+import com.example.swmandroid.model.community.question.QuestionItem
 import com.example.swmandroid.ui.community.CommunityViewModel
+import com.example.swmandroid.ui.community.post.PostQuestionActivity
 import com.example.swmandroid.util.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -15,27 +18,30 @@ class DetailQuestionActivity : BaseActivity<ActivityDetailQuestionBinding>({ Act
 
     private val communityViewModel: CommunityViewModel by viewModel()
 
-    private var deleteDialog : MaterialAlertDialogBuilder? = null
+    private var deleteDialog: MaterialAlertDialogBuilder? = null
 
-    private var postId = -1
-
-    private var postUserEmail = ""
+    private var questionItem: QuestionItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initPostId()
+        initQuestionItem()
         initView()
         initMyContentLayout()
         buttonClick()
     }
 
-    private fun initPostId() {
-        postId = intent.getIntExtra("postId", -1)
+    override fun onResume() {
+        super.onResume()
+
+        communityViewModel.getQna(questionItem?.id ?: -1)
+    }
+
+    private fun initQuestionItem() {
+        questionItem = intent.getParcelableExtra("questionItem")
     }
 
     private fun initView() = with(binding) {
-        communityViewModel.getQna(postId)
         communityViewModel.question.observe(this@DetailQuestionActivity) { questionResponse ->
             when (questionResponse) {
                 is Resource.Loading -> {
@@ -44,8 +50,6 @@ class DetailQuestionActivity : BaseActivity<ActivityDetailQuestionBinding>({ Act
 
                 is Resource.Success -> {
                     hideProgressCircular(progressCircular)
-
-                    postUserEmail = questionResponse.data?.userEmail ?: ""
 
                     questionTitle.text = questionResponse.data?.title
                     questionCategory.text = questionResponse.data?.techStack
@@ -74,28 +78,34 @@ class DetailQuestionActivity : BaseActivity<ActivityDetailQuestionBinding>({ Act
     }
 
     private fun checkUserEmail(): Boolean =
-        postUserEmail == getEmailFromDataStore()
+        questionItem?.userEmail == getEmailFromDataStore()
 
     private fun buttonClick() = with(binding) {
         questionDeleteButton.setOnClickListener {
             showDeleteDialog()
         }
+
+        questionModifyButton.setOnClickListener{
+            val intent = Intent(this@DetailQuestionActivity, PostQuestionActivity::class.java)
+            intent.putExtra("modify", questionItem)
+            startActivity(intent)
+        }
     }
 
     private fun getDeleteItemInfo(): DeleteItemInfo =
         DeleteItemInfo(
-            postId,
+            questionItem?.id ?: -1,
             getEmailFromDataStore(),
         )
 
-    private fun showDeleteDialog(){
+    private fun showDeleteDialog() {
         deleteDialog = MaterialAlertDialogBuilder(this)
             .setTitle(resources.getString(R.string.delete))
             .setMessage(resources.getString(R.string.dialog_delete_title))
-            .setNeutralButton(resources.getString(R.string.cancel)){dialog, _ ->
+            .setNeutralButton(resources.getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
             }
-            .setPositiveButton(resources.getString(R.string.ok)){_, _ ->
+            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
                 communityViewModel.deleteQnaPost(getDeleteItemInfo())
                 communityViewModel.statusDeleteQnaPost.observe(this@DetailQuestionActivity) { deleteResponse ->
                     if (deleteResponse.code() == 200) {

@@ -9,6 +9,10 @@ import com.example.swmandroid.model.community.question.QuestionItem
 import com.example.swmandroid.model.community.question.QuestionResponse
 import com.example.swmandroid.model.community.study.StudyItem
 import com.example.swmandroid.model.community.study.StudyResponse
+import com.example.swmandroid.model.community.update.UpdateJobPostingItem
+import com.example.swmandroid.model.community.update.UpdateJobReviewItem
+import com.example.swmandroid.model.community.update.UpdateQnaItem
+import com.example.swmandroid.model.community.update.UpdateStudyItem
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -98,5 +102,17 @@ interface CommunityApiService {
 
     @GET("qnaContent/{id}")
     suspend fun getQna(@Path("id") id: Int): Response<QuestionItem>
+
+    @POST("/updateJobPosting")
+    suspend fun updateJobPosting(@Body new_content: UpdateJobPostingItem): Response<ResponseBody>
+
+    @POST("/updateJobReview")
+    suspend fun updateJobReview(@Body new_content: UpdateJobReviewItem): Response<ResponseBody>
+
+    @POST("/updateStudy")
+    suspend fun updateStudy(@Body new_content: UpdateStudyItem): Response<ResponseBody>
+
+    @POST("/updateQna")
+    suspend fun updateQna(@Body new_content: UpdateQnaItem): Response<ResponseBody>
 
 }

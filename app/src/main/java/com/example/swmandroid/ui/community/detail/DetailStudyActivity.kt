@@ -1,12 +1,15 @@
 package com.example.swmandroid.ui.community.detail
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityDetailStudyBinding
 import com.example.swmandroid.model.community.delete.DeleteItemInfo
+import com.example.swmandroid.model.community.study.StudyItem
 import com.example.swmandroid.ui.community.CommunityViewModel
+import com.example.swmandroid.ui.community.post.PostStudyActivity
 import com.example.swmandroid.util.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -15,27 +18,30 @@ class DetailStudyActivity : BaseActivity<ActivityDetailStudyBinding>({ ActivityD
 
     private val communityViewModel: CommunityViewModel by viewModel()
 
-    private var deleteDialog : MaterialAlertDialogBuilder? = null
+    private var deleteDialog: MaterialAlertDialogBuilder? = null
 
-    private var postId = -1
-
-    private var postUserEmail = ""
+    private var studyItem: StudyItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initPostId()
+        initStudyItem()
         initView()
         initMyContentLayout()
         buttonClick()
     }
 
-    private fun initPostId() {
-        postId = intent.getIntExtra("postId", -1)
+    override fun onResume() {
+        super.onResume()
+
+        communityViewModel.getStudy(studyItem?.id ?: -1)
+    }
+
+    private fun initStudyItem() {
+        studyItem = intent.getParcelableExtra("studyItem")
     }
 
     private fun initView() = with(binding) {
-        communityViewModel.getStudy(postId)
         communityViewModel.study.observe(this@DetailStudyActivity) { studyResponse ->
             when (studyResponse) {
                 is Resource.Loading -> {
@@ -44,8 +50,6 @@ class DetailStudyActivity : BaseActivity<ActivityDetailStudyBinding>({ ActivityD
 
                 is Resource.Success -> {
                     hideProgressCircular(progressCircular)
-
-                    postUserEmail = studyResponse.data?.userEmail ?: ""
 
                     studyTitle.text = studyResponse.data?.title
                     studyCategory.text = studyResponse.data?.techStack
@@ -71,42 +75,48 @@ class DetailStudyActivity : BaseActivity<ActivityDetailStudyBinding>({ ActivityD
     }
 
     private fun initMyContentLayout() = with(binding) {
-        if(checkUserEmail()){
+        if (checkUserEmail()) {
             showMyContentLayout(myContentLayout)
-        }else{
+        } else {
             hideMyContentLayout(myContentLayout)
         }
     }
 
     private fun checkUserEmail(): Boolean =
-        postUserEmail == getEmailFromDataStore()
+        studyItem?.userEmail == getEmailFromDataStore()
 
     private fun buttonClick() = with(binding) {
         studyDeleteButton.setOnClickListener {
-           showDeleteDialog()
+            showDeleteDialog()
+        }
+
+        studyModifyButton.setOnClickListener {
+            val intent = Intent(this@DetailStudyActivity, PostStudyActivity::class.java)
+            intent.putExtra("modify", studyItem)
+            startActivity(intent)
         }
     }
 
-    private fun getDeleteItemInfo() : DeleteItemInfo =
+    private fun getDeleteItemInfo(): DeleteItemInfo =
         DeleteItemInfo(
-            postId,
+            studyItem?.id ?: -1,
             getEmailFromDataStore(),
         )
 
-    private fun showDeleteDialog(){
+    private fun showDeleteDialog() {
         deleteDialog = MaterialAlertDialogBuilder(this)
             .setTitle(resources.getString(R.string.delete))
             .setMessage(resources.getString(R.string.dialog_delete_title))
-            .setNeutralButton(resources.getString(R.string.cancel)){dialog, _ ->
+            .setNeutralButton(resources.getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
             }
-            .setPositiveButton(resources.getString(R.string.ok)){_, _ ->
+            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
                 communityViewModel.deleteStudyPost(getDeleteItemInfo())
-                communityViewModel.statusDeleteStudyPost.observe(this@DetailStudyActivity){ deleteResponse ->
-                    if(deleteResponse.code() == 200){
+                communityViewModel.statusDeleteStudyPost.observe(this@DetailStudyActivity) { deleteResponse ->
+                    if (deleteResponse.code() == 200) {
                         Toast.makeText(this@DetailStudyActivity, "삭제 완료되었습니다.", Toast.LENGTH_SHORT).show()
                         finish()
-                    }else{
+                    } else {
                         Toast.makeText(this@DetailStudyActivity, "삭제를 실패하셨습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
