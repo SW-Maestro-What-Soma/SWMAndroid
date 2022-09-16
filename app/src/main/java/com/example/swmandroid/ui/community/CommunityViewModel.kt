@@ -110,7 +110,7 @@ class CommunityViewModel(
     val techStack: LiveData<String> = _techStack
 
     var categoryData = ""
-    var sortData = ""
+    var sortData = "id,DESC"
 
     fun addRecentSearchData(recentSearchEntity: RecentSearchEntity) = viewModelScope.launch {
         recentSearchRepository.insertRecentSearch(recentSearchEntity)

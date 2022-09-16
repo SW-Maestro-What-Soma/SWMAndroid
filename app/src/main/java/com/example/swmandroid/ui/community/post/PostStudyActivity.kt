@@ -292,7 +292,8 @@ class PostStudyActivity : BaseActivity<ActivityPostStudyBinding>({ ActivityPostS
             id = 0,
             userId = 0,
             viewCount = 0,
-            userEmail = getEmailFromDataStore()
+            userEmail = getEmailFromDataStore(),
+            voteCount = 0,
         )
 
     private fun getDay(): String {
@@ -300,8 +301,8 @@ class PostStudyActivity : BaseActivity<ActivityPostStudyBinding>({ ActivityPostS
 
         var commaIdx = 0
         toggleButtonList.forEachIndexed { index, compoundButton ->
-            if(compoundButton.isChecked){
-                if(commaIdx != 0){
+            if (compoundButton.isChecked) {
+                if (commaIdx != 0) {
                     stringBuilder.append(", ")
                 }
                 stringBuilder.append(dayItems[index])

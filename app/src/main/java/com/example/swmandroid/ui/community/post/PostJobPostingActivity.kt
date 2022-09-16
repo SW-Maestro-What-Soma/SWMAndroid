@@ -199,6 +199,7 @@ class PostJobPostingActivity : BaseActivity<ActivityPostJobpostingBinding>({ Act
             createdAt = getCurrentTime(),
             id = 0,
             viewCount = 0,
+            voteCount = 0,
         )
 
     private fun getUpdateJobPostingItem(): UpdateJobPostingItem =
@@ -210,7 +211,7 @@ class PostJobPostingActivity : BaseActivity<ActivityPostJobpostingBinding>({ Act
             techStack = binding.techAlertTextview.text.toString(),
             text = binding.contentEdittext.text.toString(),
             title = binding.titleEdittext.text.toString(),
-            userEmail = getEmailFromDataStore()
+            userEmail = getEmailFromDataStore(),
         )
 
     override fun onDestroy() {

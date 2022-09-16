@@ -19,4 +19,6 @@ data class JobPostingItem(
     val text: String,
     val title: String,
     val viewCount: Int,
+    @Json(name = "vote_count")
+    val voteCount : Int,
 ) : Parcelable

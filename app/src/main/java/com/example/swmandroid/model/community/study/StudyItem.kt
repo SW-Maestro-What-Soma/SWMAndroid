@@ -10,7 +10,6 @@ import kotlinx.parcelize.Parcelize
 data class StudyItem(
     @Json(name = "comment_count")
     val commentCount: Int,
-    @Json(name = "created_at")
     val createdAt: String,
     @Json(name = "day_of_the_week")
     val dayOfTheWeek: String,
@@ -33,4 +32,6 @@ data class StudyItem(
     val viewCount: Int,
     @Json(name = "user_email")
     val userEmail: String,
+    @Json(name = "vote_count")
+    val voteCount: Int,
 ) : Parcelable

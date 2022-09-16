@@ -182,6 +182,7 @@ class PostJobReviewActivity : BaseActivity<ActivityPostJobreviewBinding>({ Activ
             viewCount = 0,
             createdAt = getCurrentTime(),
             userEmail = getEmailFromDataStore(),
+            voteCount = 0,
         )
 
     private fun postUpdateJobReview() {

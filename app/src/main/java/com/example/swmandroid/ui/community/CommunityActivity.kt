@@ -163,4 +163,9 @@ class CommunityActivity : BaseActivity<ActivityCommunityBinding>({ ActivityCommu
         selectedEvent(position)
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
+
 }
