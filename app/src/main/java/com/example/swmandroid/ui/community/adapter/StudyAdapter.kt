@@ -1,47 +1,34 @@
 package com.example.swmandroid.ui.community.adapter
 
-import android.annotation.SuppressLint
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.swmandroid.R
 import com.example.swmandroid.databinding.ItemStudyBinding
-import com.example.swmandroid.model.community.jobreview.JobReviewItem
 import com.example.swmandroid.model.community.study.StudyItem
 import com.example.swmandroid.util.MetricsUtil.dp
 
 class StudyAdapter(
-    private val dataList: List<StudyItem>,
     private val isFullCommunity: Boolean,
-) : RecyclerView.Adapter<StudyAdapter.ViewHolder>() {
+) : ListAdapter<StudyItem, StudyAdapter.ViewHolder>(diffUtil) {
 
-    inner class ViewHolder(val binding: ItemStudyBinding) : RecyclerView.ViewHolder(binding.root)
+    var onItemClick: ((StudyItem) -> Unit)? = null
 
-    var onItemClick : ((StudyItem) -> Unit)?  = null
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ItemStudyBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-    }
-
-    @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = dataList[position]
-
-        with(holder) {
-
-            itemView.setOnClickListener {
-                onItemClick?.invoke(item)
-            }
-
-            with(binding) {
-                // TODO 유저정보 백엔드 수정
+    inner class ViewHolder(val binding: ItemStudyBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: StudyItem, isLast: Boolean, res: Resources) {
+            binding.apply {
                 studyTitle.text = item.title
                 minTierTextview.text = item.minGrade
                 maxTierTextview.text = item.maxGrade
                 studyTechCategory.text = item.techStack
-                timesWeekTextview.text = "주${item.perWeek}회"
+                timesWeekTextview.text = res.getString(R.string.per_week_count_text, item.perWeek)
                 dayWeekTextview.text = item.dayOfTheWeek
                 onOffTextview.text = if (item.onOffline) "온라인" else "오프라인"
+                // TODO 백엔드에서 닉네임 티어 줘야함
                 studyNickTextview.text = "김시진"
                 studyTierTextview.text = "실버 V"
                 createdAtTextview.text = item.createdAt.split(" ")[0]
@@ -49,21 +36,43 @@ class StudyAdapter(
 
                 if (item.commentCount > 0) {
                     commentCountTextview.visibility = View.VISIBLE
-                    commentCountTextview.text = "(${item.commentCount})"
+                    commentCountTextview.text = res.getString(R.string.comment_count_text, item.commentCount)
                 }
 
                 val maxWidth = getTitleMaxWidth()
                 studyTitle.maxWidth = maxWidth
 
-                if (position == dataList.size - 1) {
+                if (isLast) {
                     bottomContour.visibility = View.INVISIBLE
                 }
             }
         }
     }
 
-    override fun getItemCount(): Int = dataList.size
-
     private fun getTitleMaxWidth(): Int = if (isFullCommunity) 160.dp else 190.dp
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(ItemStudyBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(currentList[position], position == currentList.size - 1, holder.itemView.resources)
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(currentList[position])
+        }
+    }
+
+    companion object {
+        val diffUtil = object : DiffUtil.ItemCallback<StudyItem>() {
+            override fun areItemsTheSame(oldItem: StudyItem, newItem: StudyItem): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: StudyItem, newItem: StudyItem): Boolean {
+                return oldItem == newItem
+            }
+
+        }
+    }
 
 }

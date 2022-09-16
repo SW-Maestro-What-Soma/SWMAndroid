@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:fontFamily="@font/spoqa_han_sans_neo_regular"
-        android:text="@string/plz_social_login"
+        android:text="@string/input_social_login_hint"
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"

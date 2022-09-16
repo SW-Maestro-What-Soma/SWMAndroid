@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">면뽀</string>
-    <string name="plz_social_login">소셜 계정으로 로그인 해주세요!</string>
+    <string name="input_social_login_hint">소셜 계정으로 로그인 해주세요!</string>
     <string name="email_login">이메일로 로그인</string>
     <string name="input_email_hint">이메일을 입력해 주세요.</string>
     <string name="input_password_hint">비밀번호를 입력해 주세요.</string>
@@ -117,4 +117,6 @@
     <string name="sunday">일</string>
     <string name="dialog_delete_title">해당 게시글을 삭제하시겠습니까?</string>
     <string name="modify_button_text">수정하기</string>
+    <string name="comment_count_text">(%2d)</string>
+    <string name="per_week_count_text">주%2d회</string>
 </resources>

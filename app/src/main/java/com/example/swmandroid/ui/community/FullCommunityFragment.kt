@@ -11,10 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentFullCommunityBinding
-import com.example.swmandroid.model.community.jobposting.JobPostingItem
-import com.example.swmandroid.model.community.jobreview.JobReviewItem
-import com.example.swmandroid.model.community.question.QuestionItem
-import com.example.swmandroid.model.community.study.StudyItem
 import com.example.swmandroid.ui.community.adapter.JobPostingAdapter
 import com.example.swmandroid.ui.community.adapter.JobReviewAdapter
 import com.example.swmandroid.ui.community.adapter.QuestionAdapter
@@ -32,6 +28,11 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
 
     private val communityViewModel: CommunityViewModel by sharedViewModel()
 
+    private lateinit var jobPostingAdapter: JobPostingAdapter
+    private lateinit var jobReviewAdapter: JobReviewAdapter
+    private lateinit var studyAdapter: StudyAdapter
+    private lateinit var questionAdapter: QuestionAdapter
+
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentFullCommunityBinding {
         return FragmentFullCommunityBinding.inflate(inflater, container, false)
     }
@@ -40,6 +41,7 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         initProgressView()
+        initAdapter()
         initView()
         buttonClick()
     }
@@ -63,6 +65,52 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
         hideProgressCircular(questionProgress)
     }
 
+    private fun initAdapter() = with(binding) {
+        jobPostingAdapter = JobPostingAdapter(true)
+        jobpostingRecyclerview.apply {
+            adapter = jobPostingAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+        jobPostingAdapter.onItemClick = {
+            val intent = Intent(requireContext(), DetailJobPostingActivity::class.java)
+            intent.putExtra("jobPostingItem", it)
+            startActivity(intent)
+        }
+
+        jobReviewAdapter = JobReviewAdapter(true)
+        jobreviewRecyclerview.apply {
+            adapter = jobReviewAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+        jobReviewAdapter.onItemClick = {
+            val intent = Intent(requireContext(), DetailJobReviewActivity::class.java)
+            intent.putExtra("jobReviewItem", it)
+            startActivity(intent)
+        }
+
+        studyAdapter = StudyAdapter(true)
+        studyRecyclerview.apply {
+            adapter = studyAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+        studyAdapter.onItemClick = {
+            val intent = Intent(requireContext(), DetailStudyActivity::class.java)
+            intent.putExtra("studyItem", it)
+            startActivity(intent)
+        }
+
+        questionAdapter = QuestionAdapter(true)
+        questionRecyclerview.apply {
+            adapter = questionAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+        questionAdapter.onItemClick = {
+            val intent = Intent(requireContext(), DetailQuestionActivity::class.java)
+            intent.putExtra("questionItem", it)
+            startActivity(intent)
+        }
+    }
+
     private fun initView() {
         makeJobPostingView()
         makeJobReviewView()
@@ -79,28 +127,13 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
                 is Resource.Success -> {
                     hideProgressCircular(jobpostingProgress)
                     val jobPostingList = jobPostingResponse.data?.jobPostingList?.content
-                    connectJobPostingAdapter(jobPostingList ?: emptyList())
+                    jobPostingAdapter.submitList(jobPostingList)
                 }
                 is Resource.Error -> {
                     hideProgressCircular(jobpostingProgress)
                     Toast.makeText(requireContext(), "채용공고 게시글을 불러오는데 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
-        }
-    }
-
-    private fun connectJobPostingAdapter(data: List<JobPostingItem>) = with(binding) {
-        val adapter = JobPostingAdapter(data, true)
-
-        jobpostingRecyclerview.apply {
-            layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-            this.adapter = adapter
-        }
-
-        adapter.onItemClick = {
-            val intent = Intent(requireContext(), DetailJobPostingActivity::class.java)
-            intent.putExtra("jobPostingItem", it)
-            startActivity(intent)
         }
     }
 
@@ -113,28 +146,13 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
                 is Resource.Success -> {
                     hideProgressCircular(jobreviewProgress)
                     val jobReviewList = jobReviewResponse.data?.jobReviewList?.content
-                    connectJobReviewAdapter(jobReviewList ?: emptyList())
+                    jobReviewAdapter.submitList(jobReviewList)
                 }
                 is Resource.Error -> {
                     hideProgressCircular(jobreviewProgress)
                     Toast.makeText(requireContext(), "채용후기 게시글을 불러오는데 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
-        }
-    }
-
-    private fun connectJobReviewAdapter(data: List<JobReviewItem>) = with(binding) {
-        val adapter = JobReviewAdapter(data, true)
-
-        jobreviewRecyclerview.apply {
-            layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-            this.adapter = adapter
-        }
-
-        adapter.onItemClick = {
-            val intent = Intent(requireContext(), DetailJobReviewActivity::class.java)
-            intent.putExtra("jobReviewItem", it)
-            startActivity(intent)
         }
     }
 
@@ -147,28 +165,13 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
                 is Resource.Success -> {
                     hideProgressCircular(studyProgress)
                     val studyList = studyResponse.data?.studyList?.content
-                    connectStudyAdapter(studyList ?: emptyList())
+                    studyAdapter.submitList(studyList)
                 }
                 is Resource.Error -> {
                     hideProgressCircular(studyProgress)
                     Toast.makeText(requireContext(), "스터디 게시글을 불러오는데 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
-        }
-    }
-
-    private fun connectStudyAdapter(data: List<StudyItem>) = with(binding) {
-        val adapter = StudyAdapter(data, true)
-
-        studyRecyclerview.apply {
-            layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-            this.adapter = adapter
-        }
-
-        adapter.onItemClick = {
-            val intent = Intent(requireContext(), DetailStudyActivity::class.java)
-            intent.putExtra("studyItem", it)
-            startActivity(intent)
         }
     }
 
@@ -181,28 +184,13 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
                 is Resource.Success -> {
                     hideProgressCircular(questionProgress)
                     val questionList = questionResponse.data?.nowQnaList?.content
-                    connectQuestionAdapter(questionList ?: emptyList())
+                    questionAdapter.submitList(questionList)
                 }
                 is Resource.Error -> {
                     hideProgressCircular(questionProgress)
                     Toast.makeText(requireContext(), "질문 게시글을 불러오는데 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
-        }
-    }
-
-    private fun connectQuestionAdapter(data: List<QuestionItem>) = with(binding) {
-        val adapter = QuestionAdapter(data, true)
-
-        questionRecyclerview.apply {
-            layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-            this.adapter = adapter
-        }
-
-        adapter.onItemClick = {
-            val intent = Intent(requireContext(), DetailQuestionActivity::class.java)
-            intent.putExtra("questionItem", it)
-            startActivity(intent)
         }
     }
 

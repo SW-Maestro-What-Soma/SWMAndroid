@@ -1,40 +1,26 @@
 package com.example.swmandroid.ui.community.adapter
 
-import android.annotation.SuppressLint
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.swmandroid.R
 import com.example.swmandroid.databinding.ItemJobreviewBinding
-import com.example.swmandroid.model.community.jobposting.JobPostingItem
 import com.example.swmandroid.model.community.jobreview.JobReviewItem
 import com.example.swmandroid.util.MetricsUtil.dp
 
 class JobReviewAdapter(
-    private val dataList: List<JobReviewItem>,
     private val isFullCommunity: Boolean,
-) : RecyclerView.Adapter<JobReviewAdapter.ViewHolder>() {
+) : ListAdapter<JobReviewItem, JobReviewAdapter.ViewHolder>(diffUtil) {
 
-    inner class ViewHolder(val binding: ItemJobreviewBinding) : RecyclerView.ViewHolder(binding.root)
+    var onItemClick: ((JobReviewItem) -> Unit)? = null
 
-    var onItemClick : ((JobReviewItem) -> Unit)?  = null
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ItemJobreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-    }
-
-    @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = dataList[position]
-
-        with(holder) {
-
-            itemView.setOnClickListener {
-                onItemClick?.invoke(item)
-            }
-
-            with(binding) {
+    inner class ViewHolder(val binding: ItemJobreviewBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: JobReviewItem, isLast: Boolean, res : Resources) {
+            binding.apply {
                 jobreviewTitle.text = item.title
                 jobreviewTechCategory.text = item.techStack
                 jobreviewProcessTextview.text = item.processCategory
@@ -46,7 +32,7 @@ class JobReviewAdapter(
 
                 if (item.commentCount > 0) {
                     commentCountTextview.visibility = View.VISIBLE
-                    commentCountTextview.text = "(${item.commentCount})"
+                    commentCountTextview.text = res.getString(R.string.comment_count_text, item.commentCount)
                 }
 
                 if (item.passFail) {
@@ -58,15 +44,37 @@ class JobReviewAdapter(
                 val maxWidth = getTitleMaxWidth()
                 jobreviewTitle.maxWidth = maxWidth
 
-                if (position == dataList.size - 1) {
+                if (isLast) {
                     bottomContour.visibility = View.INVISIBLE
                 }
             }
         }
     }
 
-    override fun getItemCount(): Int = dataList.size
-
     private fun getTitleMaxWidth(): Int = if (isFullCommunity) 200.dp else 240.dp
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(ItemJobreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(currentList[position], position == currentList.size - 1, holder.itemView.resources)
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(currentList[position])
+        }
+    }
+
+    companion object {
+        val diffUtil = object : DiffUtil.ItemCallback<JobReviewItem>() {
+            override fun areItemsTheSame(oldItem: JobReviewItem, newItem: JobReviewItem): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: JobReviewItem, newItem: JobReviewItem): Boolean {
+                return oldItem == newItem
+            }
+
+        }
+    }
 
 }

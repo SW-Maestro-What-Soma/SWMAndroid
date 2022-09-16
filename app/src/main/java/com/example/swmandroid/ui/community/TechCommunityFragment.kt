@@ -14,10 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentTechCommunityBinding
-import com.example.swmandroid.model.community.jobposting.JobPostingItem
-import com.example.swmandroid.model.community.jobreview.JobReviewItem
-import com.example.swmandroid.model.community.question.QuestionItem
-import com.example.swmandroid.model.community.study.StudyItem
 import com.example.swmandroid.ui.community.adapter.JobPostingAdapter
 import com.example.swmandroid.ui.community.adapter.JobReviewAdapter
 import com.example.swmandroid.ui.community.adapter.QuestionAdapter
@@ -37,6 +33,11 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
 
     private val communityViewModel: CommunityViewModel by sharedViewModel()
+
+    private lateinit var jobPostingAdapter: JobPostingAdapter
+    private lateinit var jobReviewAdapter: JobReviewAdapter
+    private lateinit var studyAdapter: StudyAdapter
+    private lateinit var questionAdapter: QuestionAdapter
 
     private var techStack = ""
     private var sort = ""
@@ -82,10 +83,22 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
 
     private fun initView() {
         when (communityViewModel.categoryData) {
-            "채용공고" -> makeJobPostingView()
-            "채용후기" -> makeJobReviewView()
-            "스터디" -> makeStudyView()
-            "질문" -> makeQuestionView()
+            "채용공고" -> {
+                initJobPostingAdapter()
+                makeJobPostingView()
+            }
+            "채용후기" -> {
+                initJobReviewAdapter()
+                makeJobReviewView()
+            }
+            "스터디" -> {
+                initStudyAdapter()
+                makeStudyView()
+            }
+            "질문" -> {
+                initQuestionAdapter()
+                makeQuestionView()
+            }
         }
     }
 
@@ -101,10 +114,8 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
                 }
 
                 hideKeyBoard()
-
-                true
             }
-            false
+            true
         }
     }
 
@@ -175,6 +186,58 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         }
     }
 
+    private fun initJobPostingAdapter() = with(binding){
+        jobPostingAdapter = JobPostingAdapter(true)
+        subCommunityRecyclerview.apply {
+            adapter = jobPostingAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+        jobPostingAdapter.onItemClick = {
+            val intent = Intent(requireContext(), DetailJobPostingActivity::class.java)
+            intent.putExtra("jobPostingItem", it)
+            startActivity(intent)
+        }
+    }
+
+    private fun initJobReviewAdapter() = with(binding){
+        jobReviewAdapter = JobReviewAdapter(true)
+        subCommunityRecyclerview.apply {
+            adapter = jobReviewAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+        jobReviewAdapter.onItemClick = {
+            val intent = Intent(requireContext(), DetailJobReviewActivity::class.java)
+            intent.putExtra("jobReviewItem", it)
+            startActivity(intent)
+        }
+    }
+
+    private fun initStudyAdapter() = with(binding){
+        studyAdapter = StudyAdapter(true)
+        subCommunityRecyclerview.apply {
+            adapter = studyAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+        studyAdapter.onItemClick = {
+            val intent = Intent(requireContext(), DetailStudyActivity::class.java)
+            intent.putExtra("studyItem", it)
+            startActivity(intent)
+        }
+    }
+
+    private fun initQuestionAdapter() = with(binding){
+        questionAdapter = QuestionAdapter(true)
+        subCommunityRecyclerview.apply {
+            adapter = questionAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+        questionAdapter.onItemClick = {
+            val intent = Intent(requireContext(), DetailQuestionActivity::class.java)
+            intent.putExtra("questionItem", it)
+            startActivity(intent)
+        }
+    }
+
     private fun makeJobPostingView() = with(binding) {
         communityViewModel.jobPostingList.observe(viewLifecycleOwner) { jobPostingResponse ->
             when (jobPostingResponse) {
@@ -184,7 +247,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
                 is Resource.Success -> {
                     progressCircular.hide()
                     val jobPostingListTechStack = jobPostingResponse.data?.jobPostingList?.content
-                    connectJobPostingAdapter(jobPostingListTechStack ?: emptyList())
+                    jobPostingAdapter.submitList(jobPostingListTechStack)
                 }
                 is Resource.Error -> {
                     progressCircular.hide()
@@ -203,7 +266,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
                 is Resource.Success -> {
                     progressCircular.hide()
                     val jobReviewListTechStack = jobReviewResponse.data?.jobReviewList?.content
-                    connectJobReviewAdapter(jobReviewListTechStack ?: emptyList())
+                    jobReviewAdapter.submitList(jobReviewListTechStack)
                 }
                 is Resource.Error -> {
                     progressCircular.hide()
@@ -222,7 +285,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
                 is Resource.Success -> {
                     progressCircular.hide()
                     val studyListTechStack = studyResponse.data?.studyList?.content
-                    connectStudyAdapter(studyListTechStack ?: emptyList())
+                    studyAdapter.submitList(studyListTechStack)
                 }
                 is Resource.Error -> {
                     progressCircular.hide()
@@ -241,65 +304,13 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
                 is Resource.Success -> {
                     progressCircular.hide()
                     val questionListTechStack = questionResponse.data?.nowQnaList?.content
-                    connectQuestionAdapter(questionListTechStack ?: emptyList())
+                    questionAdapter.submitList(questionListTechStack)
                 }
                 is Resource.Error -> {
                     progressCircular.hide()
                     Toast.makeText(requireContext(), "질문 게시글을 불러오는데 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
-        }
-    }
-
-    private fun connectJobPostingAdapter(data: List<JobPostingItem>) = with(binding) {
-        val adapter = JobPostingAdapter(data, false)
-
-        subCommunityRecyclerview.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-        subCommunityRecyclerview.adapter = adapter
-
-        adapter.onItemClick = {
-            val intent = Intent(requireContext(), DetailJobPostingActivity::class.java)
-            intent.putExtra("jobPostingItem", it)
-            startActivity(intent)
-        }
-    }
-
-    private fun connectJobReviewAdapter(data: List<JobReviewItem>) = with(binding) {
-        val adapter = JobReviewAdapter(data, false)
-
-        subCommunityRecyclerview.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-        subCommunityRecyclerview.adapter = adapter
-
-        adapter.onItemClick = {
-            val intent = Intent(requireContext(), DetailJobReviewActivity::class.java)
-            intent.putExtra("jobReviewItem", it)
-            startActivity(intent)
-        }
-    }
-
-    private fun connectStudyAdapter(data: List<StudyItem>) = with(binding) {
-        val adapter = StudyAdapter(data, false)
-
-        subCommunityRecyclerview.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-        subCommunityRecyclerview.adapter = adapter
-
-        adapter.onItemClick = {
-            val intent = Intent(requireContext(), DetailStudyActivity::class.java)
-            intent.putExtra("studyItem", it)
-            startActivity(intent)
-        }
-    }
-
-    private fun connectQuestionAdapter(data: List<QuestionItem>) = with(binding) {
-        val adapter = QuestionAdapter(data, false)
-
-        subCommunityRecyclerview.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-        subCommunityRecyclerview.adapter = adapter
-
-        adapter.onItemClick = {
-            val intent = Intent(requireContext(), DetailQuestionActivity::class.java)
-            intent.putExtra("questionItem", it)
-            startActivity(intent)
         }
     }
 
