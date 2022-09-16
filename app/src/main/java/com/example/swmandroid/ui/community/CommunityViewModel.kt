@@ -34,9 +34,6 @@ class CommunityViewModel(
     val recentSearchLiveData: LiveData<List<RecentSearchEntity>> = _recentSearchLiveData
     private var recentSearchData = mutableListOf<RecentSearchEntity>()
 
-    private val _techStack = MutableLiveData<String>()
-    val techStack: LiveData<String> = _techStack
-
     private val _jobPostingList = MutableLiveData<Resource<JobPostingResponse>>()
     val jobPostingList: LiveData<Resource<JobPostingResponse>> = _jobPostingList
 
@@ -60,9 +57,6 @@ class CommunityViewModel(
 
     private val _fullQuestionList = MutableLiveData<Resource<QuestionResponse>>()
     val fullQuestionList: LiveData<Resource<QuestionResponse>> = _fullQuestionList
-
-    private val _sort = MutableLiveData("id,DESC")
-    val sort: LiveData<String> = _sort
 
     private val _statusPostJobPosting = MutableLiveData<Resource<ResponseBody>>()
     val statusPostJobPosting: LiveData<Resource<ResponseBody>> = _statusPostJobPosting
@@ -112,7 +106,11 @@ class CommunityViewModel(
     private val _updateQnaPost = MutableLiveData<Response<ResponseBody>>()
     val updateQnaPost : LiveData<Response<ResponseBody>> = _updateQnaPost
 
+    private val _techStack = MutableLiveData<String>()
+    val techStack: LiveData<String> = _techStack
+
     var categoryData = ""
+    var sortData = ""
 
     fun addRecentSearchData(recentSearchEntity: RecentSearchEntity) = viewModelScope.launch {
         recentSearchRepository.insertRecentSearch(recentSearchEntity)
@@ -141,14 +139,6 @@ class CommunityViewModel(
         recentSearchData.clear()
         recentSearchData = dataList.toMutableList()
         _recentSearchLiveData.value = recentSearchData
-    }
-
-    fun setCategory(category: String) {
-        categoryData = category
-    }
-
-    fun setTechStack(techStack: String) {
-        _techStack.value = techStack
     }
 
     fun getJobPostingList(techStack: String, page: Int, size: Int, sort: String) = viewModelScope.launch {
@@ -197,14 +187,6 @@ class CommunityViewModel(
         _fullQuestionList.postValue(Resource.Loading())
 
         _fullQuestionList.postValue(communityRepository.getQuestionList("ALL", 0, 4, "id,DESC"))
-    }
-
-    fun setNewOrder() {
-        _sort.value = "id,DESC"
-    }
-
-    fun setViewOrder() {
-        _sort.value = "viewCount,DESC"
     }
 
     fun postJobPosting(jobPostingItem: JobPostingItem) = viewModelScope.launch {
@@ -309,6 +291,18 @@ class CommunityViewModel(
 
     fun updateQna(updateQnaItem: UpdateQnaItem) = viewModelScope.launch {
         _updateQnaPost.postValue(communityRepository.updateQna(updateQnaItem))
+    }
+
+    fun setTechStack(techStack: String) {
+        _techStack.value = techStack
+    }
+
+    fun setCategory(category: String) {
+        categoryData = category
+    }
+
+    fun setOrder(sort: String) {
+        sortData = sort
     }
 
 }

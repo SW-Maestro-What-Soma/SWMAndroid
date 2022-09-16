@@ -40,7 +40,6 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
     private lateinit var questionAdapter: QuestionAdapter
 
     private var techStack = ""
-    private var sort = ""
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentTechCommunityBinding {
         return FragmentTechCommunityBinding.inflate(inflater, container, false)
@@ -50,6 +49,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        initSortView()
         initSearchEdittext()
         buttonClick()
         initWriteButtonView()
@@ -61,23 +61,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         communityViewModel.techStack.observe(viewLifecycleOwner) { techStack ->
             this.techStack = techStack
 
-            communityViewModel.sort.observe(viewLifecycleOwner) { sort ->
-                this.sort = sort
-
-                if (sort == "id,DESC") {
-                    setNewOrderTextView()
-                } else {
-                    setViewOrderTextView()
-                }
-
-                val keyword = binding.searchEdittext.text.toString()
-
-                if (keyword.isBlank()) {
-                    getDataList(communityViewModel.categoryData, techStack, sort)
-                } else {
-                    getSearchList(communityViewModel.categoryData, keyword, techStack, sort)
-                }
-            }
+            callAPI()
         }
     }
 
@@ -102,15 +86,23 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         }
     }
 
+    private fun initSortView() {
+        if (communityViewModel.sortData == "id,DESC") {
+            setNewOrderTextView()
+        } else {
+            setViewOrderTextView()
+        }
+    }
+
     private fun initSearchEdittext() {
         binding.searchEdittext.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val keyword = binding.searchEdittext.text.toString()
 
                 if (keyword.isNotBlank()) {
-                    getSearchList(communityViewModel.categoryData, keyword, techStack, sort)
+                    getSearchList(communityViewModel.categoryData, keyword, techStack, communityViewModel.sortData)
                 } else {
-                    getDataList(communityViewModel.categoryData, techStack, sort)
+                    getDataList(communityViewModel.categoryData, techStack, communityViewModel.sortData)
                 }
 
                 hideKeyBoard()
@@ -145,12 +137,14 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
     private fun buttonClick() = with(binding) {
         neworderTextview.setOnClickListener {
             setNewOrderTextView()
-            setNewOrderLiveData()
+            communityViewModel.setOrder("id,DESC")
+            callAPI()
         }
 
         vieworderTextview.setOnClickListener {
             setViewOrderTextView()
-            setViewOrderLiveData()
+            communityViewModel.setOrder("viewCount,DESC")
+            callAPI()
         }
 
         writeButton.setOnClickListener {
@@ -163,17 +157,9 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         vieworderTextview.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
     }
 
-    private fun setNewOrderLiveData() {
-        communityViewModel.setNewOrder()
-    }
-
     private fun setViewOrderTextView() = with(binding) {
         neworderTextview.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
         vieworderTextview.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-    }
-
-    private fun setViewOrderLiveData() {
-        communityViewModel.setViewOrder()
     }
 
     private fun getIntentByCategory(): Intent {
@@ -186,7 +172,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         }
     }
 
-    private fun initJobPostingAdapter() = with(binding){
+    private fun initJobPostingAdapter() = with(binding) {
         jobPostingAdapter = JobPostingAdapter(true)
         subCommunityRecyclerview.apply {
             adapter = jobPostingAdapter
@@ -199,7 +185,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         }
     }
 
-    private fun initJobReviewAdapter() = with(binding){
+    private fun initJobReviewAdapter() = with(binding) {
         jobReviewAdapter = JobReviewAdapter(true)
         subCommunityRecyclerview.apply {
             adapter = jobReviewAdapter
@@ -212,7 +198,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         }
     }
 
-    private fun initStudyAdapter() = with(binding){
+    private fun initStudyAdapter() = with(binding) {
         studyAdapter = StudyAdapter(true)
         subCommunityRecyclerview.apply {
             adapter = studyAdapter
@@ -225,7 +211,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         }
     }
 
-    private fun initQuestionAdapter() = with(binding){
+    private fun initQuestionAdapter() = with(binding) {
         questionAdapter = QuestionAdapter(true)
         subCommunityRecyclerview.apply {
             adapter = questionAdapter
@@ -331,6 +317,16 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
 
     private fun hideWriteButton() {
         binding.writeButton.visibility = View.GONE
+    }
+
+    private fun callAPI(){
+        val keyword = binding.searchEdittext.text.toString()
+
+        if (keyword.isBlank()) {
+            getDataList(communityViewModel.categoryData, techStack, communityViewModel.sortData)
+        } else {
+            getSearchList(communityViewModel.categoryData, keyword, techStack, communityViewModel.sortData)
+        }
     }
 
 }
