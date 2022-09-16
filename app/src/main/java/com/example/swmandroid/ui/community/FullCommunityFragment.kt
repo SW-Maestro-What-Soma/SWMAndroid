@@ -1,11 +1,13 @@
 package com.example.swmandroid.ui.community
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.swmandroid.R
@@ -26,6 +28,8 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
 
+    private lateinit var onBackCallBack : OnBackPressedCallback
+
     private val communityViewModel: CommunityViewModel by sharedViewModel()
 
     private lateinit var jobPostingAdapter: JobPostingAdapter
@@ -35,6 +39,17 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentFullCommunityBinding {
         return FragmentFullCommunityBinding.inflate(inflater, container, false)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        onBackCallBack = object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                (activity as CommunityActivity).finish()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, onBackCallBack)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,6 +67,12 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
         communityViewModel.getFullStudyList()
         communityViewModel.getFullQuestionList()
         super.onResume()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+
+        onBackCallBack.remove()
     }
 
     fun moveSubCommunityFragment() {

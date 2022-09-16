@@ -1,9 +1,11 @@
 package com.example.swmandroid.ui.community
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -16,6 +18,8 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SubCommunityFragment : BaseFragment<FragmentSubCommunityBinding>() {
 
+    private lateinit var onBackCallBack : OnBackPressedCallback
+
     private val mainTabArray = arrayOf("백엔드", "프론트엔드", "안드로이드", "IOS", "데이터사이언스", "데이터분석", "알고리즘", "자료구조", "네트워크", "운영체제")
 
     private val communityViewModel: CommunityViewModel by sharedViewModel()
@@ -24,10 +28,28 @@ class SubCommunityFragment : BaseFragment<FragmentSubCommunityBinding>() {
         return FragmentSubCommunityBinding.inflate(inflater, container, false)
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        onBackCallBack = object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                (activity as CommunityActivity).setTopCategoryPosition(0)
+                moveFullCommunityFragment()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, onBackCallBack)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+
+        onBackCallBack.remove()
     }
 
     private fun initView() = with(binding) {

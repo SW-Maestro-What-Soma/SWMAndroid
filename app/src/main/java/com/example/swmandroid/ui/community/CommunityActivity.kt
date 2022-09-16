@@ -3,6 +3,7 @@ package com.example.swmandroid.ui.community
 import android.os.Bundle
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentManager
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityCommunityBinding
@@ -14,8 +15,13 @@ class CommunityActivity : BaseActivity<ActivityCommunityBinding>({ ActivityCommu
 
     private val buttonList = ArrayList<TextView>()
 
+    private lateinit var callback : FragmentManager.OnBackStackChangedListener
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        callback = FragmentManager.OnBackStackChangedListener {
+
+        }
 
         initList()
         initView()
@@ -163,9 +169,5 @@ class CommunityActivity : BaseActivity<ActivityCommunityBinding>({ ActivityCommu
         selectedEvent(position)
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
-    }
 
 }

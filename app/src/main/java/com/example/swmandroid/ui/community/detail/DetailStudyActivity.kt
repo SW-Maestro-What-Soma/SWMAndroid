@@ -27,7 +27,7 @@ class DetailStudyActivity : BaseActivity<ActivityDetailStudyBinding>({ ActivityD
         super.onCreate(savedInstanceState)
 
         window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.main_blue)
-        
+
         initStudyItem()
         initView()
         initMyContentLayout()
