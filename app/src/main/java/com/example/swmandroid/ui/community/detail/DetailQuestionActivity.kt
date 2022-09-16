@@ -3,6 +3,7 @@ package com.example.swmandroid.ui.community.detail
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityDetailQuestionBinding
@@ -24,6 +25,8 @@ class DetailQuestionActivity : BaseActivity<ActivityDetailQuestionBinding>({ Act
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.main_blue)
 
         initQuestionItem()
         initView()
@@ -89,6 +92,10 @@ class DetailQuestionActivity : BaseActivity<ActivityDetailQuestionBinding>({ Act
             val intent = Intent(this@DetailQuestionActivity, PostQuestionActivity::class.java)
             intent.putExtra("modify", questionItem)
             startActivity(intent)
+        }
+
+        backButton.setOnClickListener{
+            finish()
         }
     }
 

@@ -3,6 +3,7 @@ package com.example.swmandroid.ui.community.detail
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityDetailJobreviewBinding
@@ -24,6 +25,8 @@ class DetailJobReviewActivity : BaseActivity<ActivityDetailJobreviewBinding>({ A
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.main_blue)
 
         initJobReviewItem()
         initView()
@@ -88,6 +91,10 @@ class DetailJobReviewActivity : BaseActivity<ActivityDetailJobreviewBinding>({ A
             val intent = Intent(this@DetailJobReviewActivity, PostJobReviewActivity::class.java)
             intent.putExtra("modify", jobReviewItem)
             startActivity(intent)
+        }
+
+        backButton.setOnClickListener{
+            finish()
         }
     }
 
