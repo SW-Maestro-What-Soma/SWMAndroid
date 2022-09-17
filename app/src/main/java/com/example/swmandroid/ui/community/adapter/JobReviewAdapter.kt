@@ -60,7 +60,7 @@ class JobReviewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(currentList[position], position == currentList.size - 1, holder.itemView.resources)
         holder.itemView.setOnClickListener {
-            onItemClick?.invoke(currentList[position])
+            onItemClick?.invoke(currentList[holder.adapterPosition])
         }
     }
 
