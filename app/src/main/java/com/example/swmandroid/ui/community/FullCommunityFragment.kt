@@ -28,7 +28,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
 
-    private lateinit var onBackCallBack : OnBackPressedCallback
+    private lateinit var onBackCallBack: OnBackPressedCallback
 
     private val communityViewModel: CommunityViewModel by sharedViewModel()
 
@@ -44,12 +44,7 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        onBackCallBack = object : OnBackPressedCallback(true){
-            override fun handleOnBackPressed() {
-                (activity as CommunityActivity).finish()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, onBackCallBack)
+        initCallBack()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -73,6 +68,15 @@ class FullCommunityFragment : BaseFragment<FragmentFullCommunityBinding>() {
         super.onDetach()
 
         onBackCallBack.remove()
+    }
+
+    private fun initCallBack() {
+        onBackCallBack = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                (activity as CommunityActivity).finish()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, onBackCallBack)
     }
 
     fun moveSubCommunityFragment() {

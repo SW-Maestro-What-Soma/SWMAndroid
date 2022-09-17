@@ -7,17 +7,21 @@ import androidx.lifecycle.viewModelScope
 import com.example.swmandroid.data.entity.RecentSearchEntity
 import com.example.swmandroid.data.repository.community.CommunityRepository
 import com.example.swmandroid.data.repository.community.RecentSearchRepository
-import com.example.swmandroid.model.community.update.UpdateJobReviewItem
 import com.example.swmandroid.model.community.delete.DeleteItemInfo
+import com.example.swmandroid.model.community.jobposting.JobPostingAllTech
 import com.example.swmandroid.model.community.jobposting.JobPostingItem
 import com.example.swmandroid.model.community.jobposting.JobPostingResponse
+import com.example.swmandroid.model.community.jobreview.JobReviewAllTech
 import com.example.swmandroid.model.community.jobreview.JobReviewItem
 import com.example.swmandroid.model.community.jobreview.JobReviewResponse
+import com.example.swmandroid.model.community.question.QuestionAllTech
 import com.example.swmandroid.model.community.question.QuestionItem
 import com.example.swmandroid.model.community.question.QuestionResponse
+import com.example.swmandroid.model.community.study.StudyAllTech
 import com.example.swmandroid.model.community.study.StudyItem
 import com.example.swmandroid.model.community.study.StudyResponse
 import com.example.swmandroid.model.community.update.UpdateJobPostingItem
+import com.example.swmandroid.model.community.update.UpdateJobReviewItem
 import com.example.swmandroid.model.community.update.UpdateQnaItem
 import com.example.swmandroid.model.community.update.UpdateStudyItem
 import com.example.swmandroid.util.Resource
@@ -71,40 +75,52 @@ class CommunityViewModel(
     val statusPostQuestion: LiveData<Resource<ResponseBody>> = _statusPostQuestion
 
     private val _statusDeleteJobPostingPost = MutableLiveData<Response<ResponseBody>>()
-    val statusDeleteJobPostingPost : LiveData<Response<ResponseBody>> = _statusDeleteJobPostingPost
+    val statusDeleteJobPostingPost: LiveData<Response<ResponseBody>> = _statusDeleteJobPostingPost
 
     private val _statusDeleteJobReviewPost = MutableLiveData<Response<ResponseBody>>()
-    val statusDeleteJobReviewPost : LiveData<Response<ResponseBody>> = _statusDeleteJobReviewPost
+    val statusDeleteJobReviewPost: LiveData<Response<ResponseBody>> = _statusDeleteJobReviewPost
 
     private val _statusDeleteStudyPost = MutableLiveData<Response<ResponseBody>>()
-    val statusDeleteStudyPost : LiveData<Response<ResponseBody>> = _statusDeleteStudyPost
+    val statusDeleteStudyPost: LiveData<Response<ResponseBody>> = _statusDeleteStudyPost
 
     private val _statusDeleteQnaPost = MutableLiveData<Response<ResponseBody>>()
-    val statusDeleteQnaPost : LiveData<Response<ResponseBody>> = _statusDeleteQnaPost
+    val statusDeleteQnaPost: LiveData<Response<ResponseBody>> = _statusDeleteQnaPost
 
     private val _jobPosting = MutableLiveData<Resource<JobPostingItem>>()
-    val jobPosting : LiveData<Resource<JobPostingItem>> = _jobPosting
+    val jobPosting: LiveData<Resource<JobPostingItem>> = _jobPosting
 
     private val _jobReview = MutableLiveData<Resource<JobReviewItem>>()
-    val jobReview : LiveData<Resource<JobReviewItem>> = _jobReview
+    val jobReview: LiveData<Resource<JobReviewItem>> = _jobReview
 
     private val _study = MutableLiveData<Resource<StudyItem>>()
-    val study : LiveData<Resource<StudyItem>> = _study
+    val study: LiveData<Resource<StudyItem>> = _study
 
     private val _question = MutableLiveData<Resource<QuestionItem>>()
-    val question : LiveData<Resource<QuestionItem>> = _question
+    val question: LiveData<Resource<QuestionItem>> = _question
 
     private val _updateJobPostingPost = MutableLiveData<Response<ResponseBody>>()
-    val updateJobPostingPost : LiveData<Response<ResponseBody>> = _updateJobPostingPost
+    val updateJobPostingPost: LiveData<Response<ResponseBody>> = _updateJobPostingPost
 
     private val _updateJobReviewPost = MutableLiveData<Response<ResponseBody>>()
-    val updateJobReviewPost : LiveData<Response<ResponseBody>> = _updateJobReviewPost
+    val updateJobReviewPost: LiveData<Response<ResponseBody>> = _updateJobReviewPost
 
     private val _updateStudyPost = MutableLiveData<Response<ResponseBody>>()
-    val updateStudyPost : LiveData<Response<ResponseBody>> = _updateStudyPost
+    val updateStudyPost: LiveData<Response<ResponseBody>> = _updateStudyPost
 
     private val _updateQnaPost = MutableLiveData<Response<ResponseBody>>()
-    val updateQnaPost : LiveData<Response<ResponseBody>> = _updateQnaPost
+    val updateQnaPost: LiveData<Response<ResponseBody>> = _updateQnaPost
+
+    private val _allJobPostingList = MutableLiveData<Resource<JobPostingAllTech>>()
+    val allJobPostingList: LiveData<Resource<JobPostingAllTech>> = _allJobPostingList
+
+    private val _allJobReviewList = MutableLiveData<Resource<JobReviewAllTech>>()
+    val allJobReviewList: LiveData<Resource<JobReviewAllTech>> = _allJobReviewList
+
+    private val _allStudyList = MutableLiveData<Resource<StudyAllTech>>()
+    val allStudyList: LiveData<Resource<StudyAllTech>> = _allStudyList
+
+    private val _allQuestionList = MutableLiveData<Resource<QuestionAllTech>>()
+    val allQuestionList: LiveData<Resource<QuestionAllTech>> = _allQuestionList
 
     private val _techStack = MutableLiveData<String>()
     val techStack: LiveData<String> = _techStack
@@ -253,25 +269,25 @@ class CommunityViewModel(
         _statusDeleteQnaPost.postValue(communityRepository.deleteQnaPost(deleteItemInfo))
     }
 
-    fun getJobPosting(postId : Int) = viewModelScope.launch {
+    fun getJobPosting(postId: Int) = viewModelScope.launch {
         _jobPosting.postValue(Resource.Loading())
 
         _jobPosting.postValue(communityRepository.getJobPosting(postId))
     }
 
-    fun getJobReview(postId : Int) = viewModelScope.launch {
+    fun getJobReview(postId: Int) = viewModelScope.launch {
         _jobReview.postValue(Resource.Loading())
 
         _jobReview.postValue(communityRepository.getJobReview(postId))
     }
 
-    fun getStudy(postId : Int) = viewModelScope.launch {
+    fun getStudy(postId: Int) = viewModelScope.launch {
         _study.postValue(Resource.Loading())
 
         _study.postValue(communityRepository.getStudy(postId))
     }
 
-    fun getQna(postId : Int) = viewModelScope.launch {
+    fun getQna(postId: Int) = viewModelScope.launch {
         _question.postValue(Resource.Loading())
 
         _question.postValue(communityRepository.getQna(postId))
@@ -291,6 +307,30 @@ class CommunityViewModel(
 
     fun updateQna(updateQnaItem: UpdateQnaItem) = viewModelScope.launch {
         _updateQnaPost.postValue(communityRepository.updateQna(updateQnaItem))
+    }
+
+    fun getAllJobPosting() = viewModelScope.launch {
+        _allJobPostingList.postValue(Resource.Loading())
+
+        _allJobPostingList.postValue(communityRepository.getAllJobPosting())
+    }
+
+    fun getAllJobReview() = viewModelScope.launch {
+        _allJobReviewList.postValue(Resource.Loading())
+
+        _allJobReviewList.postValue(communityRepository.getAllJobReview())
+    }
+
+    fun getAllStudy() = viewModelScope.launch {
+        _allStudyList.postValue(Resource.Loading())
+
+        _allStudyList.postValue(communityRepository.getAllStudy())
+    }
+
+    fun getAllQuestion() = viewModelScope.launch {
+        _allQuestionList.postValue(Resource.Loading())
+
+        _allQuestionList.postValue(communityRepository.getAllQuestion())
     }
 
     fun setTechStack(techStack: String) {

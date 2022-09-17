@@ -3,7 +3,6 @@ package com.example.swmandroid.ui.community
 import android.os.Bundle
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentManager
 import com.example.swmandroid.R
 import com.example.swmandroid.base.BaseActivity
 import com.example.swmandroid.databinding.ActivityCommunityBinding
@@ -15,17 +14,18 @@ class CommunityActivity : BaseActivity<ActivityCommunityBinding>({ ActivityCommu
 
     private val buttonList = ArrayList<TextView>()
 
-    private lateinit var callback : FragmentManager.OnBackStackChangedListener
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        callback = FragmentManager.OnBackStackChangedListener {
-
-        }
 
         initList()
         initView()
         buttonClick()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        callAllTechAPI()
     }
 
     private fun initList() = with(binding) {
@@ -169,5 +169,13 @@ class CommunityActivity : BaseActivity<ActivityCommunityBinding>({ ActivityCommu
         selectedEvent(position)
     }
 
+    private fun callAllTechAPI() {
+        when(communityViewModel.categoryData){
+            "채용공고" -> communityViewModel.getAllJobPosting()
+            "채용후기" -> communityViewModel.getAllJobReview()
+            "스터디" -> communityViewModel.getAllStudy()
+            "질문" -> communityViewModel.getAllQuestion()
+        }
+    }
 
 }

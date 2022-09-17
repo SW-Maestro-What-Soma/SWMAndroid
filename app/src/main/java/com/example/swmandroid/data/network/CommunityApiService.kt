@@ -1,12 +1,16 @@
 package com.example.swmandroid.data.network
 
 import com.example.swmandroid.model.community.delete.DeleteItemInfo
+import com.example.swmandroid.model.community.jobposting.JobPostingAllTech
 import com.example.swmandroid.model.community.jobposting.JobPostingItem
 import com.example.swmandroid.model.community.jobposting.JobPostingResponse
+import com.example.swmandroid.model.community.jobreview.JobReviewAllTech
 import com.example.swmandroid.model.community.jobreview.JobReviewItem
 import com.example.swmandroid.model.community.jobreview.JobReviewResponse
+import com.example.swmandroid.model.community.question.QuestionAllTech
 import com.example.swmandroid.model.community.question.QuestionItem
 import com.example.swmandroid.model.community.question.QuestionResponse
+import com.example.swmandroid.model.community.study.StudyAllTech
 import com.example.swmandroid.model.community.study.StudyItem
 import com.example.swmandroid.model.community.study.StudyResponse
 import com.example.swmandroid.model.community.update.UpdateJobPostingItem
@@ -114,5 +118,17 @@ interface CommunityApiService {
 
     @POST("/updateQna")
     suspend fun updateQna(@Body new_content: UpdateQnaItem): Response<ResponseBody>
+
+    @GET("/allListPosting")
+    suspend fun getAllJobPosting() : Response<JobPostingAllTech>
+
+    @GET("/allListReview")
+    suspend fun getAllJobReview() : Response<JobReviewAllTech>
+
+    @GET("/allListStudy")
+    suspend fun getAllStudy() : Response<StudyAllTech>
+
+    @GET("/allListQnA")
+    suspend fun getAllQna() : Response<QuestionAllTech>
 
 }
