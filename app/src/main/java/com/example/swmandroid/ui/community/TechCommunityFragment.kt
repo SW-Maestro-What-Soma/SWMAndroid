@@ -3,6 +3,7 @@ package com.example.swmandroid.ui.community
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +11,9 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.swmandroid.R
-import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentTechCommunityBinding
 import com.example.swmandroid.ui.community.adapter.JobPostingAdapter
 import com.example.swmandroid.ui.community.adapter.JobReviewAdapter
@@ -30,7 +31,22 @@ import com.example.swmandroid.util.Resource
 import com.example.swmandroid.util.getUserRoleFromDataStore
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
+class TechCommunityFragment : Fragment() {
+
+    private var _binding: FragmentTechCommunityBinding? = null
+    private val binding get() = _binding!!
+
+    companion object {
+        private const val TECH_STACK = "techStack"
+
+        fun newInstance(techStack: String) =
+            TechCommunityFragment().apply {
+                arguments = Bundle().apply {
+                    putString(TECH_STACK, techStack)
+                }
+            }
+
+    }
 
     private val communityViewModel: CommunityViewModel by sharedViewModel()
 
@@ -41,14 +57,23 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
 
     private var techStack = ""
 
-    override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentTechCommunityBinding {
-        return FragmentTechCommunityBinding.inflate(inflater, container, false)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentTechCommunityBinding.inflate(inflater, container, false)
+        binding.test.text = techStack
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        initListView()
         initSortView()
         initSearchEdittext()
         buttonClick()
@@ -57,12 +82,13 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
 
     override fun onResume() {
         super.onResume()
+        techStack = arguments?.getString(TECH_STACK) ?: ""
+        callAPI()
+    }
 
-        communityViewModel.techStack.observe(viewLifecycleOwner) { techStack ->
-            this.techStack = techStack
-
-            callAPI()
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun initView() {
@@ -83,6 +109,21 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
                 initQuestionAdapter()
                 makeQuestionView()
             }
+        }
+    }
+
+    private fun initListView(){
+        when(techStack){
+            "Backend" -> { jobPostingAdapter.submitList(communityViewModel.allJobPostingList.value?.data?.backend) }
+            "Frontend" -> {jobPostingAdapter.submitList(communityViewModel.allJobPostingList.value?.data?.frontend)}
+            "Android" -> {jobPostingAdapter.submitList(communityViewModel.allJobPostingList.value?.data?.android)}
+            "IOS" -> {jobPostingAdapter.submitList(communityViewModel.allJobPostingList.value?.data?.ios)}
+            "DataScience" -> {jobPostingAdapter.submitList(communityViewModel.allJobPostingList.value?.data?.dataScience)}
+            "DataAnalysis" -> {jobPostingAdapter.submitList(communityViewModel.allJobPostingList.value?.data?.dataAnalysis)}
+            "Algorithm" -> {jobPostingAdapter.submitList(communityViewModel.allJobPostingList.value?.data?.algorithm)}
+            "DataStructure" -> {jobPostingAdapter.submitList(communityViewModel.allJobPostingList.value?.data?.dataStructure)}
+            "Network" -> {jobPostingAdapter.submitList(communityViewModel.allJobPostingList.value?.data?.network)}
+            "OperatingSystem" -> {jobPostingAdapter.submitList(communityViewModel.allJobPostingList.value?.data?.operatingSystem)}
         }
     }
 
@@ -319,7 +360,7 @@ class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
         binding.writeButton.visibility = View.GONE
     }
 
-    private fun callAPI(){
+    private fun callAPI() {
         val keyword = binding.searchEdittext.text.toString()
 
         if (keyword.isBlank()) {

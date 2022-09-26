@@ -122,9 +122,6 @@ class CommunityViewModel(
     private val _allQuestionList = MutableLiveData<Resource<QuestionAllTech>>()
     val allQuestionList: LiveData<Resource<QuestionAllTech>> = _allQuestionList
 
-    private val _techStack = MutableLiveData<String>()
-    val techStack: LiveData<String> = _techStack
-
     var categoryData = ""
     var sortData = "id,DESC"
 
@@ -331,10 +328,6 @@ class CommunityViewModel(
         _allQuestionList.postValue(Resource.Loading())
 
         _allQuestionList.postValue(communityRepository.getAllQuestion())
-    }
-
-    fun setTechStack(techStack: String) {
-        _techStack.value = techStack
     }
 
     fun setCategory(category: String) {

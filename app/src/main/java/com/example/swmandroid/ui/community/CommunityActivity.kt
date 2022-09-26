@@ -170,12 +170,10 @@ class CommunityActivity : BaseActivity<ActivityCommunityBinding>({ ActivityCommu
     }
 
     private fun callAllTechAPI() {
-        when(communityViewModel.categoryData){
-            "채용공고" -> communityViewModel.getAllJobPosting()
-            "채용후기" -> communityViewModel.getAllJobReview()
-            "스터디" -> communityViewModel.getAllStudy()
-            "질문" -> communityViewModel.getAllQuestion()
-        }
+        communityViewModel.getAllJobPosting()
+        communityViewModel.getAllJobReview()
+        communityViewModel.getAllStudy()
+        communityViewModel.getAllQuestion()
     }
 
 }

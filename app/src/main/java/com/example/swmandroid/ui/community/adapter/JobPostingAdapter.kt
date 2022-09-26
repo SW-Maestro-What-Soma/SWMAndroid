@@ -64,7 +64,6 @@ class JobPostingAdapter(
             override fun areContentsTheSame(oldItem: JobPostingItem, newItem: JobPostingItem): Boolean {
                 return oldItem == newItem
             }
-
         }
     }
 
