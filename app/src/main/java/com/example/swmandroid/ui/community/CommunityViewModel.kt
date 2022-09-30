@@ -4,20 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.swmandroid.data.entity.RecentSearchEntity
 import com.example.swmandroid.data.repository.community.CommunityRepository
-import com.example.swmandroid.data.repository.community.RecentSearchRepository
 import com.example.swmandroid.model.community.delete.DeleteItemInfo
-import com.example.swmandroid.model.community.jobposting.JobPostingAllTech
 import com.example.swmandroid.model.community.jobposting.JobPostingItem
 import com.example.swmandroid.model.community.jobposting.JobPostingResponse
-import com.example.swmandroid.model.community.jobreview.JobReviewAllTech
 import com.example.swmandroid.model.community.jobreview.JobReviewItem
 import com.example.swmandroid.model.community.jobreview.JobReviewResponse
-import com.example.swmandroid.model.community.question.QuestionAllTech
 import com.example.swmandroid.model.community.question.QuestionItem
 import com.example.swmandroid.model.community.question.QuestionResponse
-import com.example.swmandroid.model.community.study.StudyAllTech
 import com.example.swmandroid.model.community.study.StudyItem
 import com.example.swmandroid.model.community.study.StudyResponse
 import com.example.swmandroid.model.community.update.UpdateJobPostingItem
@@ -30,13 +24,8 @@ import okhttp3.ResponseBody
 import retrofit2.Response
 
 class CommunityViewModel(
-    private val recentSearchRepository: RecentSearchRepository,
     private val communityRepository: CommunityRepository,
 ) : ViewModel() {
-
-    private val _recentSearchLiveData = MutableLiveData<List<RecentSearchEntity>>()
-    val recentSearchLiveData: LiveData<List<RecentSearchEntity>> = _recentSearchLiveData
-    private var recentSearchData = mutableListOf<RecentSearchEntity>()
 
     private val _jobPostingList = MutableLiveData<Resource<JobPostingResponse>>()
     val jobPostingList: LiveData<Resource<JobPostingResponse>> = _jobPostingList
@@ -110,49 +99,8 @@ class CommunityViewModel(
     private val _updateQnaPost = MutableLiveData<Response<ResponseBody>>()
     val updateQnaPost: LiveData<Response<ResponseBody>> = _updateQnaPost
 
-    private val _allJobPostingList = MutableLiveData<Resource<JobPostingAllTech>>()
-    val allJobPostingList: LiveData<Resource<JobPostingAllTech>> = _allJobPostingList
-
-    private val _allJobReviewList = MutableLiveData<Resource<JobReviewAllTech>>()
-    val allJobReviewList: LiveData<Resource<JobReviewAllTech>> = _allJobReviewList
-
-    private val _allStudyList = MutableLiveData<Resource<StudyAllTech>>()
-    val allStudyList: LiveData<Resource<StudyAllTech>> = _allStudyList
-
-    private val _allQuestionList = MutableLiveData<Resource<QuestionAllTech>>()
-    val allQuestionList: LiveData<Resource<QuestionAllTech>> = _allQuestionList
-
     var categoryData = ""
     var sortData = "id,DESC"
-
-    fun addRecentSearchData(recentSearchEntity: RecentSearchEntity) = viewModelScope.launch {
-        recentSearchRepository.insertRecentSearch(recentSearchEntity)
-
-        recentSearchData.add(recentSearchEntity)
-        _recentSearchLiveData.value = recentSearchData
-    }
-
-    fun removeRecentSearchData(recentSearchEntity: RecentSearchEntity) = viewModelScope.launch {
-        recentSearchRepository.removeRecentSearch(recentSearchEntity)
-
-        recentSearchData.remove(recentSearchEntity)
-        _recentSearchLiveData.value = recentSearchData
-    }
-
-    fun removeAllRecentSearchData(category: String, techStack: String) = viewModelScope.launch {
-        recentSearchRepository.clearRecentSearch(category, techStack)
-
-        recentSearchData = recentSearchData.filter { it.category != category && it.techStack != techStack }.toMutableList()
-        _recentSearchLiveData.value = recentSearchData
-    }
-
-    fun getAllRecentSearchData(category: String, techStack: String) = viewModelScope.launch {
-        val dataList = recentSearchRepository.getAllRecentSearch(category, techStack)
-
-        recentSearchData.clear()
-        recentSearchData = dataList.toMutableList()
-        _recentSearchLiveData.value = recentSearchData
-    }
 
     fun getJobPostingList(techStack: String, page: Int, size: Int, sort: String) = viewModelScope.launch {
         _jobPostingList.postValue(Resource.Loading())
@@ -304,30 +252,6 @@ class CommunityViewModel(
 
     fun updateQna(updateQnaItem: UpdateQnaItem) = viewModelScope.launch {
         _updateQnaPost.postValue(communityRepository.updateQna(updateQnaItem))
-    }
-
-    fun getAllJobPosting() = viewModelScope.launch {
-        _allJobPostingList.postValue(Resource.Loading())
-
-        _allJobPostingList.postValue(communityRepository.getAllJobPosting())
-    }
-
-    fun getAllJobReview() = viewModelScope.launch {
-        _allJobReviewList.postValue(Resource.Loading())
-
-        _allJobReviewList.postValue(communityRepository.getAllJobReview())
-    }
-
-    fun getAllStudy() = viewModelScope.launch {
-        _allStudyList.postValue(Resource.Loading())
-
-        _allStudyList.postValue(communityRepository.getAllStudy())
-    }
-
-    fun getAllQuestion() = viewModelScope.launch {
-        _allQuestionList.postValue(Resource.Loading())
-
-        _allQuestionList.postValue(communityRepository.getAllQuestion())
     }
 
     fun setCategory(category: String) {

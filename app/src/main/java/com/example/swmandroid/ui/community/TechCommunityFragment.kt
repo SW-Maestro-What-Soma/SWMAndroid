@@ -3,7 +3,6 @@ package com.example.swmandroid.ui.community
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +10,9 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.swmandroid.R
+import com.example.swmandroid.base.BaseFragment
 import com.example.swmandroid.databinding.FragmentTechCommunityBinding
 import com.example.swmandroid.ui.community.adapter.JobPostingAdapter
 import com.example.swmandroid.ui.community.adapter.JobReviewAdapter
@@ -31,10 +30,7 @@ import com.example.swmandroid.util.Resource
 import com.example.swmandroid.util.getUserRoleFromDataStore
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class TechCommunityFragment : Fragment() {
-
-    private var _binding: FragmentTechCommunityBinding? = null
-    private val binding get() = _binding!!
+class TechCommunityFragment : BaseFragment<FragmentTechCommunityBinding>() {
 
     companion object {
         private const val TECH_STACK = "techStack"
@@ -57,23 +53,15 @@ class TechCommunityFragment : Fragment() {
 
     private var techStack = ""
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentTechCommunityBinding.inflate(inflater, container, false)
-        binding.test.text = techStack
-
-        return binding.root
+    override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentTechCommunityBinding {
+        return FragmentTechCommunityBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setTechStack()
         initView()
-        initListView()
         initSortView()
         initSearchEdittext()
         buttonClick()
@@ -82,13 +70,12 @@ class TechCommunityFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        techStack = arguments?.getString(TECH_STACK) ?: ""
+
         callAPI()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun setTechStack() {
+        techStack = arguments?.getString(TECH_STACK) ?: ""
     }
 
     private fun initView() {
@@ -109,21 +96,6 @@ class TechCommunityFragment : Fragment() {
                 initQuestionAdapter()
                 makeQuestionView()
             }
-        }
-    }
-
-    private fun initListView(){
-        when(techStack){
-            "Backend" -> { jobPostingAdapter.submitList(communityViewModel.allJobPostingList.value?.data?.backend) }
-            "Frontend" -> {jobPostingAdapter.submitList(communityViewModel.allJobPostingList.value?.data?.frontend)}
-            "Android" -> {jobPostingAdapter.submitList(communityViewModel.allJobPostingList.value?.data?.android)}
-            "IOS" -> {jobPostingAdapter.submitList(communityViewModel.allJobPostingList.value?.data?.ios)}
-            "DataScience" -> {jobPostingAdapter.submitList(communityViewModel.allJobPostingList.value?.data?.dataScience)}
-            "DataAnalysis" -> {jobPostingAdapter.submitList(communityViewModel.allJobPostingList.value?.data?.dataAnalysis)}
-            "Algorithm" -> {jobPostingAdapter.submitList(communityViewModel.allJobPostingList.value?.data?.algorithm)}
-            "DataStructure" -> {jobPostingAdapter.submitList(communityViewModel.allJobPostingList.value?.data?.dataStructure)}
-            "Network" -> {jobPostingAdapter.submitList(communityViewModel.allJobPostingList.value?.data?.network)}
-            "OperatingSystem" -> {jobPostingAdapter.submitList(communityViewModel.allJobPostingList.value?.data?.operatingSystem)}
         }
     }
 
@@ -219,6 +191,7 @@ class TechCommunityFragment : Fragment() {
             adapter = jobPostingAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
+
         jobPostingAdapter.onItemClick = {
             val intent = Intent(requireContext(), DetailJobPostingActivity::class.java)
             intent.putExtra("jobPostingItem", it)
@@ -232,6 +205,7 @@ class TechCommunityFragment : Fragment() {
             adapter = jobReviewAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
+
         jobReviewAdapter.onItemClick = {
             val intent = Intent(requireContext(), DetailJobReviewActivity::class.java)
             intent.putExtra("jobReviewItem", it)
@@ -245,6 +219,7 @@ class TechCommunityFragment : Fragment() {
             adapter = studyAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
+
         studyAdapter.onItemClick = {
             val intent = Intent(requireContext(), DetailStudyActivity::class.java)
             intent.putExtra("studyItem", it)
@@ -258,6 +233,7 @@ class TechCommunityFragment : Fragment() {
             adapter = questionAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
+
         questionAdapter.onItemClick = {
             val intent = Intent(requireContext(), DetailQuestionActivity::class.java)
             intent.putExtra("questionItem", it)
@@ -273,8 +249,12 @@ class TechCommunityFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     progressCircular.hide()
-                    val jobPostingListTechStack = jobPostingResponse.data?.jobPostingList?.content
-                    jobPostingAdapter.submitList(jobPostingListTechStack)
+
+                    val jobPostingListTechStack = jobPostingResponse.data?.jobPostingList?.content?.filter{it.techStack.contains(techStack)}
+
+                    if(jobPostingListTechStack?.isNotEmpty() == true){
+                        jobPostingAdapter.submitList(jobPostingListTechStack)
+                    }
                 }
                 is Resource.Error -> {
                     progressCircular.hide()
@@ -292,8 +272,12 @@ class TechCommunityFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     progressCircular.hide()
-                    val jobReviewListTechStack = jobReviewResponse.data?.jobReviewList?.content
-                    jobReviewAdapter.submitList(jobReviewListTechStack)
+
+                    val jobReviewListTechStack = jobReviewResponse.data?.jobReviewList?.content?.filter {it.techStack.contains(techStack)}
+
+                    if (jobReviewListTechStack?.isNotEmpty() == true) {
+                        jobReviewAdapter.submitList(jobReviewListTechStack)
+                    }
                 }
                 is Resource.Error -> {
                     progressCircular.hide()
@@ -311,8 +295,12 @@ class TechCommunityFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     progressCircular.hide()
-                    val studyListTechStack = studyResponse.data?.studyList?.content
-                    studyAdapter.submitList(studyListTechStack)
+
+                    val studyListTechStack = studyResponse.data?.studyList?.content?.filter { it.techStack.contains(techStack) }
+
+                    if (studyListTechStack?.isNotEmpty() == true) {
+                        studyAdapter.submitList(studyListTechStack)
+                    }
                 }
                 is Resource.Error -> {
                     progressCircular.hide()
@@ -330,8 +318,12 @@ class TechCommunityFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     progressCircular.hide()
-                    val questionListTechStack = questionResponse.data?.nowQnaList?.content
-                    questionAdapter.submitList(questionListTechStack)
+
+                    val questionListTechStack = questionResponse.data?.nowQnaList?.content?.filter { it.techStack.contains(techStack) }
+
+                    if (questionListTechStack?.isNotEmpty() == true) {
+                        questionAdapter.submitList(questionListTechStack)
+                    }
                 }
                 is Resource.Error -> {
                     progressCircular.hide()
@@ -369,5 +361,6 @@ class TechCommunityFragment : Fragment() {
             getSearchList(communityViewModel.categoryData, keyword, techStack, communityViewModel.sortData)
         }
     }
+
 
 }

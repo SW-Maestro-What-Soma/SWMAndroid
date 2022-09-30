@@ -11,19 +11,6 @@ class CommunityViewPagerAdapter(
     lifecycle: Lifecycle,
 ) : FragmentStateAdapter(fragmentManager, lifecycle) {
 
-    private val fragments = listOf(
-        TechCommunityFragment.newInstance("Backend"),
-        TechCommunityFragment.newInstance("Frontend"),
-        TechCommunityFragment.newInstance("Android"),
-        TechCommunityFragment.newInstance("IOS"),
-        TechCommunityFragment.newInstance("DataScience"),
-        TechCommunityFragment.newInstance("DataAnalysis"),
-        TechCommunityFragment.newInstance("Algorithm"),
-        TechCommunityFragment.newInstance("DataStructure"),
-        TechCommunityFragment.newInstance("Network"),
-        TechCommunityFragment.newInstance("OperatingSystem"),
-    )
-
     private val fragmentTags = listOf(
         "Backend",
         "Frontend",

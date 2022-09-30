@@ -22,12 +22,6 @@ class CommunityActivity : BaseActivity<ActivityCommunityBinding>({ ActivityCommu
         buttonClick()
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        callAllTechAPI()
-    }
-
     private fun initList() = with(binding) {
         buttonList.apply {
             add(fullCommunityButton)
@@ -167,13 +161,6 @@ class CommunityActivity : BaseActivity<ActivityCommunityBinding>({ ActivityCommu
 
     fun setTopCategoryPosition(position: Int) {
         selectedEvent(position)
-    }
-
-    private fun callAllTechAPI() {
-        communityViewModel.getAllJobPosting()
-        communityViewModel.getAllJobReview()
-        communityViewModel.getAllStudy()
-        communityViewModel.getAllQuestion()
     }
 
 }

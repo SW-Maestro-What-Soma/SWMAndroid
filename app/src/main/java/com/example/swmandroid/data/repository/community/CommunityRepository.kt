@@ -3,16 +3,12 @@ package com.example.swmandroid.data.repository.community
 import com.example.swmandroid.data.network.CommunityApiService
 import com.example.swmandroid.data.repository.BaseRepo
 import com.example.swmandroid.model.community.delete.DeleteItemInfo
-import com.example.swmandroid.model.community.jobposting.JobPostingAllTech
 import com.example.swmandroid.model.community.jobposting.JobPostingItem
 import com.example.swmandroid.model.community.jobposting.JobPostingResponse
-import com.example.swmandroid.model.community.jobreview.JobReviewAllTech
 import com.example.swmandroid.model.community.jobreview.JobReviewItem
 import com.example.swmandroid.model.community.jobreview.JobReviewResponse
-import com.example.swmandroid.model.community.question.QuestionAllTech
 import com.example.swmandroid.model.community.question.QuestionItem
 import com.example.swmandroid.model.community.question.QuestionResponse
-import com.example.swmandroid.model.community.study.StudyAllTech
 import com.example.swmandroid.model.community.study.StudyItem
 import com.example.swmandroid.model.community.study.StudyResponse
 import com.example.swmandroid.model.community.update.UpdateJobPostingItem
@@ -119,22 +115,6 @@ class CommunityRepository(private val communityApiService: CommunityApiService) 
 
     suspend fun updateQna(updateQnaItem: UpdateQnaItem): Response<ResponseBody> {
         return communityApiService.updateQna(updateQnaItem)
-    }
-
-    suspend fun getAllJobPosting() : Resource<JobPostingAllTech> {
-        return safeApiCall { communityApiService.getAllJobPosting() }
-    }
-
-    suspend fun getAllJobReview() : Resource<JobReviewAllTech> {
-        return safeApiCall { communityApiService.getAllJobReview() }
-    }
-
-    suspend fun getAllStudy() : Resource<StudyAllTech> {
-        return safeApiCall { communityApiService.getAllStudy() }
-    }
-
-    suspend fun getAllQuestion() : Resource<QuestionAllTech> {
-        return safeApiCall { communityApiService.getAllQna() }
     }
 
 }
